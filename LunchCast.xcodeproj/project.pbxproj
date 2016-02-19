@@ -1,0 +1,356 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7AC6C3A11C771DB600D937E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AD251971C76901500091C75 /* Main.storyboard */; };
+		7AD2515D1C76873000091C75 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2515C1C76873000091C75 /* main.m */; };
+		7AD251601C76873000091C75 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2515F1C76873000091C75 /* AppDelegate.m */; };
+		7AD251681C76873000091C75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AD251671C76873000091C75 /* Assets.xcassets */; };
+		7AD2516B1C76873000091C75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AD251691C76873000091C75 /* LaunchScreen.storyboard */; };
+		7AD251901C76890E00091C75 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2518F1C76890E00091C75 /* HomeViewController.m */; };
+		7AD251931C76892800091C75 /* OrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD251921C76892800091C75 /* OrdersViewController.m */; };
+		7AD251961C768E9A00091C75 /* OrdersCustomTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD251951C768E9A00091C75 /* OrdersCustomTVCell.m */; };
+		7AD251991C76901500091C75 /* CreateOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD251981C76901500091C75 /* CreateOrderViewController.m */; };
+		7AD2519C1C76907F00091C75 /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2519B1C76907F00091C75 /* OrderDetailsViewController.m */; };
+		7AD2519F1C76942B00091C75 /* RestaurantMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2519E1C76942B00091C75 /* RestaurantMenuViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7AD251581C76873000091C75 /* LunchCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunchCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AD2515C1C76873000091C75 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LunchCast/main.m; sourceTree = SOURCE_ROOT; };
+		7AD2515E1C76873000091C75 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = LunchCast/AppDelegate.h; sourceTree = SOURCE_ROOT; };
+		7AD2515F1C76873000091C75 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = LunchCast/AppDelegate.m; sourceTree = SOURCE_ROOT; };
+		7AD251671C76873000091C75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = LunchCast/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		7AD2516A1C76873000091C75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7AD2516C1C76873000091C75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = LunchCast/Info.plist; sourceTree = SOURCE_ROOT; };
+		7AD2518E1C76890E00091C75 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = SOURCE_ROOT; };
+		7AD2518F1C76890E00091C75 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = SOURCE_ROOT; };
+		7AD251911C76892800091C75 /* OrdersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrdersViewController.h; path = LunchCast/OrdersViewController.h; sourceTree = SOURCE_ROOT; };
+		7AD251921C76892800091C75 /* OrdersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrdersViewController.m; path = LunchCast/OrdersViewController.m; sourceTree = SOURCE_ROOT; };
+		7AD251941C768E9A00091C75 /* OrdersCustomTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrdersCustomTVCell.h; path = LunchCast/OrdersCustomTVCell.h; sourceTree = SOURCE_ROOT; };
+		7AD251951C768E9A00091C75 /* OrdersCustomTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrdersCustomTVCell.m; path = LunchCast/OrdersCustomTVCell.m; sourceTree = SOURCE_ROOT; };
+		7AD251971C76901500091C75 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = LunchCast/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		7AD251981C76901500091C75 /* CreateOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateOrderViewController.m; path = LunchCast/CreateOrderViewController.m; sourceTree = SOURCE_ROOT; };
+		7AD2519A1C76907F00091C75 /* OrderDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderDetailsViewController.h; path = LunchCast/OrderDetailsViewController.h; sourceTree = SOURCE_ROOT; };
+		7AD2519B1C76907F00091C75 /* OrderDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderDetailsViewController.m; path = LunchCast/OrderDetailsViewController.m; sourceTree = SOURCE_ROOT; };
+		7AD2519D1C76942B00091C75 /* RestaurantMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestaurantMenuViewController.h; path = LunchCast/RestaurantMenuViewController.h; sourceTree = SOURCE_ROOT; };
+		7AD2519E1C76942B00091C75 /* RestaurantMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestaurantMenuViewController.m; path = LunchCast/RestaurantMenuViewController.m; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7AD251551C76873000091C75 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7AC6C3A21C771E0600D937E7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7AD251971C76901500091C75 /* Main.storyboard */,
+				7AD251671C76873000091C75 /* Assets.xcassets */,
+				7AD251691C76873000091C75 /* LaunchScreen.storyboard */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		7ACC33511C77163A00E9D8F8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7AD251941C768E9A00091C75 /* OrdersCustomTVCell.h */,
+				7AD251951C768E9A00091C75 /* OrdersCustomTVCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		7ACC33521C77164E00E9D8F8 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7AD251911C76892800091C75 /* OrdersViewController.h */,
+				7AD251921C76892800091C75 /* OrdersViewController.m */,
+				7AD2518E1C76890E00091C75 /* HomeViewController.h */,
+				7AD2518F1C76890E00091C75 /* HomeViewController.m */,
+				7AD2519D1C76942B00091C75 /* RestaurantMenuViewController.h */,
+				7AD2519E1C76942B00091C75 /* RestaurantMenuViewController.m */,
+				7AD2519A1C76907F00091C75 /* OrderDetailsViewController.h */,
+				7AD2519B1C76907F00091C75 /* OrderDetailsViewController.m */,
+				7AD251981C76901500091C75 /* CreateOrderViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		7AD2514F1C76873000091C75 = {
+			isa = PBXGroup;
+			children = (
+				7AD2515A1C76873000091C75 /* LunchCast */,
+				7AD251591C76873000091C75 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7AD251591C76873000091C75 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7AD251581C76873000091C75 /* LunchCast.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7AD2515A1C76873000091C75 /* LunchCast */ = {
+			isa = PBXGroup;
+			children = (
+				7AC6C3A21C771E0600D937E7 /* Resources */,
+				7ACC33511C77163A00E9D8F8 /* Views */,
+				7ACC33521C77164E00E9D8F8 /* View Controllers */,
+				7AD2515B1C76873000091C75 /* Supporting Files */,
+			);
+			name = LunchCast;
+			path = "LunchCast initial";
+			sourceTree = "<group>";
+		};
+		7AD2515B1C76873000091C75 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7AD2515E1C76873000091C75 /* AppDelegate.h */,
+				7AD2515F1C76873000091C75 /* AppDelegate.m */,
+				7AD2516C1C76873000091C75 /* Info.plist */,
+				7AD2515C1C76873000091C75 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7AD251571C76873000091C75 /* LunchCast */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7AD251851C76873000091C75 /* Build configuration list for PBXNativeTarget "LunchCast" */;
+			buildPhases = (
+				7AD251541C76873000091C75 /* Sources */,
+				7AD251551C76873000091C75 /* Frameworks */,
+				7AD251561C76873000091C75 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LunchCast;
+			productName = "LunchCast initial";
+			productReference = 7AD251581C76873000091C75 /* LunchCast.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7AD251501C76873000091C75 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Aleksandra Stevović";
+				TargetAttributes = {
+					7AD251571C76873000091C75 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 7AD251531C76873000091C75 /* Build configuration list for PBXProject "LunchCast" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7AD2514F1C76873000091C75;
+			productRefGroup = 7AD251591C76873000091C75 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7AD251571C76873000091C75 /* LunchCast */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7AD251561C76873000091C75 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AC6C3A11C771DB600D937E7 /* Main.storyboard in Resources */,
+				7AD2516B1C76873000091C75 /* LaunchScreen.storyboard in Resources */,
+				7AD251681C76873000091C75 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7AD251541C76873000091C75 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AD251601C76873000091C75 /* AppDelegate.m in Sources */,
+				7AD251991C76901500091C75 /* CreateOrderViewController.m in Sources */,
+				7AD2515D1C76873000091C75 /* main.m in Sources */,
+				7AD251901C76890E00091C75 /* HomeViewController.m in Sources */,
+				7AD2519C1C76907F00091C75 /* OrderDetailsViewController.m in Sources */,
+				7AD251961C768E9A00091C75 /* OrdersCustomTVCell.m in Sources */,
+				7AD2519F1C76942B00091C75 /* RestaurantMenuViewController.m in Sources */,
+				7AD251931C76892800091C75 /* OrdersViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7AD251691C76873000091C75 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7AD2516A1C76873000091C75 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			path = LunchCast;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7AD251831C76873000091C75 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7AD251841C76873000091C75 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7AD251861C76873000091C75 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/LunchCast/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "rs.pstech.LunchCast-initial";
+				PRODUCT_NAME = LunchCast;
+			};
+			name = Debug;
+		};
+		7AD251871C76873000091C75 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/LunchCast/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "rs.pstech.LunchCast-initial";
+				PRODUCT_NAME = LunchCast;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7AD251531C76873000091C75 /* Build configuration list for PBXProject "LunchCast" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AD251831C76873000091C75 /* Debug */,
+				7AD251841C76873000091C75 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7AD251851C76873000091C75 /* Build configuration list for PBXNativeTarget "LunchCast" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AD251861C76873000091C75 /* Debug */,
+				7AD251871C76873000091C75 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7AD251501C76873000091C75 /* Project object */;
+}
