@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Restaurant.h"
 
 @interface RestaurantCell : UITableViewCell
+@property (weak, nonatomic) Restaurant *restaurant;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *menu;
 @property (weak, nonatomic) IBOutlet UILabel *eta;

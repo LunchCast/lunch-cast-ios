@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) NSString *objectId;
 
-@property (nonatomic, strong) NSString *state;
+@property (nonatomic, strong) NSNumber *state;
 
 @property (nonatomic, strong) NSDate *created;
 
