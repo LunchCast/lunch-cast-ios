@@ -10,6 +10,7 @@
 #import "ErrorCoding.h"
 #import "PushNotificationRegistrator.h"
 #import "AccountData.h"
+#import "Backendless.h"
 
 @interface AccountManager ()
 
@@ -20,13 +21,38 @@
 + (void)logInWithEmail:(NSString *)email andPassword:(NSString *)password
 {
     [AccountManager setUserEmail:email andPassword:password];
-//    [RequestHandler logInRequest];
 }
+
+
++ (void)userRegistration
+{
+    BackendlessUser *user = [BackendlessUser new];
+    user.password = @"pass123";
+    user.email = @"markozr92@gmail.com";
+    user.name = @"Marko";
+    Responder *responder = [Responder responder:self
+                             selResponseHandler:@selector(responseHandler:)
+                                selErrorHandler:@selector(errorHandler:)];
+    [backendless.userService registering:user responder:responder];
+}
++ (id)responseHandler:(id)response;
+{
+    BackendlessUser *user = (BackendlessUser *)response;
+    NSLog(@"user = %@", user);
+    return user;
+}
+
++(void)errorHandler:(Fault *)fault
+{
+    NSLog(@"FAULT = %@ <%@>", fault.message, fault.detail);
+}
+
 
 + (void)createNewAccountWithEmail:(NSString *)email andPassword:(NSString *)password
 {
     [AccountManager setUserEmail:email andPassword:password];
 //    [RequestHandler signUpRequest];
+    [AccountManager userRegistration];
 }
 
 + (void)logOut

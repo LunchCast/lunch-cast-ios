@@ -10,4 +10,9 @@
 
 @implementation HomeViewController
 
+- (IBAction)logOutButtonAction:(UIBarButtonItem *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end
