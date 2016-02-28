@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Backendless.h"
 
 @interface AccountData : NSObject
 
