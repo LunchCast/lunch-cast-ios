@@ -116,6 +116,7 @@
 {
     BackendlessUser *user = (BackendlessUser *)response;
     [AccountData setUserToken:user.getUserToken];
+//    [AccountData setBackendlessUser:user];
     [self.authDelegate didLogInUser:user];
 }
 
