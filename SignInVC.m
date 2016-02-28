@@ -24,7 +24,7 @@
 #define ANIMATION_DURATION 0.5
 #define ANIMATION_SPACE 76
 #define lunchCastGrayColor   colorWithWhite:0.5 alpha:0.8
-#define lunchCastYellowColor 0xAA8F76
+#define lunchCastTintColor 0x5A7E6A
 
 @interface SignInVC () <BackendlessAuthReponseDelegate>
 
@@ -239,7 +239,7 @@
 
 - (void)customizeNavigationBar
 {
-    self.navigationController.navigationBar.barTintColor = UIColorFromHex(lunchCastYellowColor);
+    self.navigationController.navigationBar.barTintColor = UIColorFromHex(lunchCastTintColor);
     self.navigationController.navigationBar.translucent = NO;
     NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [UIColor whiteColor],NSForegroundColorAttributeName,
