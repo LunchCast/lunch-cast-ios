@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		7AC6C3A11C771DB600D937E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AD251971C76901500091C75 /* Main.storyboard */; };
+		7AC9E4611C832D17001BEA84 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9E4581C832D17001BEA84 /* Tag.m */; };
+		7AC9E4621C832D17001BEA84 /* OrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9E45A1C832D17001BEA84 /* OrderItem.m */; };
+		7AC9E4631C832D17001BEA84 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9E45C1C832D17001BEA84 /* Restaurant.m */; };
+		7AC9E4641C832D17001BEA84 /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9E45E1C832D17001BEA84 /* Meal.m */; };
+		7AC9E4651C832D17001BEA84 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9E4601C832D17001BEA84 /* Order.m */; };
 		7AD2515D1C76873000091C75 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2515C1C76873000091C75 /* main.m */; };
 		7AD251601C76873000091C75 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2515F1C76873000091C75 /* AppDelegate.m */; };
 		7AD251681C76873000091C75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AD251671C76873000091C75 /* Assets.xcassets */; };
@@ -43,6 +48,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7AC9E4561C8328E9001BEA84 /* CreateOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CreateOrderViewController.h; path = LunchCast/CreateOrderViewController.h; sourceTree = SOURCE_ROOT; };
+		7AC9E4571C832D17001BEA84 /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = SOURCE_ROOT; };
+		7AC9E4581C832D17001BEA84 /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = SOURCE_ROOT; };
+		7AC9E4591C832D17001BEA84 /* OrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItem.h; sourceTree = SOURCE_ROOT; };
+		7AC9E45A1C832D17001BEA84 /* OrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItem.m; sourceTree = SOURCE_ROOT; };
+		7AC9E45B1C832D17001BEA84 /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = SOURCE_ROOT; };
+		7AC9E45C1C832D17001BEA84 /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = SOURCE_ROOT; };
+		7AC9E45D1C832D17001BEA84 /* Meal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meal.h; sourceTree = SOURCE_ROOT; };
+		7AC9E45E1C832D17001BEA84 /* Meal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meal.m; sourceTree = SOURCE_ROOT; };
+		7AC9E45F1C832D17001BEA84 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = SOURCE_ROOT; };
+		7AC9E4601C832D17001BEA84 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = SOURCE_ROOT; };
+		7AC9E4671C832D94001BEA84 /* DataObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataObjects.h; sourceTree = SOURCE_ROOT; };
 		7AD251581C76873000091C75 /* LunchCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunchCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AD2515C1C76873000091C75 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LunchCast/main.m; sourceTree = SOURCE_ROOT; };
 		7AD2515E1C76873000091C75 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = LunchCast/AppDelegate.h; sourceTree = SOURCE_ROOT; };
@@ -303,6 +320,24 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		7AC9E4661C832D42001BEA84 /* Backendless Model */ = {
+			isa = PBXGroup;
+			children = (
+				7AC9E4671C832D94001BEA84 /* DataObjects.h */,
+				7AC9E4581C832D17001BEA84 /* Tag.m */,
+				7AC9E4571C832D17001BEA84 /* Tag.h */,
+				7AC9E4591C832D17001BEA84 /* OrderItem.h */,
+				7AC9E45A1C832D17001BEA84 /* OrderItem.m */,
+				7AC9E45B1C832D17001BEA84 /* Restaurant.h */,
+				7AC9E45C1C832D17001BEA84 /* Restaurant.m */,
+				7AC9E45D1C832D17001BEA84 /* Meal.h */,
+				7AC9E45E1C832D17001BEA84 /* Meal.m */,
+				7AC9E45F1C832D17001BEA84 /* Order.h */,
+				7AC9E4601C832D17001BEA84 /* Order.m */,
+			);
+			name = "Backendless Model";
+			sourceTree = "<group>";
+		};
 		7ACC33511C77163A00E9D8F8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +364,7 @@
 				7AD2519E1C76942B00091C75 /* RestaurantMenuViewController.m */,
 				7AD2519A1C76907F00091C75 /* OrderDetailsViewController.h */,
 				7AD2519B1C76907F00091C75 /* OrderDetailsViewController.m */,
+				7AC9E4561C8328E9001BEA84 /* CreateOrderViewController.h */,
 				7AD251981C76901500091C75 /* CreateOrderViewController.m */,
 			);
 			name = "View Controllers";
@@ -381,6 +417,7 @@
 		D687C0781C7A059B00C0B1D6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7AC9E4661C832D42001BEA84 /* Backendless Model */,
 				D687C07C1C7A05C100C0B1D6 /* Categories */,
 				D687C0751C7A058D00C0B1D6 /* Validator.h */,
 				D687C0761C7A058D00C0B1D6 /* Validator.m */,
@@ -849,13 +886,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AC9E4641C832D17001BEA84 /* Meal.m in Sources */,
 				7AD251601C76873000091C75 /* AppDelegate.m in Sources */,
 				D687C07F1C7A05D600C0B1D6 /* CustomActivityIndicator.m in Sources */,
+				7AC9E4631C832D17001BEA84 /* Restaurant.m in Sources */,
 				7AD251991C76901500091C75 /* CreateOrderViewController.m in Sources */,
+				7AC9E4621C832D17001BEA84 /* OrderItem.m in Sources */,
 				D687C0731C7A053D00C0B1D6 /* SignInVC.m in Sources */,
 				7AD2515D1C76873000091C75 /* main.m in Sources */,
 				D687C0841C7A05F100C0B1D6 /* AccountData.m in Sources */,
 				7AD251901C76890E00091C75 /* HomeViewController.m in Sources */,
+				7AC9E4611C832D17001BEA84 /* Tag.m in Sources */,
 				7AD2519C1C76907F00091C75 /* OrderDetailsViewController.m in Sources */,
 				D687C07B1C7A05BB00C0B1D6 /* UIAlertController+EasyInit.m in Sources */,
 				7AD251961C768E9A00091C75 /* OrdersCustomTVCell.m in Sources */,
@@ -863,6 +904,7 @@
 				D687C0851C7A05F100C0B1D6 /* AccountManager.m in Sources */,
 				D687C0741C7A053D00C0B1D6 /* ParentNC.m in Sources */,
 				D687C08E1C7A064700C0B1D6 /* PushNotificationRegistrator.m in Sources */,
+				7AC9E4651C832D17001BEA84 /* Order.m in Sources */,
 				D687C0771C7A058D00C0B1D6 /* Validator.m in Sources */,
 				7AD251931C76892800091C75 /* OrdersViewController.m in Sources */,
 			);
