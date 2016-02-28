@@ -45,6 +45,8 @@
 		D687C16A1C7A0BE600C0B1D6 /* MediaLibiOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D687C1501C7A0BE600C0B1D6 /* MediaLibiOS.a */; };
 		D687C16B1C7A0BE600C0B1D6 /* libspeex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D687C15B1C7A0BE600C0B1D6 /* libspeex.a */; };
 		D687C16C1C7A0BE600C0B1D6 /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D687C1611C7A0BE600C0B1D6 /* libx264.a */; };
+		D6A4651C1C83A6AD0046701D /* MyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4651B1C83A6AD0046701D /* MyProfileViewController.m */; };
+		D6A4651F1C83A7B80046701D /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4651E1C83A7B80046701D /* Utilities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -284,6 +286,10 @@
 		D687C15F1C7A0BE600C0B1D6 /* x264_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264_config.h; sourceTree = "<group>"; };
 		D687C1611C7A0BE600C0B1D6 /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libx264.a; sourceTree = "<group>"; };
 		D6A465181C83488D0046701D /* BackendlessAuthReponseProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackendlessAuthReponseProtocol.h; sourceTree = SOURCE_ROOT; };
+		D6A4651A1C83A6AD0046701D /* MyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProfileViewController.h; sourceTree = SOURCE_ROOT; };
+		D6A4651B1C83A6AD0046701D /* MyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProfileViewController.m; sourceTree = SOURCE_ROOT; };
+		D6A4651D1C83A7B80046701D /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = SOURCE_ROOT; };
+		D6A4651E1C83A7B80046701D /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -367,6 +373,8 @@
 				7AD2519B1C76907F00091C75 /* OrderDetailsViewController.m */,
 				7AC9E4681C83435B001BEA84 /* CreateOrderTableViewController.h */,
 				7AC9E4691C83435B001BEA84 /* CreateOrderTableViewController.m */,
+				D6A4651A1C83A6AD0046701D /* MyProfileViewController.h */,
+				D6A4651B1C83A6AD0046701D /* MyProfileViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -429,6 +437,8 @@
 				D687C08C1C7A064700C0B1D6 /* PushNotificationRegistrator.h */,
 				D687C08D1C7A064700C0B1D6 /* PushNotificationRegistrator.m */,
 				D6A465181C83488D0046701D /* BackendlessAuthReponseProtocol.h */,
+				D6A4651D1C83A7B80046701D /* Utilities.h */,
+				D6A4651E1C83A7B80046701D /* Utilities.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -894,6 +904,7 @@
 				D687C07F1C7A05D600C0B1D6 /* CustomActivityIndicator.m in Sources */,
 				7AC9E4631C832D17001BEA84 /* Restaurant.m in Sources */,
 				7AC9E4621C832D17001BEA84 /* OrderItem.m in Sources */,
+				D6A4651F1C83A7B80046701D /* Utilities.m in Sources */,
 				7AC9E46A1C83435B001BEA84 /* CreateOrderTableViewController.m in Sources */,
 				D687C0731C7A053D00C0B1D6 /* SignInVC.m in Sources */,
 				7AD2515D1C76873000091C75 /* main.m in Sources */,
@@ -908,6 +919,7 @@
 				D687C08E1C7A064700C0B1D6 /* PushNotificationRegistrator.m in Sources */,
 				7AC9E4651C832D17001BEA84 /* Order.m in Sources */,
 				D687C0771C7A058D00C0B1D6 /* Validator.m in Sources */,
+				D6A4651C1C83A6AD0046701D /* MyProfileViewController.m in Sources */,
 				7AD251931C76892800091C75 /* OrdersViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
