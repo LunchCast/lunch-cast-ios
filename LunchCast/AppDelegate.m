@@ -11,7 +11,7 @@
 
 #define APP_ID          @"DC12F089-BB53-9297-FF3A-47B8F24CF100"
 #define SECRET_KEY      @"014707B0-21C9-18B8-FF91-AF2AC2D03500"
-#define VERSION_NUM     @"1.0"
+#define VERSION_NUM     @"v1"
 
 @interface AppDelegate ()
 
@@ -22,14 +22,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [backendless initApp:APP_ID secret:SECRET_KEY version:VERSION_NUM];
-    
 
-//    BackendlessUser *user = [BackendlessUser new];
-//    user.email = @"markozr92@gmail.com";
-//    user.password = @"lunchCastJeNajbolji";
-//    [backendless.userService registering:user];
     return YES;
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

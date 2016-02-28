@@ -283,6 +283,7 @@
 		D687C15E1C7A0BE600C0B1D6 /* x264.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264.h; sourceTree = "<group>"; };
 		D687C15F1C7A0BE600C0B1D6 /* x264_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264_config.h; sourceTree = "<group>"; };
 		D687C1611C7A0BE600C0B1D6 /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libx264.a; sourceTree = "<group>"; };
+		D6A465171C8328AD0046701D /* CreateOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CreateOrderViewController.h; path = LunchCast/CreateOrderViewController.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -364,7 +365,7 @@
 				7AD2519E1C76942B00091C75 /* RestaurantMenuViewController.m */,
 				7AD2519A1C76907F00091C75 /* OrderDetailsViewController.h */,
 				7AD2519B1C76907F00091C75 /* OrderDetailsViewController.m */,
-				7AC9E4561C8328E9001BEA84 /* CreateOrderViewController.h */,
+				D6A465171C8328AD0046701D /* CreateOrderViewController.h */,
 				7AD251981C76901500091C75 /* CreateOrderViewController.m */,
 			);
 			name = "View Controllers";
