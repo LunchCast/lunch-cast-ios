@@ -16,6 +16,8 @@
 + (void)setUserToken:(NSString *)userToken;
 + (NSString *)getPassword;
 + (void)setPassword:(NSString *)password;
++ (NSString *)getEmail;
++ (void)setEmail:(NSString *)email;
 + (NSString *)getUsername;
 + (void)setUsername:(NSString *)username;
 + (void)resetUserData;

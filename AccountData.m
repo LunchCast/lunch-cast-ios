@@ -47,6 +47,17 @@
     [[[NSUserDefaults alloc] initWithSuiteName:SUITE_NAME] setValue:password forKey:@"userPassword"];
 }
 
++ (NSString *)getEmail
+{
+    NSString *email = [[[NSUserDefaults alloc] initWithSuiteName:SUITE_NAME] stringForKey:@"email"];
+    return email == nil ? @"" : email;
+}
+
++ (void)setEmail:(NSString *)email
+{
+    [[[NSUserDefaults alloc] initWithSuiteName:SUITE_NAME] setValue:email forKey:@"email"];
+}
+
 + (NSString *)getUsername
 {
     NSString *username = [[[NSUserDefaults alloc] initWithSuiteName:SUITE_NAME] stringForKey:@"username"];

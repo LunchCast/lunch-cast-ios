@@ -11,13 +11,14 @@
 #import "UIAlertController+EasyInit.h"
 #import "CustomActivityIndicator.h"
 #import "AccountManager.h"
+#import "BackendlessAuthReponseProtocol.h"
 
 #define ANIMATION_DURATION 0.5
 #define ANIMATION_SPACE 76
 #define lunchCastGrayColor   colorWithWhite:0.5 alpha:0.8
 
 
-@interface SignInVC ()
+@interface SignInVC () <BackendlessAuthReponseDelegate>
 
 @property (weak, nonatomic) IBOutlet CustomActivityIndicator *activityIndicator;
 
@@ -25,7 +26,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 @property (weak, nonatomic) IBOutlet UILabel *secondaryLabel;
-
 
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;
 @property (weak, nonatomic) IBOutlet UIButton *secondaryButton;
@@ -39,6 +39,8 @@
 - (void)viewDidLoad
 {
     self.signIn = NO;
+    [AccountManager sharedInstance].authDelegate = self;
+    
     [self customizePlaceholderText];
     [self customizeNavigationBar];
 }
@@ -54,14 +56,11 @@
     {
         if (![self isSignIn])
         {
-            [AccountManager createNewAccountWithEmail:self.enteredUsername andPassword:self.enteredPassword];
+            [[AccountManager sharedInstance] createNewAccountWithEmail:self.enteredUsername andPassword:self.enteredPassword];
         }
         else
         {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self stopWaiting];
-                [self performSegueWithIdentifier:@"toMain" sender:nil];
-            });
+            [[AccountManager sharedInstance] logInWithEmail:self.enteredUsername andPassword:self.enteredPassword];
         }
         [self startWaiting];
     }
@@ -177,6 +176,38 @@
     [self.activityIndicator stopAnimating];
 }
 
+#pragma mark - Auth Delegate
+
+- (void)didFailToLogInUserWithError:(NSString *)error
+{
+    [self stopWaiting];
+    [UIAlertController presentAlertViewErrorWithText:NSLocalizedString(error, nil) andActionTitle:@"OK" onController:self withCompletion:nil];
+}
+
+- (void)didFailToRegisterUserWithError:(NSString *)error
+{
+    [self stopWaiting];
+    [UIAlertController presentAlertViewErrorWithText:NSLocalizedString(error, nil) andActionTitle:@"OK" onController:self withCompletion:nil];
+}
+
+- (void)didRegisterUser:(BackendlessUser *)user
+{
+    [self stopWaiting];
+    
+    // switch to sign in
+    [self changeTitleOnLabel:self.secondaryLabel toTitle:@"Don't have an account?"];
+    [self changeTitleOnButton:self.secondaryButton toTitle:@"Create new"];
+    [self changeTitleOnButton:self.mainButton toTitle:@"Sign in"];
+    [self changeTitleBarToTitle:@"Sign In"];
+    
+    self.signIn = !self.signIn;
+}
+
+- (void)didLogInUser:(BackendlessUser *)user
+{
+    [self stopWaiting];
+    [self performSegueWithIdentifier:@"toMain" sender:nil];
+}
 
 #pragma mark - Utils
 

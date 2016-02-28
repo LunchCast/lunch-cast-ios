@@ -7,14 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BackendlessAuthReponseProtocol.h"
 
 @interface AccountManager : NSObject
 
-+ (void)logOut;
-+ (void)logInWithEmail:(NSString *)email andPassword:(NSString *)password;
-+ (void)createNewAccountWithEmail:(NSString *)email andPassword:(NSString *)password;
-+ (BOOL)isCurrentPassword:(NSString *)password;
-+ (BOOL)isLoggedIn;
-+ (void)validate;
++ (AccountManager *)sharedInstance;
+
+@property (nonatomic, weak)id <BackendlessAuthReponseDelegate> authDelegate;
+
+- (void)logOut;
+- (void)logInWithEmail:(NSString *)email andPassword:(NSString *)password;
+- (void)createNewAccountWithEmail:(NSString *)email andPassword:(NSString *)password;
+- (BOOL)isCurrentPassword:(NSString *)password;
+- (BOOL)isLoggedIn;
+- (void)validate;
 
 @end
