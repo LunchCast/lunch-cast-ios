@@ -7,6 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "Backendless.h"
+
+#define APP_ID          @"DC12F089-BB53-9297-FF3A-47B8F24CF100"
+#define SECRET_KEY      @"014707B0-21C9-18B8-FF91-AF2AC2D03500"
+#define VERSION_NUM     @"1.0"
 
 @interface AppDelegate ()
 
@@ -16,7 +21,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [backendless initApp:APP_ID secret:SECRET_KEY version:VERSION_NUM];
+    
+
+//    BackendlessUser *user = [BackendlessUser new];
+//    user.email = @"markozr92@gmail.com";
+//    user.password = @"lunchCastJeNajbolji";
+//    [backendless.userService registering:user];
     return YES;
 }
 
