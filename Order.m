@@ -107,12 +107,12 @@
 -(void)setValuesForProperties
 {
   self.order_time = [backendless randomString:MIN(25,36)];
-  self.state = [backendless randomString:MIN(25,36)];
+  self.state = @((int)rand()%10000);
   self.restaurant = [Restaurant new];
 }
 -(void)updateValuesForProperties
 {
   self.order_time = [backendless randomString:MIN(25,36)];
-  self.state = [backendless randomString:MIN(25,36)];
+  self.state = @((int)rand()%10000);
 }
 @end

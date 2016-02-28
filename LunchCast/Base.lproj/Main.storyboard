@@ -367,6 +367,7 @@
                                             <state key="normal" title="Choose"/>
                                             <connections>
                                                 <action selector="onChooseButton:" destination="7j9-Hn-wQk" eventType="touchUpInside" id="BtU-U6-sTb"/>
+                                                <segue destination="NEf-9T-gDS" kind="show" id="RNd-iW-ubx"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uk3-9z-Qx1">
@@ -472,7 +473,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sNB-Z7-DHQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2853" y="-223"/>
+            <point key="canvasLocation" x="2918" y="115"/>
         </scene>
         <!--Restaurant Menu View Controller-->
         <scene sceneID="yjF-HC-TeR">
@@ -673,6 +674,7 @@
         <image name="cope" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="npC-lO-cRS"/>
+        <segue reference="RNd-iW-ubx"/>
+        <segue reference="8V1-La-Ntu"/>
     </inferredMetricsTieBreakers>
 </document>
