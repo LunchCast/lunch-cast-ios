@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OrdersCustomTVCell : UITableViewCell
+@interface OrdersCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *tagsLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *redGreenImageView;

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OrdersViewController : UIViewController
+@interface OrdersViewController : UIViewController <UITableViewDelegate, UITableViewDelegate>
+
 
 @end

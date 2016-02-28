@@ -6,8 +6,9 @@
 //  Copyright © 2016 Aleksandra Stevović. All rights reserved.
 //
 
-#import "OrdersCustomTVCell.h"
+#import "OrdersCell.h"
 
-@implementation OrdersCustomTVCell
+@implementation OrdersCell
+
 
 @end

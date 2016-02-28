@@ -7,6 +7,7 @@
 //
 
 #import "CreateOrderTableViewController.h"
+#import "OrderDetailsViewController.h"
 #import "Backendless.h"
 #import "Restaurant.h"
 #import "RestaurantCell.h"
@@ -82,4 +83,13 @@
     return cell;
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"createOrder"])
+    {
+//        OrderDetailsViewController *odvc = (OrderDetailsViewController *)segue.destinationViewController;
+//        
+//        odvc.order = self.order;
+    }
+}
 @end

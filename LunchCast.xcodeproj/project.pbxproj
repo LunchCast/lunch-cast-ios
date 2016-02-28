@@ -21,7 +21,7 @@
 		7AD2516B1C76873000091C75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AD251691C76873000091C75 /* LaunchScreen.storyboard */; };
 		7AD251901C76890E00091C75 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2518F1C76890E00091C75 /* HomeViewController.m */; };
 		7AD251931C76892800091C75 /* OrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD251921C76892800091C75 /* OrdersViewController.m */; };
-		7AD251961C768E9A00091C75 /* OrdersCustomTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD251951C768E9A00091C75 /* OrdersCustomTVCell.m */; };
+		7AD251961C768E9A00091C75 /* OrdersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD251951C768E9A00091C75 /* OrdersCell.m */; };
 		7AD2519C1C76907F00091C75 /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2519B1C76907F00091C75 /* OrderDetailsViewController.m */; };
 		7AD2519F1C76942B00091C75 /* RestaurantMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2519E1C76942B00091C75 /* RestaurantMenuViewController.m */; };
 		D687C0731C7A053D00C0B1D6 /* SignInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C0701C7A053D00C0B1D6 /* SignInVC.m */; };
@@ -74,8 +74,8 @@
 		7AD2518F1C76890E00091C75 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = SOURCE_ROOT; };
 		7AD251911C76892800091C75 /* OrdersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrdersViewController.h; path = LunchCast/OrdersViewController.h; sourceTree = SOURCE_ROOT; };
 		7AD251921C76892800091C75 /* OrdersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrdersViewController.m; path = LunchCast/OrdersViewController.m; sourceTree = SOURCE_ROOT; };
-		7AD251941C768E9A00091C75 /* OrdersCustomTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrdersCustomTVCell.h; path = LunchCast/OrdersCustomTVCell.h; sourceTree = SOURCE_ROOT; };
-		7AD251951C768E9A00091C75 /* OrdersCustomTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrdersCustomTVCell.m; path = LunchCast/OrdersCustomTVCell.m; sourceTree = SOURCE_ROOT; };
+		7AD251941C768E9A00091C75 /* OrdersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrdersCell.h; path = LunchCast/OrdersCell.h; sourceTree = SOURCE_ROOT; };
+		7AD251951C768E9A00091C75 /* OrdersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrdersCell.m; path = LunchCast/OrdersCell.m; sourceTree = SOURCE_ROOT; };
 		7AD251971C76901500091C75 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = LunchCast/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		7AD2519A1C76907F00091C75 /* OrderDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderDetailsViewController.h; path = LunchCast/OrderDetailsViewController.h; sourceTree = SOURCE_ROOT; };
 		7AD2519B1C76907F00091C75 /* OrderDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderDetailsViewController.m; path = LunchCast/OrderDetailsViewController.m; sourceTree = SOURCE_ROOT; };
@@ -346,8 +346,8 @@
 				7AC9E46F1C834716001BEA84 /* RestaurantCell.m */,
 				D687C07D1C7A05D600C0B1D6 /* CustomActivityIndicator.h */,
 				D687C07E1C7A05D600C0B1D6 /* CustomActivityIndicator.m */,
-				7AD251941C768E9A00091C75 /* OrdersCustomTVCell.h */,
-				7AD251951C768E9A00091C75 /* OrdersCustomTVCell.m */,
+				7AD251941C768E9A00091C75 /* OrdersCell.h */,
+				7AD251951C768E9A00091C75 /* OrdersCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -902,7 +902,7 @@
 				7AC9E4611C832D17001BEA84 /* Tag.m in Sources */,
 				7AD2519C1C76907F00091C75 /* OrderDetailsViewController.m in Sources */,
 				D687C07B1C7A05BB00C0B1D6 /* UIAlertController+EasyInit.m in Sources */,
-				7AD251961C768E9A00091C75 /* OrdersCustomTVCell.m in Sources */,
+				7AD251961C768E9A00091C75 /* OrdersCell.m in Sources */,
 				7AD2519F1C76942B00091C75 /* RestaurantMenuViewController.m in Sources */,
 				D687C0851C7A05F100C0B1D6 /* AccountManager.m in Sources */,
 				D687C08E1C7A064700C0B1D6 /* PushNotificationRegistrator.m in Sources */,
