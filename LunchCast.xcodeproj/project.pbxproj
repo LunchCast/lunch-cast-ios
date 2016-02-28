@@ -286,6 +286,7 @@
 		D687C15E1C7A0BE600C0B1D6 /* x264.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264.h; sourceTree = "<group>"; };
 		D687C15F1C7A0BE600C0B1D6 /* x264_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264_config.h; sourceTree = "<group>"; };
 		D687C1611C7A0BE600C0B1D6 /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libx264.a; sourceTree = "<group>"; };
+		D6A465181C83488D0046701D /* BackendlessAuthReponseProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackendlessAuthReponseProtocol.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -432,6 +433,7 @@
 				D687C0831C7A05F100C0B1D6 /* AccountManager.m */,
 				D687C08C1C7A064700C0B1D6 /* PushNotificationRegistrator.h */,
 				D687C08D1C7A064700C0B1D6 /* PushNotificationRegistrator.m */,
+				D6A465181C83488D0046701D /* BackendlessAuthReponseProtocol.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";

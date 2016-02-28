@@ -18,71 +18,122 @@
 
 @implementation AccountManager
 
-+ (void)logInWithEmail:(NSString *)email andPassword:(NSString *)password
+#pragma mark - Initialization
+#pragma mark -
+
+- (instancetype)init
 {
-    [AccountManager setUserEmail:email andPassword:password];
+    self = [super init];
+    if (self)
+    {
+    }
+    return self;
+}
+
++ (AccountManager*)sharedInstance
+{
+    static AccountManager *_sharedInstance = nil;
+    
+    static dispatch_once_t oncePredicate;
+    
+    dispatch_once(&oncePredicate, ^{
+        _sharedInstance = [[AccountManager alloc] init];
+    });
+    return _sharedInstance;
 }
 
 
-+ (void)userRegistration
+- (void)logInWithEmail:(NSString *)email andPassword:(NSString *)password
 {
-    BackendlessUser *user = [BackendlessUser new];
-    user.password = @"pass123";
-    user.email = @"markozr92@gmail.com";
-    user.name = @"Marko";
-    Responder *responder = [Responder responder:self
-                             selResponseHandler:@selector(responseHandler:)
-                                selErrorHandler:@selector(errorHandler:)];
-    [backendless.userService registering:user responder:responder];
-}
-+ (id)responseHandler:(id)response;
-{
-    BackendlessUser *user = (BackendlessUser *)response;
-    NSLog(@"user = %@", user);
-    return user;
+    [self setUserEmail:email andPassword:password];
+    [self userLogin];
 }
 
-+(void)errorHandler:(Fault *)fault
+- (void)createNewAccountWithEmail:(NSString *)email andPassword:(NSString *)password
 {
-    NSLog(@"FAULT = %@ <%@>", fault.message, fault.detail);
+    [self setUserEmail:email andPassword:password];
+    [self userRegistration];
 }
 
-
-+ (void)createNewAccountWithEmail:(NSString *)email andPassword:(NSString *)password
-{
-    [AccountManager setUserEmail:email andPassword:password];
-//    [RequestHandler signUpRequest];
-    [AccountManager userRegistration];
-}
-
-+ (void)logOut
+- (void)logOut
 {
 //    [RequestHandler logOutRequest];
 }
 
-+ (void)setUserEmail:(NSString *)email andPassword:(NSString *)password
+- (void)setUserEmail:(NSString *)email andPassword:(NSString *)password
 {
-    [AccountData setUsername:email];
+    [AccountData setEmail:email];
     [AccountData setPassword:password];
 }
 
-+ (BOOL)isCurrentPassword:(NSString *)password
+- (BOOL)isCurrentPassword:(NSString *)password
 {
     return ([[AccountData getPassword] isEqualToString:password]);
 }
 
-+ (BOOL)isLoggedIn
+- (BOOL)isLoggedIn
 {
     return (![[AccountData getUsername] isEqualToString:@""]);
 }
 
-+ (void)eraseUserData
+- (void)eraseUserData
 {
     [AccountData resetUserData];
 }
 
-+ (void)validate
+- (void)validate
 {
 //    [RequestHandler validateRequest];
 }
+
+
+#pragma mark - Backendless methods
+
+- (void)userRegistration
+{
+    BackendlessUser *user = [BackendlessUser new];
+    user.password = [AccountData getPassword];
+    user.email = [AccountData getEmail];
+    user.name = [AccountData getUsername];
+    
+    Responder *responder = [Responder responder:self
+                             selResponseHandler:@selector(registrationResponseHandler:)
+                                selErrorHandler:@selector(registrationErrorHandler:)];
+    [backendless.userService registering:user responder:responder];
+}
+
+- (void)userLogin
+{
+    Responder *responder = [Responder responder:self
+                             selResponseHandler:@selector(loginResponseHandler:)
+                                selErrorHandler:@selector(loginErrorHandler:)];
+    
+    [backendless.userService login:[AccountData getEmail] password:[AccountData getPassword] responder:responder];
+}
+
+- (void)loginResponseHandler:(id)response;
+{
+    BackendlessUser *user = (BackendlessUser *)response;
+    [self.authDelegate didLogInUser:user];
+}
+
+- (void)registrationResponseHandler:(id)response;
+{
+    BackendlessUser *user = (BackendlessUser *)response;
+    [self.authDelegate didRegisterUser:user];
+}
+
+- (void)registrationErrorHandler:(Fault *)fault
+{
+    NSLog(@"FAULT = %@ <%@>", fault.message, fault.detail);
+    [self.authDelegate didFailToRegisterUserWithError:fault.message];
+}
+
+- (void)loginErrorHandler:(Fault *)fault
+{
+    NSLog(@"FAULT = %@ <%@>", fault.message, fault.detail);
+    [self.authDelegate didFailToLogInUserWithError:fault.message];
+}
+
+
 @end
