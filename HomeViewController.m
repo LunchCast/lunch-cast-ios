@@ -7,11 +7,13 @@
 //
 
 #import "HomeViewController.h"
+#import "AccountManager.h"
 
 @implementation HomeViewController
 
 - (IBAction)logOutButtonAction:(UIBarButtonItem *)sender
 {
+    [[AccountManager sharedInstance] logOut];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

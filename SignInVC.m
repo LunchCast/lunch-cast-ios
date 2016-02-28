@@ -48,6 +48,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self tryAutoLogIn];
 }
 
 - (IBAction)mainButtonAction:(UIButton *)sender
@@ -238,6 +240,14 @@
                                     nil];
     
     self.navigationController.navigationBar.titleTextAttributes = textAttributes;
+}
+
+- (void)tryAutoLogIn
+{
+    if ([[AccountManager sharedInstance] isLoggedIn])
+    {
+        [self performSegueWithIdentifier:@"toMain" sender:nil];        
+    }
 }
 
 @end

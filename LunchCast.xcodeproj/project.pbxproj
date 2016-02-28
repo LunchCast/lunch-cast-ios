@@ -19,7 +19,6 @@
 		7AD2519C1C76907F00091C75 /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2519B1C76907F00091C75 /* OrderDetailsViewController.m */; };
 		7AD2519F1C76942B00091C75 /* RestaurantMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2519E1C76942B00091C75 /* RestaurantMenuViewController.m */; };
 		D687C0731C7A053D00C0B1D6 /* SignInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C0701C7A053D00C0B1D6 /* SignInVC.m */; };
-		D687C0741C7A053D00C0B1D6 /* ParentNC.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C0721C7A053D00C0B1D6 /* ParentNC.m */; };
 		D687C0771C7A058D00C0B1D6 /* Validator.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C0761C7A058D00C0B1D6 /* Validator.m */; };
 		D687C07B1C7A05BB00C0B1D6 /* UIAlertController+EasyInit.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C07A1C7A05BB00C0B1D6 /* UIAlertController+EasyInit.m */; };
 		D687C07F1C7A05D600C0B1D6 /* CustomActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C07E1C7A05D600C0B1D6 /* CustomActivityIndicator.m */; };
@@ -64,8 +63,6 @@
 		7AD2519E1C76942B00091C75 /* RestaurantMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestaurantMenuViewController.m; path = LunchCast/RestaurantMenuViewController.m; sourceTree = SOURCE_ROOT; };
 		D687C06F1C7A053D00C0B1D6 /* SignInVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInVC.h; sourceTree = SOURCE_ROOT; };
 		D687C0701C7A053D00C0B1D6 /* SignInVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInVC.m; sourceTree = SOURCE_ROOT; };
-		D687C0711C7A053D00C0B1D6 /* ParentNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentNC.h; sourceTree = SOURCE_ROOT; };
-		D687C0721C7A053D00C0B1D6 /* ParentNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentNC.m; sourceTree = SOURCE_ROOT; };
 		D687C0751C7A058D00C0B1D6 /* Validator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Validator.h; sourceTree = SOURCE_ROOT; };
 		D687C0761C7A058D00C0B1D6 /* Validator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Validator.m; sourceTree = SOURCE_ROOT; };
 		D687C0791C7A05BB00C0B1D6 /* UIAlertController+EasyInit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+EasyInit.h"; sourceTree = SOURCE_ROOT; };
@@ -321,8 +318,6 @@
 			children = (
 				D687C06F1C7A053D00C0B1D6 /* SignInVC.h */,
 				D687C0701C7A053D00C0B1D6 /* SignInVC.m */,
-				D687C0711C7A053D00C0B1D6 /* ParentNC.h */,
-				D687C0721C7A053D00C0B1D6 /* ParentNC.m */,
 				7AD251911C76892800091C75 /* OrdersViewController.h */,
 				7AD251921C76892800091C75 /* OrdersViewController.m */,
 				7AD2518E1C76890E00091C75 /* HomeViewController.h */,
@@ -865,7 +860,6 @@
 				7AD251961C768E9A00091C75 /* OrdersCustomTVCell.m in Sources */,
 				7AD2519F1C76942B00091C75 /* RestaurantMenuViewController.m in Sources */,
 				D687C0851C7A05F100C0B1D6 /* AccountManager.m in Sources */,
-				D687C0741C7A053D00C0B1D6 /* ParentNC.m in Sources */,
 				D687C08E1C7A064700C0B1D6 /* PushNotificationRegistrator.m in Sources */,
 				D687C0771C7A058D00C0B1D6 /* Validator.m in Sources */,
 				7AD251931C76892800091C75 /* OrdersViewController.m in Sources */,

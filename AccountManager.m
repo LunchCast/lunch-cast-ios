@@ -57,7 +57,8 @@
 
 - (void)logOut
 {
-//    [RequestHandler logOutRequest];
+    [AccountData setPassword:@""];
+    [AccountData setUserToken:@""];
 }
 
 - (void)setUserEmail:(NSString *)email andPassword:(NSString *)password
@@ -73,7 +74,7 @@
 
 - (BOOL)isLoggedIn
 {
-    return (![[AccountData getUsername] isEqualToString:@""]);
+    return (![[AccountData getUserToken] isEqualToString:@""]);
 }
 
 - (void)eraseUserData
@@ -114,6 +115,7 @@
 - (void)loginResponseHandler:(id)response;
 {
     BackendlessUser *user = (BackendlessUser *)response;
+    [AccountData setUserToken:user.getUserToken];
     [self.authDelegate didLogInUser:user];
 }
 
