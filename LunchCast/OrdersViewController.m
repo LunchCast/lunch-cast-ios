@@ -15,6 +15,4 @@
 
 @implementation OrdersViewController
 
-- (IBAction)onCreateNewOrderAction:(id)sender {
-}
 @end
