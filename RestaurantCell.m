@@ -20,8 +20,10 @@
         order.order_time = [backendless randomString:MIN(25,36)];
         order.state = [NSNumber numberWithInt:0];
         order.restaurant = self.restaurant;
-        // order.order_creator =
+        BackendlessUser *user = backendless.userService.currentUser;
+        order.order_creator = user;
         [backendless.persistenceService save:order response:^(Order *result) {
+            
         }
                                        error:^(Fault *fault) {
                                            
@@ -31,7 +33,9 @@
 
 -(BOOL)orderAlreadyExsist
 {
-    NSArray *allOrders = [NSArray new];
+    //DORADI!!!
+    
+    NSMutableArray *allOrders = [NSMutableArray new];
     QueryOptions *queryOptions = [QueryOptions query];
     queryOptions.relationsDepth = @1;
     BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
