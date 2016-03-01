@@ -18,6 +18,8 @@
 
 @property (nonatomic, strong) NSString *telefon;
 
+@property (nonatomic, strong) NSNumber *minAmount;
+
 @property (nonatomic, strong) NSNumber *eta;
 
 @property (nonatomic, strong) NSMutableArray *tags;

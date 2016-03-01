@@ -12,7 +12,7 @@
 {
   NSString *result = @"Order *order = [Order new];\n"
                       "order.order_time = [backendless randomString:MIN(25,36)];\n"
-                      "order.state = [backendless randomString:MIN(25,36)];\n"
+                      "order.state = @((int)rand()%10000);\n"
                       "[backendless.persistenceService save:order response:^(Order *result) {\n"
                       "} error:^(Fault *fault) {\n"
                       "}];\n";
@@ -24,7 +24,7 @@
   NSString *result = @"[backendless.persistenceService first:[Order class]\n"
                       "response:^(BackendlessEntity *result) {\n"
                       "result.order_time = [backendless randomString:MIN(25,36)];\n"
-                      "result.state = [backendless randomString:MIN(25,36)];\n"
+                      "result.state = @((int)rand()%10000);\n"
                       "[backendless.persistenceService save:order response:^(Order *result) {\n"
                       "} error:^(Fault *fault) {\n"
                       "}];\n"

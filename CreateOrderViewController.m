@@ -6,19 +6,21 @@
 //  Copyright © 2016 Aleksandra Stevović. All rights reserved.
 //
 
-#import "CreateOrderTableViewController.h"
-#import "OrderDetailsViewController.h"
+#import "CreateOrderViewController.h"
+#import "MenuViewController.h"
 #import "Backendless.h"
 #import "Restaurant.h"
 #import "RestaurantCell.h"
 #import "Tag.h"
+#import "Meal.h"
 
-@interface CreateOrderTableViewController()
+@interface CreateOrderViewController() <UITableViewDataSource, UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray * searchResults;
 
 @end
-@implementation CreateOrderTableViewController
+@implementation CreateOrderViewController
 
 
 -(void)viewDidLoad
@@ -69,27 +71,37 @@
     cell.restaurant = restaurant;
     [cell.name setText: restaurant.name];
     
+    cell.menuImageView.image = (indexPath.row % 2 ==0) ? [UIImage imageNamed:@"menu-button-1"] : [UIImage imageNamed:@"menu-button-2"];
+    
+    NSString *meals = @"";
+    for(Meal *meal in restaurant.meals)
+    {
+        meals = [meals stringByAppendingString:meal.name];
+        meals = [meals stringByAppendingString:@", "];
+    }
+    
+    [cell.menu setText:meals];
+    [cell.eta setText:[NSString stringWithFormat:@"Delivery time: %@ hour",restaurant.eta]];
+    [cell.min setText:[NSString stringWithFormat:@"Minimum for order: %@ RSD", restaurant.minAmount]];
+    
     NSString *tags = @"";
     for(Tag *tag in restaurant.tags)
     {
+        tags = [tags stringByAppendingString:@"#"];
         tags = [tags stringByAppendingString:tag.name];
-        tags = [tags stringByAppendingString:@", "];
     }
-    
-    [cell.menu setText:tags];
-    [cell.eta setText:[NSString stringWithFormat:@"Delivery time: %@",restaurant.eta]];
-  //  [cell.min setText:]
+    [cell.tags setText:tags];
     
     return cell;
 }
 
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"createOrder"])
+    if ([segue.identifier isEqualToString:@"toMenu"])
     {
-//        OrderDetailsViewController *odvc = (OrderDetailsViewController *)segue.destinationViewController;
-//        
-//        odvc.order = self.order;
+        MenuViewController *mvc = (MenuViewController *)segue.destinationViewController;
+        mvc.restaurant = mvc.restaurant;
     }
 }
 @end
