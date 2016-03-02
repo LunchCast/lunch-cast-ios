@@ -10,4 +10,12 @@
 
 @interface MenuCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UILabel *price;
+@property (weak, nonatomic) IBOutlet UILabel *details;
+
+
+@property (nonatomic) NSUInteger amount;
+@property (weak, nonatomic) IBOutlet UILabel *amountLabel;
+
 @end

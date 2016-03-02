@@ -9,5 +9,21 @@
 #import "MenuCell.h"
 
 @implementation MenuCell
+- (IBAction)onMinusButton:(UIButton *)sender
+{
+    if (self.amount !=0) {
+        self.amount --;
+    }
+}
+- (IBAction)onPlusButton:(UIButton *)sender
+{
+    self.amount ++;
+}
+
+-(void)setAmount:(NSUInteger)amount
+{
+    _amount = amount;
+    [self.amountLabel setText:[NSString stringWithFormat:@"%d",amount]];
+}
 
 @end

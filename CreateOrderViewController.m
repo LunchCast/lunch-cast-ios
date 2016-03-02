@@ -100,8 +100,10 @@
 {
     if ([segue.identifier isEqualToString:@"toMenu"])
     {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         MenuViewController *mvc = (MenuViewController *)segue.destinationViewController;
-        mvc.restaurant = mvc.restaurant;
+        Restaurant *rest = self.searchResults[indexPath.row];
+        mvc.restaurant = rest;
     }
 }
 @end
