@@ -12,9 +12,10 @@
 #import "MenuCell.h"
 #import "Meal.h"
 #import "Order.h"
+#import "OrderItem.h"
 #import "Tag.h"
 
-@interface MenuViewController() <UITableViewDelegate, UITableViewDataSource>
+@interface MenuViewController() <UITableViewDelegate, UITableViewDataSource, MenuCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *menuLabel;
@@ -23,8 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *tagsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;
 
-
-@property (nonatomic,strong) Order *order;
+@property (nonatomic) NSUInteger amount;
 
 @end
 
@@ -33,13 +33,13 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.rightBarButtonItem.title = self.isOrderCreated ? @"ADD" : @"CREATE";
+    self.navigationItem.title = self.restaurant.name;
     [self setRestaurantDetails];
 }
 
-
 -(void)setRestaurantDetails
 {
-    
     NSString *meals = @"";
     for(Meal *meal in self.restaurant.meals)
     {
@@ -60,6 +60,61 @@
     [self.tagsLabel setText:tags];
 }
 
+- (IBAction)onCreateOrder:(UIBarButtonItem *)sender
+{
+    BackendlessUser *user = backendless.userService.currentUser;
+    
+    if (self.isOrderCreated)
+    {
+        [self performSegueWithIdentifier:@"makeOrder" sender:nil];
+        for (MenuCell *cell in [self.tableView visibleCells]) {
+            if (cell.amount!=0) {
+                OrderItem *orderItem = [OrderItem new];
+                orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
+                orderItem.meal = cell.meal;
+                orderItem.order_id = self.order;
+                orderItem.orderer = user;
+                [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
+            }
+        }
+    }
+    else
+    {
+        Order *order = [Order new];
+        order.order_time = [backendless randomString:MIN(25,36)];
+        order.state = [NSNumber numberWithInt:0];
+        order.restaurant = self.restaurant;
+        order.order_creator = user;
+        [backendless.persistenceService save:order response:^(Order *result) {
+            self.order = order;
+            [self performSegueWithIdentifier:@"makeOrder" sender:nil];
+            for (MenuCell *cell in [self.tableView visibleCells]) {
+                if (cell.amount!=0) {
+                    OrderItem *orderItem = [OrderItem new];
+                    orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
+                    orderItem.meal = cell.meal;
+                    orderItem.order_id = order;
+                    orderItem.orderer = user;
+                    [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
+                }
+            }
+        }
+                                       error:^(Fault *fault) {
+                                           
+                                       }];
+    }
+    
+}
+
+#pragma mark - MenuCellDelegate method
+
+- (void) amountHasBeenChanged:(NSUInteger) amount forMeal: (Meal *)meal
+{
+    self.amount += amount;
+    [self.amountLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.amount]];
+    
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -78,6 +133,8 @@
     
     Meal *meal = self.restaurant.meals[indexPath.row];
     
+    cell.delegate = self;
+    cell.meal = meal;
     [cell.name setText: [meal.name stringByAppendingString:@"  "]];
     [cell.price setText:[NSString stringWithFormat:@"%@ RSD", meal.price]];
     [cell.details setText:meal.description];
@@ -85,24 +142,6 @@
     return cell;
 }
 
-- (IBAction)onCreateOrder:(UIBarButtonItem *)sender
-{
-    Order *order = [Order new];
-    order.order_time = [backendless randomString:MIN(25,36)];
-    order.state = [NSNumber numberWithInt:0];
-    order.restaurant = self.restaurant;
-    BackendlessUser *user = backendless.userService.currentUser;
-    order.order_creator = user;
-    [backendless.persistenceService save:order response:^(Order *result) {
-        self.order = order;
-        [self performSegueWithIdentifier:@"makeOrder" sender:nil];
-        
-    }
-                                   error:^(Fault *fault) {
-                                       
-                                   }];
-    
-}
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"makeOrder"])

@@ -359,7 +359,7 @@
                                             <outlet property="redGreenImageView" destination="L88-tW-a9y" id="Qim-GA-ZNI"/>
                                             <outlet property="restaurantLabel" destination="UEd-32-aO3" id="oVM-yq-Zhl"/>
                                             <outlet property="tagsLabel" destination="sBW-q1-w8e" id="GxP-zd-xiQ"/>
-                                            <segue destination="NEf-9T-gDS" kind="show" identifier="OrderDetails" id="dtJ-qy-ta2"/>
+                                            <segue destination="SLw-1a-JTL" kind="show" identifier="chooseMeal" id="286-Fh-ieQ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -792,7 +792,7 @@
             </objects>
             <point key="canvasLocation" x="619" y="-84"/>
         </scene>
-        <!--Title-->
+        <!--Menu-->
         <scene sceneID="MpU-3U-ZVD">
             <objects>
                 <viewController id="SLw-1a-JTL" customClass="MenuViewController" sceneMemberID="viewController">
@@ -807,14 +807,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLn-dz-psU">
                                 <rect key="frame" x="0.0" y="64" width="600" height="90"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aY-RK-Jbz">
-                                        <rect key="frame" x="547" y="25" width="11" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aY-RK-Jbz">
+                                        <rect key="frame" x="544" y="27" width="9" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="space-for-amount" translatesAutoresizingMaskIntoConstraints="NO" id="8xc-xY-jXm">
-                                        <rect key="frame" x="535" y="22" width="35" height="27"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="price-basket" translatesAutoresizingMaskIntoConstraints="NO" id="8xc-xY-jXm">
+                                        <rect key="frame" x="526" y="28" width="44" height="15"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -982,8 +982,8 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="JaP-ZA-vc3">
-                        <barButtonItem key="rightBarButtonItem" title="Create" id="hK2-xh-rKb">
+                    <navigationItem key="navigationItem" title="Menu" id="JaP-ZA-vc3">
+                        <barButtonItem key="rightBarButtonItem" title="CREATE" id="hK2-xh-rKb">
                             <connections>
                                 <action selector="onCreateOrder:" destination="SLw-1a-JTL" id="Ee7-FB-PCH"/>
                             </connections>
@@ -1013,6 +1013,7 @@
         <image name="orders-button" width="234" height="73"/>
         <image name="orders-button-small" width="145" height="37"/>
         <image name="plus-button" width="53" height="29"/>
+        <image name="price-basket" width="44" height="15"/>
         <image name="search-tags-button" width="145" height="37"/>
         <image name="separator-menu" width="111" height="2"/>
         <image name="separator-restaurants" width="414" height="2"/>
@@ -1020,8 +1021,8 @@
         <image name="subscriptions-button" width="213" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="raQ-LY-udU"/>
         <segue reference="gKF-NO-Bqo"/>
-        <segue reference="pbS-gA-0vo"/>
+        <segue reference="raQ-LY-udU"/>
+        <segue reference="Un3-mo-89l"/>
     </inferredMetricsTieBreakers>
 </document>

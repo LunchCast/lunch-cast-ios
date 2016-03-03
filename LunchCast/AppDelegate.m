@@ -22,7 +22,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [backendless initApp:APP_ID secret:SECRET_KEY version:VERSION_NUM];
-
     return YES;
 }
 
