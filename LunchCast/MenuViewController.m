@@ -26,9 +26,6 @@
 
 @property (nonatomic) NSUInteger amount;
 
-
-@property (nonatomic,strong) Order *order;
-
 @end
 
 @implementation MenuViewController
@@ -36,13 +33,13 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.rightBarButtonItem.title = self.isOrderCreated ? @"ADD" : @"CREATE";
+    self.navigationItem.title = self.restaurant.name;
     [self setRestaurantDetails];
 }
 
-
 -(void)setRestaurantDetails
 {
-    
     NSString *meals = @"";
     for(Meal *meal in self.restaurant.meals)
     {
@@ -61,6 +58,61 @@
         tags = [tags stringByAppendingString:tag.name];
     }
     [self.tagsLabel setText:tags];
+}
+
+- (IBAction)onCreateOrder:(UIBarButtonItem *)sender
+{
+    BackendlessUser *user = backendless.userService.currentUser;
+    
+    if (self.isOrderCreated)
+    {
+        [self performSegueWithIdentifier:@"makeOrder" sender:nil];
+        for (MenuCell *cell in [self.tableView visibleCells]) {
+            if (cell.amount!=0) {
+                OrderItem *orderItem = [OrderItem new];
+                orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
+                orderItem.meal = cell.meal;
+                orderItem.order_id = self.order;
+                orderItem.orderer = user;
+                [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
+            }
+        }
+    }
+    else
+    {
+        Order *order = [Order new];
+        order.order_time = [backendless randomString:MIN(25,36)];
+        order.state = [NSNumber numberWithInt:0];
+        order.restaurant = self.restaurant;
+        order.order_creator = user;
+        [backendless.persistenceService save:order response:^(Order *result) {
+            self.order = order;
+            [self performSegueWithIdentifier:@"makeOrder" sender:nil];
+            for (MenuCell *cell in [self.tableView visibleCells]) {
+                if (cell.amount!=0) {
+                    OrderItem *orderItem = [OrderItem new];
+                    orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
+                    orderItem.meal = cell.meal;
+                    orderItem.order_id = order;
+                    orderItem.orderer = user;
+                    [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
+                }
+            }
+        }
+                                       error:^(Fault *fault) {
+                                           
+                                       }];
+    }
+    
+}
+
+#pragma mark - MenuCellDelegate method
+
+- (void) amountHasBeenChanged:(NSUInteger) amount forMeal: (Meal *)meal
+{
+    self.amount += amount;
+    [self.amountLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.amount]];
+    
 }
 
 #pragma mark - Table view data source
@@ -88,44 +140,6 @@
     [cell.details setText:meal.description];
     
     return cell;
-}
-
-- (IBAction)onCreateOrder:(UIBarButtonItem *)sender
-{
-    Order *order = [Order new];
-    order.order_time = [backendless randomString:MIN(25,36)];
-    order.state = [NSNumber numberWithInt:0];
-    order.restaurant = self.restaurant;
-    BackendlessUser *user = backendless.userService.currentUser;
-    order.order_creator = user;
-    [backendless.persistenceService save:order response:^(Order *result) {
-        self.order = order;
-        [self performSegueWithIdentifier:@"makeOrder" sender:nil];
-        for (MenuCell *cell in [self.tableView visibleCells]) {
-            if (cell.amount!=0) {
-                OrderItem *orderItem = [OrderItem new];
-                orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
-                orderItem.meal = cell.meal;
-                orderItem.order_id = order;
-                orderItem.orderer = user;
-                [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
-            }
-        }
-
-        
-    }
-                                   error:^(Fault *fault) {
-                                       
-                                   }];
-    
-}
-#pragma mark - MenuCellDelegate method
-
-- (void) amountHasBeenChanged:(NSUInteger) amount forMeal: (Meal *)meal
-{
-    self.amount += amount;
-    [self.amountLabel setText:[NSString stringWithFormat:@"%d",self.amount]];
-    
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

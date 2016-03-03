@@ -106,13 +106,13 @@
 
 -(void)setValuesForProperties
 {
-  self.price = [backendless randomString:MIN(25,36)];
+  self.price = @((int)rand()%10000);
   self.description = [backendless randomString:MIN(25,36)];
   self.name = [backendless randomString:MIN(25,36)];
 }
 -(void)updateValuesForProperties
 {
-  self.price = [backendless randomString:MIN(25,36)];
+  self.price = @((int)rand()%10000);
   self.description = [backendless randomString:MIN(25,36)];
   self.name = [backendless randomString:MIN(25,36)];
 }

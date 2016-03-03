@@ -7,7 +7,7 @@
 //
 
 #import "OrdersViewController.h"
-#import "OrderDetailsViewController.h"
+#import "MenuViewController.h"
 #import "Backendless.h"
 #import "Order.h"
 #import "Tag.h"
@@ -26,6 +26,8 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.title = @"Orders";
     
     self.searchResults = [NSArray new];
     
@@ -86,12 +88,14 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"OrderDetails"])
+    if ([segue.identifier isEqualToString:@"chooseMeal"])
     {
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
         Order *order = self.searchResults[path.row];
-        OrderDetailsViewController *odvc = (OrderDetailsViewController *)segue.destinationViewController;
-        odvc.order = order;
+        MenuViewController *mvc = (MenuViewController *)segue.destinationViewController;
+        mvc.order = order;
+        mvc.restaurant = order.restaurant;
+        mvc.orderCreated = YES;
     }
 }
 

@@ -22,9 +22,9 @@
 
 -(void)setAmount:(NSUInteger)amount
 {
-    [self.delegate amountHasBeenChanged: amount - _amount forMeal:self.meal];
+    [self.delegate amountHasBeenChanged: (amount - _amount)*[self.meal.price intValue] forMeal:self.meal];
     _amount = amount;
-    [self.amountLabel setText:[NSString stringWithFormat:@"%d",amount]];
+    [self.amountLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)amount]];
 
 }
 

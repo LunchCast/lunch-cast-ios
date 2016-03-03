@@ -303,7 +303,7 @@
                                             <outlet property="redGreenImageView" destination="L88-tW-a9y" id="Qim-GA-ZNI"/>
                                             <outlet property="restaurantLabel" destination="UEd-32-aO3" id="oVM-yq-Zhl"/>
                                             <outlet property="tagsLabel" destination="sBW-q1-w8e" id="GxP-zd-xiQ"/>
-                                            <segue destination="NEf-9T-gDS" kind="show" identifier="OrderDetails" id="dtJ-qy-ta2"/>
+                                            <segue destination="SLw-1a-JTL" kind="show" identifier="chooseMeal" id="286-Fh-ieQ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -508,8 +508,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9vE-YM-u84">
-                                <rect key="frame" x="0.0" y="169" width="600" height="381"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9vE-YM-u84">
+                                <rect key="frame" x="0.0" y="169" width="600" height="337"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="PoE-Vu-FJy">
@@ -522,8 +522,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s3H-eP-p0q">
-                                <rect key="frame" x="0.0" y="550" width="600" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s3H-eP-p0q">
+                                <rect key="frame" x="0.0" y="506" width="600" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Liu-w7-HNs"/>
                                 </constraints>
@@ -740,14 +740,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLn-dz-psU">
                                 <rect key="frame" x="0.0" y="64" width="600" height="90"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aY-RK-Jbz">
-                                        <rect key="frame" x="547" y="25" width="11" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aY-RK-Jbz">
+                                        <rect key="frame" x="544" y="27" width="9" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="space-for-amount" translatesAutoresizingMaskIntoConstraints="NO" id="8xc-xY-jXm">
-                                        <rect key="frame" x="535" y="22" width="35" height="27"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="price-basket" translatesAutoresizingMaskIntoConstraints="NO" id="8xc-xY-jXm">
+                                        <rect key="frame" x="526" y="28" width="44" height="15"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -946,6 +946,7 @@
         <image name="orders-button" width="234" height="73"/>
         <image name="orders-button-small" width="145" height="37"/>
         <image name="plus-button" width="53" height="29"/>
+        <image name="price-basket" width="44" height="15"/>
         <image name="search-tags-button" width="145" height="37"/>
         <image name="separator-menu" width="111" height="2"/>
         <image name="separator-restaurants" width="414" height="2"/>
@@ -954,6 +955,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="raQ-LY-udU"/>
-        <segue reference="pbS-gA-0vo"/>
+        <segue reference="286-Fh-ieQ"/>
     </inferredMetricsTieBreakers>
 </document>

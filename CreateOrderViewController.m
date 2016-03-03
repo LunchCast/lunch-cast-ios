@@ -104,6 +104,7 @@
         MenuViewController *mvc = (MenuViewController *)segue.destinationViewController;
         Restaurant *rest = self.searchResults[indexPath.row];
         mvc.restaurant = rest;
+        mvc.orderCreated = NO;
     }
 }
 @end
