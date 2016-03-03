@@ -725,10 +725,9 @@
             </objects>
             <point key="canvasLocation" x="619" y="-84"/>
         </scene>
-        <!--Title-->
+        <!--Menu-->
         <scene sceneID="MpU-3U-ZVD">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CIo-L1-dk5" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="SLw-1a-JTL" customClass="MenuViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PZv-ZZ-hRH"/>
@@ -916,8 +915,8 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="JaP-ZA-vc3">
-                        <barButtonItem key="rightBarButtonItem" title="Create" id="hK2-xh-rKb">
+                    <navigationItem key="navigationItem" title="Menu" id="JaP-ZA-vc3">
+                        <barButtonItem key="rightBarButtonItem" title="CREATE" id="hK2-xh-rKb">
                             <connections>
                                 <action selector="onCreateOrder:" destination="SLw-1a-JTL" id="Ee7-FB-PCH"/>
                             </connections>
@@ -934,6 +933,7 @@
                         <segue destination="NEf-9T-gDS" kind="show" identifier="makeOrder" id="pbS-gA-0vo"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CIo-L1-dk5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2870" y="687"/>
         </scene>

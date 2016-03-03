@@ -12,9 +12,10 @@
 #import "MenuCell.h"
 #import "Meal.h"
 #import "Order.h"
+#import "OrderItem.h"
 #import "Tag.h"
 
-@interface MenuViewController() <UITableViewDelegate, UITableViewDataSource>
+@interface MenuViewController() <UITableViewDelegate, UITableViewDataSource, MenuCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *menuLabel;
@@ -22,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *minLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tagsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;
+
+@property (nonatomic) NSUInteger amount;
 
 
 @property (nonatomic,strong) Order *order;
@@ -78,6 +81,8 @@
     
     Meal *meal = self.restaurant.meals[indexPath.row];
     
+    cell.delegate = self;
+    cell.meal = meal;
     [cell.name setText: [meal.name stringByAppendingString:@"  "]];
     [cell.price setText:[NSString stringWithFormat:@"%@ RSD", meal.price]];
     [cell.details setText:meal.description];
@@ -96,6 +101,17 @@
     [backendless.persistenceService save:order response:^(Order *result) {
         self.order = order;
         [self performSegueWithIdentifier:@"makeOrder" sender:nil];
+        for (MenuCell *cell in [self.tableView visibleCells]) {
+            if (cell.amount!=0) {
+                OrderItem *orderItem = [OrderItem new];
+                orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
+                orderItem.meal = cell.meal;
+                orderItem.order_id = order;
+                orderItem.orderer = user;
+                [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
+            }
+        }
+
         
     }
                                    error:^(Fault *fault) {
@@ -103,6 +119,15 @@
                                    }];
     
 }
+#pragma mark - MenuCellDelegate method
+
+- (void) amountHasBeenChanged:(NSUInteger) amount forMeal: (Meal *)meal
+{
+    self.amount += amount;
+    [self.amountLabel setText:[NSString stringWithFormat:@"%d",self.amount]];
+    
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"makeOrder"])

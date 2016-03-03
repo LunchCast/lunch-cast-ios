@@ -23,5 +23,6 @@
 @property (nonatomic, strong) Meal *meal;
 @property (nonatomic, strong) Order *order_id;
 @property (nonatomic, strong) BackendlessUser *orderer;
+
 @end
                     
