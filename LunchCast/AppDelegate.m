@@ -22,9 +22,29 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [backendless initApp:APP_ID secret:SECRET_KEY version:VERSION_NUM];
+    
+
+    
     return YES;
 }
 
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    NSString *deviceTokenStr = [backendless.messagingService deviceTokenAsString:deviceToken];
+    
+    @try {
+        NSString *deviceRegistrationId = [backendless.messagingService registerDeviceToken:deviceTokenStr];
+        NSLog(@"deviceToken = %@, deviceRegistrationId = %@", deviceTokenStr, deviceRegistrationId);
+    }
+    @catch (Fault *fault) {
+        NSLog(@"deviceToken = %@, FAULT = %@ <%@>", deviceTokenStr, fault.message, fault.detail);
+    }
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    NSLog(@"%@", userInfo);
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -869,6 +869,12 @@
 				TargetAttributes = {
 					7AD251571C76873000091C75 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = TUUBAVQP9G;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -990,6 +996,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "892c8ce8-6e84-4adc-85ea-916faf0eb063";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1027,6 +1034,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "892c8ce8-6e84-4adc-85ea-916faf0eb063";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1037,7 +1045,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Marko Cancar (EL449XNLB9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PrefixHeader.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/LunchCast/Info.plist";
@@ -1052,8 +1060,9 @@
 					"$(PROJECT_DIR)/lib",
 					"$(PROJECT_DIR)/lib/x264/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "rs.pstech.LunchCast-initial";
+				PRODUCT_BUNDLE_IDENTIFIER = rs.pstech.LunchCast;
 				PRODUCT_NAME = LunchCast;
+				PROVISIONING_PROFILE = "892c8ce8-6e84-4adc-85ea-916faf0eb063";
 			};
 			name = Debug;
 		};
@@ -1061,7 +1070,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Marko Cancar (EL449XNLB9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PrefixHeader.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/LunchCast/Info.plist";
@@ -1076,8 +1085,9 @@
 					"$(PROJECT_DIR)/lib",
 					"$(PROJECT_DIR)/lib/x264/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "rs.pstech.LunchCast-initial";
+				PRODUCT_BUNDLE_IDENTIFIER = rs.pstech.LunchCast;
 				PRODUCT_NAME = LunchCast;
+				PROVISIONING_PROFILE = "892c8ce8-6e84-4adc-85ea-916faf0eb063";
 			};
 			name = Release;
 		};
