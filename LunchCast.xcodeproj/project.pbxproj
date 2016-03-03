@@ -25,6 +25,7 @@
 		7AF3C6071C864C7D00555E98 /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF3C6011C864C7D00555E98 /* Meal.m */; };
 		7AF3C6081C864C7D00555E98 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF3C6031C864C7D00555E98 /* Order.m */; };
 		7AF3C60C1C86505600555E98 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF3C60B1C86505600555E98 /* MenuCell.m */; };
+		D61489C11C88D3C0003E917D /* SubscriptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D61489C01C88D3C0003E917D /* SubscriptionsTableViewController.m */; };
 		D687C0731C7A053D00C0B1D6 /* SignInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C0701C7A053D00C0B1D6 /* SignInVC.m */; };
 		D687C0771C7A058D00C0B1D6 /* Validator.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C0761C7A058D00C0B1D6 /* Validator.m */; };
 		D687C07B1C7A05BB00C0B1D6 /* UIAlertController+EasyInit.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C07A1C7A05BB00C0B1D6 /* UIAlertController+EasyInit.m */; };
@@ -86,6 +87,8 @@
 		7AF3C6091C864C8B00555E98 /* DataObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataObjects.h; sourceTree = SOURCE_ROOT; };
 		7AF3C60A1C86505600555E98 /* MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCell.h; sourceTree = SOURCE_ROOT; };
 		7AF3C60B1C86505600555E98 /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCell.m; sourceTree = SOURCE_ROOT; };
+		D61489BF1C88D3C0003E917D /* SubscriptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionsTableViewController.h; sourceTree = SOURCE_ROOT; };
+		D61489C01C88D3C0003E917D /* SubscriptionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionsTableViewController.m; sourceTree = SOURCE_ROOT; };
 		D687C06F1C7A053D00C0B1D6 /* SignInVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInVC.h; sourceTree = SOURCE_ROOT; };
 		D687C0701C7A053D00C0B1D6 /* SignInVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInVC.m; sourceTree = SOURCE_ROOT; };
 		D687C0751C7A058D00C0B1D6 /* Validator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Validator.h; sourceTree = SOURCE_ROOT; };
@@ -380,6 +383,8 @@
 				7AC9E4691C83435B001BEA84 /* CreateOrderViewController.m */,
 				D6A4651A1C83A6AD0046701D /* MyProfileViewController.h */,
 				D6A4651B1C83A6AD0046701D /* MyProfileViewController.m */,
+				D61489BF1C88D3C0003E917D /* SubscriptionsTableViewController.h */,
+				D61489C01C88D3C0003E917D /* SubscriptionsTableViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -918,6 +923,7 @@
 				7AF3C6051C864C7D00555E98 /* OrderItem.m in Sources */,
 				7AD2519C1C76907F00091C75 /* OrderDetailsViewController.m in Sources */,
 				7AF3C6071C864C7D00555E98 /* Meal.m in Sources */,
+				D61489C11C88D3C0003E917D /* SubscriptionsTableViewController.m in Sources */,
 				D687C07B1C7A05BB00C0B1D6 /* UIAlertController+EasyInit.m in Sources */,
 				7AD251961C768E9A00091C75 /* OrdersCell.m in Sources */,
 				7AD2519F1C76942B00091C75 /* MenuViewController.m in Sources */,
