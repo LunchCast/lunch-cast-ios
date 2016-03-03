@@ -117,7 +117,7 @@
 {
     BackendlessUser *user = (BackendlessUser *)response;
     [AccountData setUserToken:user.getUserToken];
-//    [AccountData setBackendlessUser:user];
+    [self registerForPushNotifications];
     [self.authDelegate didLogInUser:user];
 }
 
@@ -148,5 +148,14 @@
     [self.authDelegate didFailToLogInUserWithError:fault.message];
 }
 
+- (void)registerForPushNotifications
+{
+    UIUserNotificationType allNotificationTypes =
+    (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
+    UIUserNotificationSettings *settings =
+    [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+}
 
 @end
