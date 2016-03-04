@@ -60,7 +60,7 @@
     }
     [self.tagsLabel setText:tags];
     
-    self.alreadyOrderedItems = [NSMutableArray new];
+    self.alreadyOrderedItems = [NSMutableArray array];
     
     BackendlessUser *user = backendless.userService.currentUser;
     
@@ -82,7 +82,7 @@
     
     BackendlessUser *user = backendless.userService.currentUser;
     
-    if (self.alreadyOrderedItems)
+    if (self.alreadyOrderedItems.count > 0)
     {
         //delete all OrderItems for user and order
         for (OrderItem *orderIt in self.alreadyOrderedItems) {
@@ -97,7 +97,7 @@
     {
         if (self.isOrderCreated)
         {
-            [self performSegueWithIdentifier:@"makeOrder" sender:nil];
+//            [self performSegueWithIdentifier:@"makeOrder" sender:nil];
             [self createNewOrderItemsForOrder:self.order andUser:user];
         }
         else
@@ -109,14 +109,15 @@
             order.order_creator = user;
             [backendless.persistenceService save:order response:^(Order *result) {
                 self.order = order;
-                [self performSegueWithIdentifier:@"makeOrder" sender:nil];
                 [self createNewOrderItemsForOrder:order andUser:user];
+//                [self performSegueWithIdentifier:@"makeOrder" sender:nil];
                 }
                                            error:^(Fault *fault) {}];
         }
-//    }
+    }
     
 }
+
 -(void)createNewOrderItemsForOrder: (Order *)order andUser: (BackendlessUser *)user
 {
     for (MenuCell *cell in [self.tableView visibleCells]) {
@@ -126,7 +127,8 @@
             orderItem.meal = cell.meal;
             orderItem.order_id = order;
             orderItem.orderer = user;
-            [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
+            [backendless.persistenceService save:orderItem response:^(OrderItem *result) {
+            } error:^(Fault *fault) {}];
         }
     }
 }
