@@ -108,8 +108,8 @@
             order.restaurant = self.restaurant;
             order.order_creator = user;
             [backendless.persistenceService save:order response:^(Order *result) {
-                self.order = order;
-                [self createNewOrderItemsForOrder:order andUser:user];
+                self.order = result;
+                [self createNewOrderItemsForOrder:self.order andUser:user];
 //                [self performSegueWithIdentifier:@"makeOrder" sender:nil];
                 }
                                            error:^(Fault *fault) {}];
