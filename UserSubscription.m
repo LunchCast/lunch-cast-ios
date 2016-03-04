@@ -1,18 +1,20 @@
 #import "BackendlessEntity.h"
-#import "Meal.h"
+#import "UserSubscription.h"
 
 #import "Backendless.h"
 
+#import "Tag.h"
 
-@implementation Meal
+
+@implementation UserSubscription
 
 -(NSString *)createCode
 {
-  NSString *result = @"Meal *meal = [Meal new];\n"
-                      "meal.price = [backendless randomString:MIN(25,36)];\n"
-                      "meal.description = [backendless randomString:MIN(25,36)];\n"
-                      "meal.name = [backendless randomString:MIN(25,36)];\n"
-                      "[backendless.persistenceService save:meal response:^(Meal *result) {\n"
+  NSString *result = @"UserSubscription *userSubscription = [UserSubscription new];\n"
+                      "userSubscription.userId = [backendless randomString:MIN(25,36)];\n"
+                    "userSubscription.tags = [NSMutableArray arrayWithObjects:[Tag new], [Tag new], nil];\n"
+                    "[backendless.persistenceService save:userSubscription response:^(tags *result) {\n"
+                      "[backendless.persistenceService save:userSubscription response:^(UserSubscription *result) {\n"
                       "} error:^(Fault *fault) {\n"
                       "}];\n";
   return result;
@@ -20,12 +22,10 @@
 
 -(NSString *)updateCode
 {
-  NSString *result = @"[backendless.persistenceService first:[Meal class]\n"
+  NSString *result = @"[backendless.persistenceService first:[UserSubscription class]\n"
                       "response:^(BackendlessEntity *result) {\n"
-                      "result.price = [backendless randomString:MIN(25,36)];\n"
-                      "result.description = [backendless randomString:MIN(25,36)];\n"
-                      "result.name = [backendless randomString:MIN(25,36)];\n"
-                      "[backendless.persistenceService save:meal response:^(Meal *result) {\n"
+                      "result.userId = [backendless randomString:MIN(25,36)];\n"
+                      "[backendless.persistenceService save:userSubscription response:^(UserSubscription *result) {\n"
                       "} error:^(Fault *fault) {\n"
                       "}];\n"
                       "} error:^(Fault *fault) {\n"
@@ -36,9 +36,9 @@
 
 -(NSString *)deleteCode
 {
-  NSString *result = @"[backendless.persistenceService first:[Meal class]\n"
+  NSString *result = @"[backendless.persistenceService first:[UserSubscription class]\n"
                       "response:^(BackendlessEntity *result) {\n"
-                      "[backendless.persistenceService remove:[Meal class]\n"
+                      "[backendless.persistenceService remove:[UserSubscription class]\n"
                       "sid:result.objectId\n"
                       "response:^(NSNumber *success) {\n"
                       "} error:^(Fault *fault) {\n"
@@ -54,7 +54,7 @@
                         "queryOptions.relationsDepth = @1;\n"
                         "BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];\n"
                         "dataQuery.queryOptions = queryOptions;\n"
-                        "[backendless.persistenceService find:[Meal class]\n"
+                        "[backendless.persistenceService find:[UserSubscription class]\n"
                         "dataQuery:[BackendlessDataQuery query]\n"
                         "response:^(BackendlessCollection *collection){\n"
                         "}\n"
@@ -65,7 +65,7 @@
 
 -(NSString *)findFirstCode
 {
-  NSString *result = @"[backendless.persistenceService first:[Meal class] response:^(Meal *first) {"
+  NSString *result = @"[backendless.persistenceService first:[UserSubscription class] response:^(UserSubscription *first) {"
                       "} error:^(Fault *fault) {"
                       "}];";
   return result;
@@ -73,7 +73,7 @@
 
 -(NSString *)findLastCode
 {
-  NSString *result = @"[backendless.persistenceService last:[Meal class] response:^(Meal *first) {"
+  NSString *result = @"[backendless.persistenceService last:[UserSubscription class] response:^(UserSubscription *first) {"
                       "} error:^(Fault *fault) {"
                       "}];";
   return result;
@@ -86,7 +86,7 @@
                      @"BackendlessDataQuery *query = [BackendlessDataQuery query];\n"
                       "query.queryOptions = [QueryOptions query];\n"
                       "query.queryOptions.sortBy = @[@\"%@\"];\n"
-                      "[backendless.persistenceService find:[Meal class] dataQuery:query response:^(BackendlessCollection *collection) {\n"
+                      "[backendless.persistenceService find:[UserSubscription class] dataQuery:query response:^(BackendlessCollection *collection) {\n"
                       "} error:^(Fault *Fault) {\n"
                       "}];", sort];
   return result;
@@ -98,7 +98,7 @@
                      @"BackendlessDataQuery *query = [BackendlessDataQuery query];\n"
                       "query.queryOptions = [QueryOptions query];\n"
                       "query.queryOptions.related = @[@\"%@\"];\n"
-                      "[backendless.persistenceService find:[Meal class] dataQuery:query response:^(BackendlessCollection *collection) {\n"
+                      "[backendless.persistenceService find:[UserSubscription class] dataQuery:query response:^(BackendlessCollection *collection) {\n"
                       "} error:^(Fault *Fault) {\n"
                       "}];", sort];
   return result;
@@ -106,14 +106,11 @@
 
 -(void)setValuesForProperties
 {
-  self.price = [backendless randomString:MIN(25,36)];
-  self.description = [backendless randomString:MIN(25,36)];
-  self.name = [backendless randomString:MIN(25,36)];
+  self.userId = [backendless randomString:MIN(25,36)];
+  self.tags = [NSMutableArray arrayWithObjects:[Tag new], [Tag new], nil];
 }
 -(void)updateValuesForProperties
 {
-  self.price = [backendless randomString:MIN(25,36)];
-  self.description = [backendless randomString:MIN(25,36)];
-  self.name = [backendless randomString:MIN(25,36)];
+  self.userId = [backendless randomString:MIN(25,36)];
 }
 @end

@@ -11,6 +11,7 @@
 #import "PushNotificationRegistrator.h"
 #import "AccountData.h"
 #import "Backendless.h"
+#import "UserSubscription.h"
 
 @interface AccountManager ()
 
@@ -95,8 +96,8 @@
     BackendlessUser *user = [BackendlessUser new];
     user.password = [AccountData getPassword];
     user.email = [AccountData getEmail];
-    user.name = [AccountData getUsername];
-    
+    user.name = @"user";//[AccountData getUsername];
+
     Responder *responder = [Responder responder:self
                              selResponseHandler:@selector(registrationResponseHandler:)
                                 selErrorHandler:@selector(registrationErrorHandler:)];
@@ -123,6 +124,15 @@
 - (void)registrationResponseHandler:(id)response;
 {
     BackendlessUser *user = (BackendlessUser *)response;
+  
+    //create empty subscription for user
+    
+    UserSubscription *userSubscription = [UserSubscription new];
+    userSubscription.userId = user.objectId;
+    userSubscription.tags = [NSMutableArray new];
+    [backendless.persistenceService save:userSubscription response:^(UserSubscription *result) {
+    } error:^(Fault *fault) {}];
+
     [self.authDelegate didRegisterUser:user];
 }
 
