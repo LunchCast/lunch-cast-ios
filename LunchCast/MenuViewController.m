@@ -27,8 +27,6 @@
 @property (nonatomic) NSUInteger amount;
 
 @property (nonatomic, strong) NSMutableArray *alreadyOrderedItems;
-@property (nonatomic, strong) NSMutableArray *changedOrderItems;
-@property (nonatomic, strong) NSMutableArray *addNewOrderItems;
 
 @end
 
@@ -51,7 +49,7 @@
     }
     
     [self.menuLabel setText:meals];
-    [self.etaLabel setText:[NSString stringWithFormat:@"Delivery time: %@ hour",self.restaurant.eta]];
+    [self.etaLabel setText:[NSString stringWithFormat:@"Delivery time: %@ min",self.restaurant.eta]];
     [self.minLabel setText:[NSString stringWithFormat:@"Minimum for order: %@ RSD", self.restaurant.minAmount]];
     
     NSString *tags = @"";
@@ -81,11 +79,18 @@
 
 - (IBAction)onCreateOrder:(UIBarButtonItem *)sender
 {
+    
     BackendlessUser *user = backendless.userService.currentUser;
     
     if (self.alreadyOrderedItems)
     {
-        
+        //delete all OrderItems for user and order
+        for (OrderItem *orderIt in self.alreadyOrderedItems) {
+            [self deleteOrderItem:orderIt];
+        }
+    
+        //create new orderItems for user and order
+        [self createNewOrderItemsForOrder:self.order andUser:user];
         
     }
     else
@@ -93,16 +98,7 @@
         if (self.isOrderCreated)
         {
             [self performSegueWithIdentifier:@"makeOrder" sender:nil];
-            for (MenuCell *cell in [self.tableView visibleCells]) {
-                if (cell.amount!=0) {
-                    OrderItem *orderItem = [OrderItem new];
-                    orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
-                    orderItem.meal = cell.meal;
-                    orderItem.order_id = self.order;
-                    orderItem.orderer = user;
-                    [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
-                }
-            }
+            [self createNewOrderItemsForOrder:self.order andUser:user];
         }
         else
         {
@@ -114,23 +110,45 @@
             [backendless.persistenceService save:order response:^(Order *result) {
                 self.order = order;
                 [self performSegueWithIdentifier:@"makeOrder" sender:nil];
-                for (MenuCell *cell in [self.tableView visibleCells]) {
-                    if (cell.amount!=0) {
-                        OrderItem *orderItem = [OrderItem new];
-                        orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
-                        orderItem.meal = cell.meal;
-                        orderItem.order_id = order;
-                        orderItem.orderer = user;
-                        [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
-                    }
+                [self createNewOrderItemsForOrder:order andUser:user];
                 }
-            }
-                                           error:^(Fault *fault) {
-                                               
-                                           }];
+                                           error:^(Fault *fault) {}];
         }
     }
     
+}
+-(void)createNewOrderItemsForOrder: (Order *)order andUser: (BackendlessUser *)user
+{
+    for (MenuCell *cell in [self.tableView visibleCells]) {
+        if (cell.amount!=0) {
+            OrderItem *orderItem = [OrderItem new];
+            orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
+            orderItem.meal = cell.meal;
+            orderItem.order_id = order;
+            orderItem.orderer = user;
+            [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
+        }
+    }
+}
+
+-(void)deleteOrderItem:(OrderItem *)orderItem
+{
+    Responder *responder = [Responder responder:self
+                             selResponseHandler:@selector(responseHandler:)
+                                selErrorHandler:@selector(errorHandler:)];
+    id<IDataStore> dataStore = [backendless.persistenceService of:[OrderItem class]];
+    [dataStore remove:orderItem responder:responder];
+}
+
+#pragma mark - responder
+-(id)responseHandler:(id)response
+{
+    NSLog(@"%@", response);
+    return response;
+}
+-(id)errorHandler:(Fault *)fault
+{
+    return fault;
 }
 
 #pragma mark - MenuCellDelegate method
@@ -139,14 +157,33 @@
 {
     self.amount += amount;
     [self.amountLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.amount]];
-    
-    for (OrderItem *item in self.alreadyOrderedItems) {
-        if ([item.meal.objectId isEqualToString:meal.objectId]) {
-            //if 0 -delete //if exsist, don't add
-            [self.changedOrderItems addObject:item];
-        }
-    }
-    
+//    
+//    for (OrderItem *item in self.alreadyOrderedItems) {
+//        if ([item.meal.objectId isEqualToString:meal.objectId]) {
+//            //if 0 -delete //if exsist, don't ad
+//            if (amount !=0) {
+//                
+//                for (OrderItem *orderIT in self.changedOrderItems) {
+//                    if ([orderIT.objectId isEqualToString:item.objectId]) {
+//                        [self.changedOrderItems removeObject:orderIT];
+//                    }
+//                }
+//                [self.changedOrderItems addObject:item];
+//
+//                
+//                if ([self.deleteOrderItems containsObject:item]) {
+//                    [self.deleteOrderItems removeObject:item];
+//                }
+//            }
+//            else
+//            {
+//                [self.changedOrderItems removeObject:item];
+//                [self.deleteOrderItems addObject:item];
+//            }
+//
+//        }
+//    }
+//    
 }
 
 #pragma mark - Table view data source

@@ -81,7 +81,7 @@
     }
     
     [cell.menu setText:meals];
-    [cell.eta setText:[NSString stringWithFormat:@"Delivery time: %@ hour",restaurant.eta]];
+    [cell.eta setText:[NSString stringWithFormat:@"Delivery time: %@ min",restaurant.eta]];
     [cell.min setText:[NSString stringWithFormat:@"Minimum for order: %@ RSD", restaurant.minAmount]];
     
     NSString *tags = @"";

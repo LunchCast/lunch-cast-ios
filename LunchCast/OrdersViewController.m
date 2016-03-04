@@ -87,7 +87,7 @@
     
     [cell.menu setText:meals];
     
-    [cell.eta setText:[NSString stringWithFormat:@"Delivery time: %@ hour",order.restaurant.eta]];
+    [cell.eta setText:[NSString stringWithFormat:@"Delivery time: %@ min",order.restaurant.eta]];
 
     [cell.orderer setText:[NSString stringWithFormat:@"Order admin: %@",order.order_creator.name]];
     
