@@ -26,6 +26,8 @@
 
 @property (nonatomic) NSUInteger amount;
 
+@property (nonatomic, strong) NSMutableArray *alreadyOrderedMeals;
+
 @end
 
 @implementation MenuViewController
@@ -35,7 +37,6 @@
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem.title = self.isOrderCreated ? @"Add" : @"Create";
     [self setRestaurantDetails];
-
 }
 
 -(void)setRestaurantDetails
@@ -58,50 +59,72 @@
         tags = [tags stringByAppendingString:tag.name];
     }
     [self.tagsLabel setText:tags];
+    
+    self.alreadyOrderedMeals = [NSMutableArray new];
+    
+    BackendlessUser *user = backendless.userService.currentUser;
+    
+    BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
+    dataQuery.whereClause = [NSString stringWithFormat:@"order_id.objectId = \'%@\' AND orderer.objectId = \'%@\'", self.order.objectId, user.objectId];
+    
+    [backendless.persistenceService find:[OrderItem class]
+                               dataQuery:dataQuery
+                                response:^(BackendlessCollection *collection){
+                                    [self.alreadyOrderedMeals addObjectsFromArray:collection.data];
+                                }
+                                   error:^(Fault *fault) {}];
+
 }
 
 - (IBAction)onCreateOrder:(UIBarButtonItem *)sender
 {
     BackendlessUser *user = backendless.userService.currentUser;
     
-    if (self.isOrderCreated)
+    if (self.alreadyOrderedMeals)
     {
-        [self performSegueWithIdentifier:@"makeOrder" sender:nil];
-        for (MenuCell *cell in [self.tableView visibleCells]) {
-            if (cell.amount!=0) {
-                OrderItem *orderItem = [OrderItem new];
-                orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
-                orderItem.meal = cell.meal;
-                orderItem.order_id = self.order;
-                orderItem.orderer = user;
-                [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
-            }
-        }
+        
     }
     else
     {
-        Order *order = [Order new];
-        order.order_time = [backendless randomString:MIN(25,36)];
-        order.state = [NSNumber numberWithInt:0];
-        order.restaurant = self.restaurant;
-        order.order_creator = user;
-        [backendless.persistenceService save:order response:^(Order *result) {
-            self.order = order;
+        if (self.isOrderCreated)
+        {
             [self performSegueWithIdentifier:@"makeOrder" sender:nil];
             for (MenuCell *cell in [self.tableView visibleCells]) {
                 if (cell.amount!=0) {
                     OrderItem *orderItem = [OrderItem new];
                     orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
                     orderItem.meal = cell.meal;
-                    orderItem.order_id = order;
+                    orderItem.order_id = self.order;
                     orderItem.orderer = user;
                     [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
                 }
             }
         }
-                                       error:^(Fault *fault) {
-                                           
-                                       }];
+        else
+        {
+            Order *order = [Order new];
+            order.order_time = [backendless randomString:MIN(25,36)];
+            order.state = [NSNumber numberWithInt:0];
+            order.restaurant = self.restaurant;
+            order.order_creator = user;
+            [backendless.persistenceService save:order response:^(Order *result) {
+                self.order = order;
+                [self performSegueWithIdentifier:@"makeOrder" sender:nil];
+                for (MenuCell *cell in [self.tableView visibleCells]) {
+                    if (cell.amount!=0) {
+                        OrderItem *orderItem = [OrderItem new];
+                        orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
+                        orderItem.meal = cell.meal;
+                        orderItem.order_id = order;
+                        orderItem.orderer = user;
+                        [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
+                    }
+                }
+            }
+                                           error:^(Fault *fault) {
+                                               
+                                           }];
+        }
     }
     
 }
@@ -138,6 +161,12 @@
     [cell.name setText: [meal.name stringByAppendingString:@"  "]];
     [cell.price setText:[NSString stringWithFormat:@"%@ RSD", meal.price]];
     [cell.details setText:meal.description];
+    
+    for (OrderItem *mealC in self.alreadyOrderedMeals) {
+        if ([mealC.objectId isEqualToString:meal.objectId]) {
+            cell.amount = [mealC.quantity intValue];
+        }
+    }
     
     return cell;
 }
