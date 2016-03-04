@@ -14,8 +14,8 @@ green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
 blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
 alpha:1.0]
 
-#define lunchCastGrayColor   colorWithWhite:0.5 alpha:0.8
-#define lunchCastTintColor 0x5A7E6A
+#define lunchCastDarkGrayColor  0x323632
+#define lunchCastTintColor      lunchCastDarkGrayColor
 
 @interface Utilities : NSObject
 

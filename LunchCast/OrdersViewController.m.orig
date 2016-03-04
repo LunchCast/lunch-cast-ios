@@ -31,8 +31,13 @@
     
     self.navigationItem.title = @"Orders";
     
+<<<<<<< HEAD
+    self.searchResults = [NSArray new];
+
+=======
     self.searchResults = [NSMutableArray new];
     
+>>>>>>> 9dfb856a02ed2837e9f6d5341cc19c3f6f52b898
     //basic search for Orders
     
     QueryOptions *queryOptions = [QueryOptions query];

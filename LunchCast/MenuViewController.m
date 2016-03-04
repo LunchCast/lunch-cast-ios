@@ -33,9 +33,9 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem.title = self.isOrderCreated ? @"ADD" : @"CREATE";
-    self.navigationItem.title = self.restaurant.name;
+    self.navigationItem.rightBarButtonItem.title = self.isOrderCreated ? @"Add" : @"Create";
     [self setRestaurantDetails];
+
 }
 
 -(void)setRestaurantDetails
@@ -150,5 +150,6 @@
         odvc.order = self.order;
     }
 }
+
 
 @end
