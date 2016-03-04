@@ -10,6 +10,7 @@
 #import "Backendless.h"
 #import "Restaurant.h"
 #import "Tag.h"
+#import "MenuViewController.h"
 
 @interface OrderDetailsViewController() <UITableViewDelegate, UITableViewDataSource>
 
@@ -114,6 +115,17 @@
     return ([self.order.order_creator.email isEqualToString:backendless.userService.currentUser.email]);
 }
 
+#pragma mark - Segue
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"toMenu"])
+    {
+        MenuViewController *mvc = (MenuViewController *)segue.destinationViewController;
+        mvc.restaurant = self.order.restaurant;
+        mvc.orderCreated = NO;
+    }
+}
 
 
 @end
