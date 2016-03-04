@@ -10,13 +10,15 @@
 #import "MenuViewController.h"
 #import "Backendless.h"
 #import "Order.h"
+#import "OrderItem.h"
 #import "Tag.h"
+#import "Meal.h"
 #import "Restaurant.h"
 #import "OrdersCell.h"
 
 @interface OrdersViewController()
 
-@property (nonatomic, strong) NSArray *searchResults;
+@property (nonatomic, strong) NSMutableArray *searchResults;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
 
@@ -29,7 +31,7 @@
     
     self.navigationItem.title = @"Orders";
     
-    self.searchResults = [NSArray new];
+    self.searchResults = [NSMutableArray new];
     
     //basic search for Orders
     
@@ -42,13 +44,16 @@
                                dataQuery:dataQuery
                                 response:^(BackendlessCollection *collection) {
                                     
-                                    self.searchResults = collection.data;
+                                    for (Order *order in collection.data) {
+                                        if ([order.state intValue]<2) {
+                                            [self.searchResults addObject:order];
+                                        }
+                                    }
                                     [self.tableView reloadData];
                                 }
                                    error:^(Fault *fault) {
                                        
                                    }];
-    
     
 }
 
@@ -69,17 +74,32 @@
     OrdersCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Order" forIndexPath:indexPath];
     
     Order *order = self.searchResults[indexPath.row];
+    cell.order = order;
+    [cell.restaurantName setText: order.restaurant.name];
     
-    [cell.restaurantLabel setText: order.restaurant.name];
-    
-    NSString *tags = @"";
-    for(Tag *tag in order.restaurant.tags)
+    NSString *meals = @"";
+    for(Meal *meal in order.restaurant.meals)
     {
-        tags = [tags stringByAppendingString:tag.name];
-        tags = [tags stringByAppendingString:@", "];
+        meals = [meals stringByAppendingString:meal.name];
+        meals = [meals stringByAppendingString:@", "];
     }
     
-    [cell.tagsLabel setText:tags];
+    [cell.menu setText:meals];
+    
+    [cell.eta setText:[NSString stringWithFormat:@"Delivery time: %@ hour",order.restaurant.eta]];
+
+    [cell.orderer setText:[NSString stringWithFormat:@"Order admin: %@",order.order_creator.name]];
+    
+    if ([order.state intValue] == 0)
+    {
+        //otvorena
+        [cell.statusImageView setImage:[UIImage imageNamed:@"open"]];
+    }
+    else if ([order.state intValue] ==1)
+    {
+        //zatvorena
+        [cell.statusImageView setImage:[UIImage imageNamed:@"closed"]];
+    }
     
     return cell;
 }

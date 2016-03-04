@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Order.h"
 
 @interface OrdersCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *tagsLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *redGreenImageView;
-@property (weak, nonatomic) IBOutlet UILabel *restaurantLabel;
+@property (weak, nonatomic) IBOutlet UILabel *restaurantName;
+@property (weak, nonatomic) IBOutlet UILabel *menu;
+@property (weak, nonatomic) IBOutlet UILabel *eta;
+@property (weak, nonatomic) IBOutlet UILabel *orderer;
+
+@property (weak, nonatomic) IBOutlet UIImageView *statusImageView;
+
+@property (nonatomic, strong) Order *order;
 
 @end
