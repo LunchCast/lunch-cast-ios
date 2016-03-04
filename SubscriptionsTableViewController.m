@@ -26,7 +26,7 @@
 
     self.tags = [NSArray new];
     
-    BackendlessUser *user = backendless.userService.currentUser;
+//    BackendlessUser *user = backendless.userService.currentUser;
     
     QueryOptions *queryOptions = [QueryOptions query];
     queryOptions.relationsDepth = @1;
@@ -45,19 +45,39 @@
                                        
                                    }];
     
+    
+    [self getUserSubscription];
+//    
+//    [backendless.persistenceService find:[UserSubscription class]
+//                               dataQuery:[BackendlessDataQuery query]
+//                                response:^(BackendlessCollection *collection){
+//                                    for (UserSubscription *userSub in collection.data) {
+//                                        if ([userSub.userId isEqualToString: user.objectId]) {
+//                                            self.userSubscription = userSub;
+//                                            [self.tableView reloadData];
+//                                        }
+//                                    }
+//                                }
+//    error:^(Fault *fault) {}];
+    
+    
+
+}
+-(void)getUserSubscription
+{
+    BackendlessUser *user = backendless.userService.currentUser;
+
+    BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
+    dataQuery.whereClause = [NSString stringWithFormat:@"userId = \'%@\'", user.objectId];
     [backendless.persistenceService find:[UserSubscription class]
-                               dataQuery:[BackendlessDataQuery query]
+                               dataQuery:dataQuery
                                 response:^(BackendlessCollection *collection){
-                                    for (UserSubscription *userSub in collection.data) {
-                                        if ([userSub.userId isEqualToString: user.objectId]) {
-                                            self.userSubscription = userSub;
-                                            [self.tableView reloadData];
-                                        }
+                                    if ([collection.data count]) {
+                                    self.userSubscription = [collection.data objectAtIndex:0];
+                                    [self.tableView reloadData];
                                     }
                                 }
-    error:^(Fault *fault) {}];
-    
-    
+                                   error:^(Fault *fault) {}];
 
 }
 
@@ -78,7 +98,7 @@
     
     for (Tag *tag1 in self.userSubscription.tags) {
         if ([tag1.objectId isEqualToString:tag.objectId]) {
-            [cell setSelected:YES];
+            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
         }
     }
     
