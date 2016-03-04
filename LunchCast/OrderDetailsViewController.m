@@ -8,13 +8,22 @@
 
 #import "OrderDetailsViewController.h"
 #import "Backendless.h"
+#import "Restaurant.h"
+#import "Tag.h"
 
 @interface OrderDetailsViewController() <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (weak, nonatomic) IBOutlet UIButton *bottomButton;
-@property (weak, nonatomic) IBOutlet UIView *infoView;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *deliveryTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *minimumForOrderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tagsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *creatorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentPriceLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *cancelOrderButton;
+@property (weak, nonatomic) IBOutlet UIButton *completeOrderButton;
 
 @end
 
@@ -27,8 +36,64 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    [self setupLabels];
 
 }
+
+- (void)setupLabels
+{
+    self.descriptionLabel.text = self.order.description;
+    self.deliveryTimeLabel.text = self.order.order_time;
+    self.minimumForOrderLabel.text = [NSString stringWithFormat:@"%@ rsd", self.order.restaurant.minAmount];
+    self.creatorLabel.text = self.order.order_creator.name;
+
+    [self setTags];
+    [self setPrices];
+}
+
+- (void)setTags
+{
+    BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
+    dataQuery.whereClause = [NSString stringWithFormat:@"restaurantId = \'%@\'", self.order.restaurant.objectId];
+    [backendless.persistenceService find:[Tag class]
+                               dataQuery:dataQuery
+                                response:^(BackendlessCollection *collection){
+                                    if ([collection.data count]) {
+                                        NSArray *tags = [NSArray arrayWithArray:collection.data];
+                                        NSString *tagString = @"";
+                                        for (Tag *t in tags)
+                                        {
+                                            NSString *name = [NSString stringWithFormat:@"#%@ ", t.name];
+                                            tagString = [tagString stringByAppendingString:name];
+                                        }
+                                    }
+                                }
+                                   error:^(Fault *fault) {
+                                       NSLog(@"Failed to retrieve tags with error: %@", fault.message);
+                                   }];
+}
+
+- (void)setPrices
+{
+    
+}
+
+- (IBAction)cancelOrderButtonAction:(id)sender
+{
+    
+}
+
+- (IBAction)completeOrderButtonAction:(id)sender
+{
+    
+}
+
+- (IBAction)pokeButtonAction:(id)sender
+{
+    
+}
+
 
 #pragma mark - Table view delegate & data source
 

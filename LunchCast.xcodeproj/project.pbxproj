@@ -27,6 +27,7 @@
 		7AD2519F1C76942B00091C75 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2519E1C76942B00091C75 /* MenuViewController.m */; };
 		7AF3C60C1C86505600555E98 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF3C60B1C86505600555E98 /* MenuCell.m */; };
 		D61489C11C88D3C0003E917D /* SubscriptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D61489C01C88D3C0003E917D /* SubscriptionsTableViewController.m */; };
+		D61489C41C8A2215003E917D /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D61489C31C8A2215003E917D /* GroupTableViewCell.m */; };
 		D687C0731C7A053D00C0B1D6 /* SignInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C0701C7A053D00C0B1D6 /* SignInVC.m */; };
 		D687C0771C7A058D00C0B1D6 /* Validator.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C0761C7A058D00C0B1D6 /* Validator.m */; };
 		D687C07B1C7A05BB00C0B1D6 /* UIAlertController+EasyInit.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C07A1C7A05BB00C0B1D6 /* UIAlertController+EasyInit.m */; };
@@ -92,6 +93,8 @@
 		7AF3C60B1C86505600555E98 /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCell.m; sourceTree = SOURCE_ROOT; };
 		D61489BF1C88D3C0003E917D /* SubscriptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionsTableViewController.h; sourceTree = SOURCE_ROOT; };
 		D61489C01C88D3C0003E917D /* SubscriptionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionsTableViewController.m; sourceTree = SOURCE_ROOT; };
+		D61489C21C8A2215003E917D /* GroupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		D61489C31C8A2215003E917D /* GroupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		D687C06F1C7A053D00C0B1D6 /* SignInVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInVC.h; sourceTree = SOURCE_ROOT; };
 		D687C0701C7A053D00C0B1D6 /* SignInVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInVC.m; sourceTree = SOURCE_ROOT; };
 		D687C0751C7A058D00C0B1D6 /* Validator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Validator.h; sourceTree = SOURCE_ROOT; };
@@ -367,6 +370,8 @@
 				D687C07E1C7A05D600C0B1D6 /* CustomActivityIndicator.m */,
 				7AD251941C768E9A00091C75 /* OrdersCell.h */,
 				7AD251951C768E9A00091C75 /* OrdersCell.m */,
+				D61489C21C8A2215003E917D /* GroupTableViewCell.h */,
+				D61489C31C8A2215003E917D /* GroupTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -940,6 +945,7 @@
 				7A7D04E21C88DF0200710F16 /* Restaurant.m in Sources */,
 				7AD2519F1C76942B00091C75 /* MenuViewController.m in Sources */,
 				D687C0851C7A05F100C0B1D6 /* AccountManager.m in Sources */,
+				D61489C41C8A2215003E917D /* GroupTableViewCell.m in Sources */,
 				D687C08E1C7A064700C0B1D6 /* PushNotificationRegistrator.m in Sources */,
 				7A7D04DF1C88DF0200710F16 /* UserSubscription.m in Sources */,
 				D687C0771C7A058D00C0B1D6 /* Validator.m in Sources */,

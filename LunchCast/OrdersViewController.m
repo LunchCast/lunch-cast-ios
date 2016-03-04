@@ -7,7 +7,8 @@
 //
 
 #import "OrdersViewController.h"
-#import "MenuViewController.h"
+#import "OrderDetailsViewController.h"
+#import "CreateOrderViewController.h"
 #import "Backendless.h"
 #import "Order.h"
 #import "OrderItem.h"
@@ -108,16 +109,13 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"chooseMeal"])
+    if ([segue.identifier isEqualToString:@"openOrder"])
     {
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
         Order *order = self.searchResults[path.row];
-        MenuViewController *mvc = (MenuViewController *)segue.destinationViewController;
+        OrderDetailsViewController *mvc = (OrderDetailsViewController *)segue.destinationViewController;
         mvc.order = order;
-        mvc.restaurant = order.restaurant;
-        mvc.orderCreated = YES;
     }
 }
-
 
 @end
