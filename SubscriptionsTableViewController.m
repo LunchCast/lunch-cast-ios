@@ -47,21 +47,7 @@
     
     
     [self getUserSubscription];
-//    
-//    [backendless.persistenceService find:[UserSubscription class]
-//                               dataQuery:[BackendlessDataQuery query]
-//                                response:^(BackendlessCollection *collection){
-//                                    for (UserSubscription *userSub in collection.data) {
-//                                        if ([userSub.userId isEqualToString: user.objectId]) {
-//                                            self.userSubscription = userSub;
-//                                            [self.tableView reloadData];
-//                                        }
-//                                    }
-//                                }
-//    error:^(Fault *fault) {}];
     
-    
-
 }
 -(void)getUserSubscription
 {

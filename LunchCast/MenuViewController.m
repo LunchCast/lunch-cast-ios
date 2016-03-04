@@ -26,7 +26,9 @@
 
 @property (nonatomic) NSUInteger amount;
 
-@property (nonatomic, strong) NSMutableArray *alreadyOrderedMeals;
+@property (nonatomic, strong) NSMutableArray *alreadyOrderedItems;
+@property (nonatomic, strong) NSMutableArray *changedOrderItems;
+@property (nonatomic, strong) NSMutableArray *addNewOrderItems;
 
 @end
 
@@ -60,7 +62,7 @@
     }
     [self.tagsLabel setText:tags];
     
-    self.alreadyOrderedMeals = [NSMutableArray new];
+    self.alreadyOrderedItems = [NSMutableArray new];
     
     BackendlessUser *user = backendless.userService.currentUser;
     
@@ -70,7 +72,8 @@
     [backendless.persistenceService find:[OrderItem class]
                                dataQuery:dataQuery
                                 response:^(BackendlessCollection *collection){
-                                    [self.alreadyOrderedMeals addObjectsFromArray:collection.data];
+                                    [self.alreadyOrderedItems addObjectsFromArray:collection.data];
+                                    [self.tableView reloadData];
                                 }
                                    error:^(Fault *fault) {}];
 
@@ -80,8 +83,9 @@
 {
     BackendlessUser *user = backendless.userService.currentUser;
     
-    if (self.alreadyOrderedMeals)
+    if (self.alreadyOrderedItems)
     {
+        
         
     }
     else
@@ -136,6 +140,13 @@
     self.amount += amount;
     [self.amountLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.amount]];
     
+    for (OrderItem *item in self.alreadyOrderedItems) {
+        if ([item.meal.objectId isEqualToString:meal.objectId]) {
+            //if 0 -delete //if exsist, don't add
+            [self.changedOrderItems addObject:item];
+        }
+    }
+    
 }
 
 #pragma mark - Table view data source
@@ -162,9 +173,9 @@
     [cell.price setText:[NSString stringWithFormat:@"%@ RSD", meal.price]];
     [cell.details setText:meal.description];
     
-    for (OrderItem *mealC in self.alreadyOrderedMeals) {
-        if ([mealC.objectId isEqualToString:meal.objectId]) {
-            cell.amount = [mealC.quantity intValue];
+    for (OrderItem *orderIt in self.alreadyOrderedItems) {
+        if ([orderIt.meal.objectId isEqualToString:meal.objectId]) {
+            cell.amount = [orderIt.quantity intValue];
         }
     }
     
