@@ -8,9 +8,9 @@
 
 @property (nonatomic, strong) NSDate *created;
 
-@property (nonatomic, strong) NSString *price;
+@property (nonatomic, strong) NSNumber *price;
 
-@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *mealDescription;
 
 @property (nonatomic, strong) NSDate *updated;
 

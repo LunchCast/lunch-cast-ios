@@ -11,6 +11,9 @@
 #import "Restaurant.h"
 #import "Tag.h"
 #import "MenuViewController.h"
+#import "OrderItem.h"
+#import "Meal.h"
+#import "GroupTableViewCell.h"
 
 @interface OrderDetailsViewController() <UITableViewDelegate, UITableViewDataSource>
 
@@ -25,6 +28,10 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *cancelOrderButton;
 @property (weak, nonatomic) IBOutlet UIButton *completeOrderButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *switchButton;
+@property (weak, nonatomic) IBOutlet UIButton *pokeButton;
+
+@property (nonatomic, strong)NSArray *orderItems;
 
 @end
 
@@ -37,46 +44,79 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    [self setupLabels];
 
+    [self setupLabels];
+    [self requestOrderItems];
+    if ([self isOwner])
+    {
+        self.creatorLabel.hidden = YES;
+    }
+    else
+    {
+        self.cancelOrderButton.hidden = YES;
+        self.completeOrderButton.hidden = YES;
+        [self.switchButton setEnabled:NO];
+        [self.switchButton setTintColor: [UIColor clearColor]];
+        self.pokeButton.hidden = YES;
+    }
 }
 
 - (void)setupLabels
 {
-    self.descriptionLabel.text = self.order.description;
-    self.deliveryTimeLabel.text = self.order.order_time;
-    self.minimumForOrderLabel.text = [NSString stringWithFormat:@"%@ rsd", self.order.restaurant.minAmount];
-    self.creatorLabel.text = self.order.order_creator.name;
-
+    self.descriptionLabel.text = [NSString stringWithFormat:@"Ordering from %@", self.order.restaurant.name];
+    self.deliveryTimeLabel.text = [NSString stringWithFormat:@"ETA: %@ mins", self.order.restaurant.eta];
+    self.minimumForOrderLabel.text = [NSString stringWithFormat:@"Minimum: %@ RSD", self.order.restaurant.minAmount];
+    self.creatorLabel.text = [NSString stringWithFormat:@"Created by: %@", self.order.order_creator.name];
+    NSString *prePriceString = [NSString stringWithFormat:@"Total: 0/%@ RSD", self.order.restaurant.minAmount];
+    self.currentPriceLabel.text = prePriceString;
+    
     [self setTags];
-    [self setPrices];
 }
 
 - (void)setTags
 {
+    NSString *tagString = @"";
+    for (Tag *t in self.order.restaurant.tags)
+    {
+        NSString *name = [NSString stringWithFormat:@"#%@ ", t.name];
+        tagString = [tagString stringByAppendingString:name];
+    }
+    self.tagsLabel.text = tagString;
+}
+
+- (void)setPricesForItems:(NSArray *)orderItems
+{
+    NSString *priceString = @"";
+    int currentPrice = 0;
+    for (OrderItem *o in orderItems)
+    {
+        currentPrice += [o.meal.price intValue];
+        currentPrice *= [o.quantity intValue];
+    }
+    priceString = [NSString stringWithFormat:@"Total: %d/%@ RSD", currentPrice, self.order.restaurant.minAmount];
+    self.currentPriceLabel.text = priceString;
+}
+
+- (void)orderItemsReceived:(NSArray *)orderItems
+{
+    [self setPricesForItems:orderItems];
+    self.orderItems = [NSArray arrayWithArray:orderItems];
+    [self.tableView reloadData];
+}
+
+- (void)requestOrderItems
+{
     BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
-    dataQuery.whereClause = [NSString stringWithFormat:@"restaurantId = \'%@\'", self.order.restaurant.objectId];
-    [backendless.persistenceService find:[Tag class]
+    dataQuery.whereClause = [NSString stringWithFormat:@"order_id.objectId = \'%@\'", self.order.objectId];
+    [backendless.persistenceService find:[OrderItem class]
                                dataQuery:dataQuery
                                 response:^(BackendlessCollection *collection){
-                                    if ([collection.data count]) {
-                                        NSArray *tags = [NSArray arrayWithArray:collection.data];
-                                        NSString *tagString = @"";
-                                        for (Tag *t in tags)
-                                        {
-                                            NSString *name = [NSString stringWithFormat:@"#%@ ", t.name];
-                                            tagString = [tagString stringByAppendingString:name];
-                                        }
-                                    }
+                                    NSArray *orderItems = [NSArray arrayWithArray:collection.data];
+                                    [self orderItemsReceived:orderItems];
                                 }
                                    error:^(Fault *fault) {
                                        NSLog(@"Failed to retrieve tags with error: %@", fault.message);
                                    }];
-}
-
-- (void)setPrices
-{
     
 }
 
@@ -95,17 +135,28 @@
     
 }
 
+- (IBAction)switchButtonAction:(id)sender
+{
+
+}
 
 #pragma mark - Table view delegate & data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return self.orderItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    GroupTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"groupCell" forIndexPath:indexPath];
+
+    OrderItem *item = self.orderItems[indexPath.row];
+    cell.titleLabel.text = [NSString stringWithFormat:@"x%d %@", [item.quantity intValue], item.meal.name];
+    cell.descriptionLabel.text = item.orderer.name;
+    cell.priceLabel.text = [NSString stringWithFormat:@"%d RSD", ([item.meal.price intValue] * [item.quantity intValue])];
+    
+    return cell;
 }
 
 #pragma mark - Utilities

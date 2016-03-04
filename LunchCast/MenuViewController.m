@@ -80,12 +80,12 @@
 {
     BackendlessUser *user = backendless.userService.currentUser;
     
-    if (self.alreadyOrderedMeals)
-    {
-        
-    }
-    else
-    {
+//    if (self.alreadyOrderedMeals)
+//    {
+//        
+//    }
+//    else
+//    {
         if (self.isOrderCreated)
         {
             [self performSegueWithIdentifier:@"makeOrder" sender:nil];
@@ -109,7 +109,7 @@
             order.order_creator = user;
             [backendless.persistenceService save:order response:^(Order *result) {
                 self.order = order;
-                [self performSegueWithIdentifier:@"makeOrder" sender:nil];
+//                [self performSegueWithIdentifier:@"makeOrder" sender:nil];
                 for (MenuCell *cell in [self.tableView visibleCells]) {
                     if (cell.amount!=0) {
                         OrderItem *orderItem = [OrderItem new];
@@ -125,7 +125,7 @@
                                                
                                            }];
         }
-    }
+//    }
     
 }
 
