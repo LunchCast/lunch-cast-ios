@@ -312,7 +312,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="udW-gh-sb5" id="ptg-0q-pnn">
-                                            <rect key="frame" x="0.0" y="0.0" width="533" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="533" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBW-q1-w8e">
@@ -623,7 +623,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PoE-Vu-FJy" id="p5J-r3-s7c">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.1960784314" green="0.21176470589999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>

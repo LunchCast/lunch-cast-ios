@@ -23,7 +23,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [backendless initApp:APP_ID secret:SECRET_KEY version:VERSION_NUM];
-    
+    [backendless.userService setStayLoggedIn:YES];
+
     
     // Customize Navigation Bar
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];

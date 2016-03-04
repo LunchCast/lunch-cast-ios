@@ -19,4 +19,7 @@
 - (void)didLogInUser:(BackendlessUser *)user;
 - (void)didFailToLogInUserWithError:(NSString *)error;
 
+- (void)didLogOutUser;
+- (void)didFailToLogOutUserWithError:(NSString *)error;
+
 @end

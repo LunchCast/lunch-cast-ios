@@ -60,6 +60,7 @@
 {
     [AccountData setPassword:@""];
     [AccountData setUserToken:@""];
+    [self userLogout];
 }
 
 - (void)setUserEmail:(NSString *)email andPassword:(NSString *)password
@@ -75,7 +76,7 @@
 
 - (BOOL)isLoggedIn
 {
-    return (![[AccountData getUserToken] isEqualToString:@""]);
+    return backendless.userService.currentUser != nil;
 }
 
 - (void)eraseUserData
@@ -113,6 +114,19 @@
     [backendless.userService login:[AccountData getEmail] password:[AccountData getPassword] responder:responder];
 }
 
+-(void)userLogout
+{
+    Responder *responder = [Responder responder:self
+                             selResponseHandler:@selector(logoutResponseHandler:)
+                                selErrorHandler:@selector(logoutErrorHandler:)];
+    [backendless.userService logout:responder];
+}
+
+- (void)logoutResponseHandler:(id)response;
+{
+    [self.authDelegate didLogOutUser];
+}
+
 - (void)loginResponseHandler:(id)response;
 {
     BackendlessUser *user = (BackendlessUser *)response;
@@ -146,6 +160,12 @@
 {
     NSLog(@"FAULT = %@ <%@>", fault.message, fault.detail);
     [self.authDelegate didFailToLogInUserWithError:fault.message];
+}
+
+- (void)logoutErrorHandler:(Fault *)fault
+{
+    NSLog(@"FAULT = %@ <%@>", fault.message, fault.detail);
+    [self.authDelegate didFailToLogOutUserWithError:fault.message];
 }
 
 - (void)registerForPushNotifications
