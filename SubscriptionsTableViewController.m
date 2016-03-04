@@ -11,6 +11,7 @@
 #import "Tag.h"
 #import "UserSubscription.h"
 #import "BackendlessEntity.h"
+#import "UIAlertController+EasyInit.h"
 
 @interface SubscriptionsTableViewController ()
 
@@ -114,13 +115,26 @@
 - (IBAction)saveButtonAction:(UIBarButtonItem *)sender
 {
     [backendless.persistenceService first:[UserSubscription class]
-                                 response:^(BackendlessEntity *result) {
-                                     result.objectId = self.userSubscription.objectId;
-                                     [backendless.persistenceService save:self.userSubscription response:^(UserSubscription *result) {
-                                     } error:^(Fault *fault) {}];
-                                 } error:^(Fault *fault) {}];
-    
-    [self.navigationController popViewControllerAnimated:YES];
+                                 response:^(BackendlessEntity *result)
+     {
+         result.objectId = self.userSubscription.objectId;
+         [backendless.persistenceService save:self.userSubscription response:^(UserSubscription *result)
+         {
+             [self dismissViewControllerAnimated:YES completion:nil];
+         } error:^(Fault *fault)
+          {
+              [UIAlertController presentAlertViewErrorWithText:NSLocalizedString(fault.message, nil) andActionTitle:@"OK" onController:self withCompletion:nil];
+
+          }];
+     } error:^(Fault *fault)
+     {
+         [UIAlertController presentAlertViewErrorWithText:NSLocalizedString(fault.message, nil) andActionTitle:@"OK" onController:self withCompletion:nil];
+
+     }];
+}
+- (IBAction)cancelButtonAction:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
