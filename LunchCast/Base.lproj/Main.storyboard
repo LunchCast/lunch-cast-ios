@@ -472,7 +472,7 @@
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <segue destination="SLw-1a-JTL" kind="show" identifier="openMenu" id="0jU-F6-Zfq"/>
+                                            <segue destination="SLw-1a-JTL" kind="show" identifier="toMenu" id="0jU-F6-Zfq"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHr-XA-w47">
