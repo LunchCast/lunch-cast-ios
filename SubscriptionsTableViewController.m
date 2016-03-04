@@ -113,7 +113,16 @@
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Tag *tag = self.tags[indexPath.row];
-    [self.userSubscription.tags removeObject:tag];
+    
+    NSMutableArray *tagsForDeleting = [NSMutableArray new];
+    
+    for (Tag *subTag in self.userSubscription.tags) {
+        if ([subTag.objectId isEqualToString:tag.objectId]) {
+            [tagsForDeleting addObject:subTag];
+        }
+    }
+    
+    [self.userSubscription.tags removeObjectsInArray:tagsForDeleting];
 }
 
 - (IBAction)saveButtonAction:(UIBarButtonItem *)sender
@@ -124,6 +133,8 @@
                                      [backendless.persistenceService save:self.userSubscription response:^(UserSubscription *result) {
                                      } error:^(Fault *fault) {}];
                                  } error:^(Fault *fault) {}];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
