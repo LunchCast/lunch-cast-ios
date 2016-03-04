@@ -42,7 +42,6 @@
     [super viewDidLoad];
     
     self.signIn = NO;
-    [AccountManager sharedInstance].authDelegate = self;
     
     [self customizePlaceholderText];
 }
@@ -50,8 +49,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [AccountManager sharedInstance].authDelegate = self;
     
-    [self tryAutoLogIn];
+    [self startWaiting];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self tryAutoLogIn];
+    });
+    
 }
 
 - (IBAction)mainButtonAction:(UIButton *)sender
@@ -194,6 +198,11 @@
     [UIAlertController presentAlertViewErrorWithText:NSLocalizedString(error, nil) andActionTitle:@"OK" onController:self withCompletion:nil];
 }
 
+- (void)didFailToLogOutUserWithError:(NSString *)error
+{
+     [UIAlertController presentAlertViewErrorWithText:NSLocalizedString(error, nil) andActionTitle:@"OK" onController:self withCompletion:nil];
+}
+
 - (void)didRegisterUser:(BackendlessUser *)user
 {
     [self stopWaiting];
@@ -212,6 +221,12 @@
     [self stopWaiting];
     [self performSegueWithIdentifier:@"toMain" sender:nil];
 }
+
+- (void)didLogOutUser
+{
+    NSLog(@"User logged out");
+}
+
 
 #pragma mark - Utils
 
@@ -234,10 +249,12 @@
 
 - (void)tryAutoLogIn
 {
+    [self stopWaiting];
     if ([[AccountManager sharedInstance] isLoggedIn])
     {
         [self performSegueWithIdentifier:@"toMain" sender:nil];
     }
+
 }
 
 @end
