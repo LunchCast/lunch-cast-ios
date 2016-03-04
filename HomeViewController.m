@@ -15,7 +15,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self customizeNavigationBar];
 }
 
 - (IBAction)logOutButtonAction:(UIBarButtonItem *)sender
@@ -25,20 +24,5 @@
 }
 
 
-#pragma mark Utilities
 
-- (void)customizeNavigationBar
-{
-    self.navigationController.navigationBar.barTintColor = UIColorFromHex(lunchCastTintColor);
-    self.navigationController.navigationBar.translucent = NO;
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    
-    NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIColor whiteColor],NSForegroundColorAttributeName,
-                                    [UIColor whiteColor],NSBackgroundColorAttributeName,
-                                    [UIFont fontWithName:@"HelveticaNeue-Thin" size:22.0], NSFontAttributeName,
-                                    nil];
-    
-    self.navigationController.navigationBar.titleTextAttributes = textAttributes;
-}
 @end

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Backendless.h"
+#import "Utilities.h"
 
 #define APP_ID          @"DC12F089-BB53-9297-FF3A-47B8F24CF100"
 #define SECRET_KEY      @"014707B0-21C9-18B8-FF91-AF2AC2D03500"
@@ -23,8 +24,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [backendless initApp:APP_ID secret:SECRET_KEY version:VERSION_NUM];
     
-
     
+    // Customize Navigation Bar
+    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBarTintColor:UIColorFromHex(lunchCastTintColor)];
+    [[UINavigationBar appearance] setTranslucent:NO];
+    
+    NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIColor whiteColor],NSForegroundColorAttributeName,
+                                    [UIColor whiteColor],NSBackgroundColorAttributeName,
+                                    nil];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:textAttributes];
+
     return YES;
 }
 

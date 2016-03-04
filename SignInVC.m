@@ -45,7 +45,6 @@
     [AccountManager sharedInstance].authDelegate = self;
     
     [self customizePlaceholderText];
-    [self customizeNavigationBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -232,18 +231,6 @@
      self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"password" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
 }
 
-- (void)customizeNavigationBar
-{
-    self.navigationController.navigationBar.barTintColor = UIColorFromHex(lunchCastTintColor);
-    self.navigationController.navigationBar.translucent = NO;
-    NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIColor whiteColor],NSForegroundColorAttributeName,
-                                    [UIColor whiteColor],NSBackgroundColorAttributeName,
-                                    [UIFont fontWithName:@"HelveticaNeue-Thin" size:22.0], NSFontAttributeName,
-                                    nil];
-    
-    self.navigationController.navigationBar.titleTextAttributes = textAttributes;
-}
 
 - (void)tryAutoLogIn
 {

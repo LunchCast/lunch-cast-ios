@@ -28,7 +28,7 @@
     [super viewDidLoad];
     
     self.searchResults = [NSArray new];
-    
+
     //basic search for Restaurants
     
     QueryOptions *queryOptions = [QueryOptions query];
@@ -107,4 +107,6 @@
         mvc.orderCreated = NO;
     }
 }
+
+
 @end

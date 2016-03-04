@@ -30,7 +30,7 @@
     self.navigationItem.title = @"Orders";
     
     self.searchResults = [NSArray new];
-    
+
     //basic search for Orders
     
     QueryOptions *queryOptions = [QueryOptions query];
@@ -98,5 +98,6 @@
         mvc.orderCreated = YES;
     }
 }
+
 
 @end

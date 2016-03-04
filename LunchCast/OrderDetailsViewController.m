@@ -27,6 +27,7 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+
 }
 
 #pragma mark - Table view delegate & data source
@@ -47,5 +48,7 @@
 {
     return ([self.order.order_creator.email isEqualToString:backendless.userService.currentUser.email]);
 }
+
+
 
 @end
