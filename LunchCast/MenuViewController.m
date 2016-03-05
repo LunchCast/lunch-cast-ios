@@ -71,6 +71,9 @@
                                dataQuery:dataQuery
                                 response:^(BackendlessCollection *collection){
                                     [self.alreadyOrderedItems addObjectsFromArray:collection.data];
+                                    if (self.alreadyOrderedItems.count > 0) {
+                                        self.navigationItem.rightBarButtonItem.title = @"Save";
+                                    }
                                     [self.tableView reloadData];
                                 }
                                    error:^(Fault *fault) {}];

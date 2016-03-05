@@ -111,7 +111,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="lunch-cast-logo" translatesAutoresizingMaskIntoConstraints="NO" id="8zx-qM-3iH">
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lunch-cast-logo" translatesAutoresizingMaskIntoConstraints="NO" id="8zx-qM-3iH">
                                 <rect key="frame" x="224" y="547" width="153" height="23"/>
                             </imageView>
                         </subviews>
@@ -699,6 +699,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addMealButton" destination="s3H-eP-p0q" id="Vy9-Z6-axv"/>
                         <outlet property="cancelOrderButton" destination="oyM-XP-Clo" id="CHa-oQ-gm2"/>
                         <outlet property="completeOrderButton" destination="lse-sT-Dfq" id="eTj-oY-EmB"/>
                         <outlet property="creatorLabel" destination="yR8-bd-V7j" id="4Le-7h-B2V"/>
@@ -749,7 +750,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipF-Mw-ODd">
                                 <rect key="frame" x="0.0" y="64" width="600" height="100"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="lunch-cast-logo" translatesAutoresizingMaskIntoConstraints="NO" id="n9E-6W-nnW">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lunch-cast-logo" translatesAutoresizingMaskIntoConstraints="NO" id="n9E-6W-nnW">
                                         <rect key="frame" x="224" y="38" width="153" height="23"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator-restaurants" translatesAutoresizingMaskIntoConstraints="NO" id="YQO-2K-MKo">
