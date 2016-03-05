@@ -25,7 +25,7 @@
 + (void)unregisterForPushNotifications
 {
     [[UIApplication sharedApplication] unregisterForRemoteNotifications];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:UIUserNotificationTypeNone];
 }
 
 

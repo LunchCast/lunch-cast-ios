@@ -45,7 +45,7 @@
     for(Meal *meal in self.restaurant.meals)
     {
         meals = [meals stringByAppendingString:meal.name];
-        meals = [meals stringByAppendingString:@", "];
+        meals = [meals stringByAppendingString:@"; "];
     }
     
     [self.menuLabel setText:meals];
@@ -55,7 +55,7 @@
     NSString *tags = @"";
     for(Tag *tag in self.restaurant.tags)
     {
-        tags = [tags stringByAppendingString:@"#"];
+        tags = [tags stringByAppendingString:@"# "];
         tags = [tags stringByAppendingString:tag.name];
     }
     [self.tagsLabel setText:tags];

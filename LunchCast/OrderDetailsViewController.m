@@ -12,7 +12,6 @@
 #import "Tag.h"
 #import "MenuViewController.h"
 #import "OrderItem.h"
-#import "Meal.h"
 #import "GroupTableViewCell.h"
 
 @interface OrderDetailsViewController() <UITableViewDelegate, UITableViewDataSource>
@@ -33,6 +32,12 @@
 
 @property (nonatomic, strong)NSArray *orderItems;
 
+@property (nonatomic, strong)NSMutableArray *mealGroups;
+@property (nonatomic, strong)NSMutableArray *personGroups;
+
+
+@property (nonatomic)BOOL groupByName;
+
 @end
 
 @implementation OrderDetailsViewController
@@ -45,8 +50,10 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 
+    self.groupByName = NO;
+    
     [self setupLabels];
-    [self requestOrderItems];
+    
     if ([self isOwner])
     {
         self.creatorLabel.hidden = YES;
@@ -59,6 +66,11 @@
         [self.switchButton setTintColor: [UIColor clearColor]];
         self.pokeButton.hidden = YES;
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self requestOrderItems];
 }
 
 - (void)setupLabels
@@ -101,6 +113,39 @@
 {
     [self setPricesForItems:orderItems];
     self.orderItems = [NSArray arrayWithArray:orderItems];
+    
+    self.mealGroups = [NSMutableArray array];
+    self.personGroups = [NSMutableArray array];
+
+    
+    for (OrderItem *oi in orderItems)
+    {
+        // Load groups by Meals
+        BOOL noMeal = YES;
+        for (int i=0; i<self.mealGroups.count; i++)
+        {
+            GroupByMeal *mealGroup = self.mealGroups[i];
+            if ([oi.meal.name isEqualToString:mealGroup.meal.name])
+            {
+                noMeal = NO;
+                [mealGroup.orderers stringByAppendingString:oi.orderer.name];
+                mealGroup.quantity += [oi.quantity intValue];
+                break;
+            }
+        }
+        if (noMeal)
+        {
+            GroupByMeal *newGroup = [[GroupByMeal alloc] init];
+            newGroup.meal = oi.meal;
+            newGroup.orderers = oi.orderer.name;
+            newGroup.quantity += [oi.quantity intValue];
+            [self.mealGroups addObject:newGroup];
+        }
+    }
+    
+    
+    
+    
     [self.tableView reloadData];
 }
 
@@ -137,24 +182,44 @@
 
 - (IBAction)switchButtonAction:(id)sender
 {
-
+    self.groupByName = !self.groupByName;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view delegate & data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.orderItems.count;
+    return self.groupByName ? self.personGroups.count : self.mealGroups.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GroupTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"groupCell" forIndexPath:indexPath];
 
-    OrderItem *item = self.orderItems[indexPath.row];
-    cell.titleLabel.text = [NSString stringWithFormat:@"x%d %@", [item.quantity intValue], item.meal.name];
-    cell.descriptionLabel.text = item.orderer.name;
-    cell.priceLabel.text = [NSString stringWithFormat:@"%d RSD", ([item.meal.price intValue] * [item.quantity intValue])];
+    if (!self.groupByName)
+    {
+        GroupByMeal *mealGroup = self.mealGroups[indexPath.row];
+        
+        cell.titleLabel.text = [NSString stringWithFormat:@"x%d %@", mealGroup.quantity, mealGroup.meal.name];
+        
+//        NSString *guys = [NSString stringWithFormat:@"%@", namesForMeal[0]];
+//        for (NSString *newGuy in namesForMeal)
+//        {
+//            NSString *formattedNewGuy = [NSString stringWithFormat:@", %@", newGuy];
+//            [guys stringByAppendingString:formattedNewGuy];
+//        }
+        
+        cell.descriptionLabel.text = mealGroup.orderers;
+//        cell.priceLabel.text = [NSString stringWithFormat:@"%d RSD", ([item.meal.price intValue] * [item.quantity intValue])];
+    }
+    else
+    {
+        OrderItem *item = self.orderItems[indexPath.row];
+        cell.titleLabel.text = [NSString stringWithFormat:@"x%d %@", [item.quantity intValue], item.meal.name];
+        cell.descriptionLabel.text = item.orderer.name;
+        cell.priceLabel.text = [NSString stringWithFormat:@"%d RSD", ([item.meal.price intValue] * [item.quantity intValue])];
+    }
     
     return cell;
 }
@@ -174,9 +239,20 @@
     {
         MenuViewController *mvc = (MenuViewController *)segue.destinationViewController;
         mvc.restaurant = self.order.restaurant;
-        mvc.orderCreated = NO;
+        mvc.order = self.order;
+        mvc.orderCreated = YES;
     }
 }
 
+
+
+@end
+
+
+@implementation GroupByMeal
+
+@end
+
+@implementation GroupByPerson
 
 @end

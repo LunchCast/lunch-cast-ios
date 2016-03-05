@@ -41,7 +41,8 @@
 {
     [super viewDidLoad];
     
-    self.signIn = NO;
+    self.signIn = YES;
+    [self switchUIToSignIn];
     
     [self customizePlaceholderText];
 }
@@ -124,22 +125,30 @@
 {
     if ([self isSignIn])
     {
-        // switch to create
-        [self changeTitleOnLabel:self.secondaryLabel toTitle:@"Already have an account?"];
-        [self changeTitleOnButton:self.secondaryButton toTitle:@"Sign in"];
-        [self changeTitleOnButton:self.mainButton toTitle:@"Create"];
-        [self changeTitleBarToTitle:@"Create New Account"];
+        [self switchUIToCreate];
     }
     else
     {
-        // switch to sign in
-        [self changeTitleOnLabel:self.secondaryLabel toTitle:@"Don't have an account?"];
-        [self changeTitleOnButton:self.secondaryButton toTitle:@"Create new"];
-        [self changeTitleOnButton:self.mainButton toTitle:@"Sign in"];
-        [self changeTitleBarToTitle:@"Sign In"];
+        [self switchUIToSignIn];
     }
     
     self.signIn = !self.signIn;
+}
+
+- (void)switchUIToSignIn
+{
+    [self changeTitleOnLabel:self.secondaryLabel toTitle:@"Don't have an account?"];
+    [self changeTitleOnButton:self.secondaryButton toTitle:@"Create new"];
+    [self changeTitleOnButton:self.mainButton toTitle:@"Sign in"];
+    [self changeTitleBarToTitle:@"Sign In"];
+}
+
+- (void)switchUIToCreate
+{
+    [self changeTitleOnLabel:self.secondaryLabel toTitle:@"Already have an account?"];
+    [self changeTitleOnButton:self.secondaryButton toTitle:@"Sign in"];
+    [self changeTitleOnButton:self.mainButton toTitle:@"Create"];
+    [self changeTitleBarToTitle:@"Create New Account"];
 }
 
 - (void)changeTitleOnLabel:(UILabel *)label toTitle:(NSString *)title
