@@ -50,7 +50,20 @@
     
     @try {
         NSString *deviceRegistrationId = [backendless.messagingService registerDeviceToken:deviceTokenStr];
+        
         [AccountData setDeviceToken:deviceRegistrationId];
+        BackendlessUser *user = backendless.userService.currentUser;
+        [user setProperty:@"deviceId" object:backendless.messagingService.currentDevice.deviceId];
+        
+        [backendless.userService update:user response:^(BackendlessUser *updatedUser)
+         {
+             [user updateProperties:@{@"deviceId" : backendless.messagingService.currentDevice.deviceId}];
+         }
+                                  error:^(Fault *fault)
+         {
+             NSLog(@"Server reported an error (ASYNC): %@", fault);
+         }];
+        
         NSLog(@"deviceToken = %@, deviceRegistrationId = %@", deviceTokenStr, deviceRegistrationId);
     }
     @catch (Fault *fault) {

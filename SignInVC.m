@@ -43,6 +43,7 @@
     [super viewDidLoad];
     
     self.signIn = YES;
+    [self switchToSignIn];
     
     [self customizePlaceholderText];
 }
@@ -131,24 +132,34 @@
 {
     if ([self isSignIn])
     {
-        // switch to create
-        [self changeTitleOnButton:self.secondaryButton toTitle:@"Already have an account? Log in."];
-        [self.nameField setHidden:NO];
-        [self.passwordTopConstraint setConstant:self.passwordField.frame.size.height + 70.0];
-        [self.mainButton setImage:[UIImage imageNamed: @"sign-up"] forState:UIControlStateNormal];
-        [self.descriptionLabel setText:@"Sing up with your name, email adress and password."];
+        [self switchToCreate];
     }
     else
     {
-        // switch to sign in
-        [self changeTitleOnButton:self.secondaryButton toTitle:@"Don't have an account? Sign up."];
-        [self.passwordTopConstraint setConstant:50.0];
-        [self.nameField setHidden:YES];
-        [self.mainButton setImage:[UIImage imageNamed: @"log-in"] forState:UIControlStateNormal];
-        [self.descriptionLabel setText:@"Log in with your email adress and password."];
+        [self switchToSignIn];
     }
     
     self.signIn = !self.signIn;
+}
+
+- (void)switchToCreate
+{
+    // switch to create
+    [self changeTitleOnButton:self.secondaryButton toTitle:@"Already have an account? Log in."];
+    [self.nameField setHidden:NO];
+    [self.passwordTopConstraint setConstant:self.passwordField.frame.size.height + 70.0];
+    [self.mainButton setImage:[UIImage imageNamed: @"sign-up"] forState:UIControlStateNormal];
+    [self.descriptionLabel setText:@"Sing up with your name, email adress and password."];
+}
+
+- (void)switchToSignIn
+{
+    // switch to sign in
+    [self changeTitleOnButton:self.secondaryButton toTitle:@"Don't have an account? Sign up."];
+    [self.passwordTopConstraint setConstant:50.0];
+    [self.nameField setHidden:YES];
+    [self.mainButton setImage:[UIImage imageNamed: @"log-in"] forState:UIControlStateNormal];
+    [self.descriptionLabel setText:@"Log in with your email adress and password."];
 }
 
 - (void)changeTitleOnLabel:(UILabel *)label toTitle:(NSString *)title

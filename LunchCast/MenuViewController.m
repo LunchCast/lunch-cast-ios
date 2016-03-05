@@ -130,17 +130,23 @@
 
 -(void)createNewOrderItemsForOrder: (Order *)order andUser: (BackendlessUser *)user
 {
-    for (MenuCell *cell in [self.tableView visibleCells]) {
+    for (int i=0; i < [self.tableView visibleCells].count; i++)
+    {
+        MenuCell *cell = [self.tableView visibleCells][i];
         if (cell.amount!=0) {
             OrderItem *orderItem = [OrderItem new];
             orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
             orderItem.meal = cell.meal;
             orderItem.order_id = order;
             orderItem.orderer = user;
-            [backendless.persistenceService save:orderItem response:^(OrderItem *result) {
-            } error:^(Fault *fault) {}];
+            [backendless.persistenceService save:orderItem response:^(OrderItem *result)
+             {
+             } error:^(Fault *fault) {}];
         }
     }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self sendNotificationToOwner];
+    });
 }
 
 -(void)deleteOrderItem:(OrderItem *)orderItem
@@ -150,6 +156,52 @@
                                 selErrorHandler:@selector(errorHandler:)];
     id<IDataStore> dataStore = [backendless.persistenceService of:[OrderItem class]];
     [dataStore remove:orderItem responder:responder];
+}
+
+- (void)sendNotificationToOwner
+{
+    
+    BackendlessUser *owner = self.order.order_creator;
+    
+    BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
+    dataQuery.whereClause = [NSString stringWithFormat:@"objectId = \'%@\'", owner.objectId];
+    [backendless.persistenceService find:[BackendlessUser class]
+                               dataQuery:dataQuery
+                                response:^(BackendlessCollection *collection){
+                                    if ([collection.data count]) {
+                                        NSArray *results = collection.data;
+                                        NSMutableArray *devices = [NSMutableArray array];
+                                        
+                                        for (BackendlessUser *user in results)
+                                        {
+                                            [devices addObject:[user getProperty:@"deviceId"]];
+                                        }
+                                        
+                                        DeliveryOptions *deliveryOptions = [DeliveryOptions new];
+                                        deliveryOptions.pushSinglecast = devices;
+                                        [deliveryOptions pushPolicy:PUSH_ONLY];
+                                        
+                                        PublishOptions *publishOptions = [PublishOptions new];
+                                        [backendless.messagingService publish:@"default" message:@"SomeoneJoinedOrder" publishOptions:publishOptions deliveryOptions:deliveryOptions
+                                                                     response:^(MessageStatus *messageStatus)
+                                         {
+                                             NSLog(@"MessageStatus = %@ <%@>", messageStatus.messageId, messageStatus.status);
+                                         } error:^(Fault *fault)
+                                         {
+                                             NSLog(@"FAULT = %@", fault);
+                                         }
+                                         ];
+                                        
+                                        
+                                    }
+                                }
+                                   error:^(Fault *fault)
+     {
+         NSLog(@"WTF");
+     }];
+    
+    
+
 }
 
 #pragma mark - responder
@@ -193,7 +245,7 @@
     cell.meal = meal;
     [cell.name setText: [meal.name stringByAppendingString:@"  "]];
     [cell.price setText:[NSString stringWithFormat:@"%@ RSD", meal.price]];
-    [cell.details setText:meal.description];
+    [cell.details setText:meal.mealDescription];
     
     for (OrderItem *orderIt in self.alreadyOrderedItems) {
         if ([orderIt.meal.objectId isEqualToString:meal.objectId]) {
