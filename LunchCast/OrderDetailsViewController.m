@@ -91,7 +91,7 @@
 
 - (void)setupLabels
 {
-    self.descriptionLabel.text = [NSString stringWithFormat:@"Ordering from %@", self.order.restaurant.name];
+    self.descriptionLabel.text = [NSString stringWithFormat:@"%@", self.order.restaurant.name];
     self.deliveryTimeLabel.text = [NSString stringWithFormat:@"ETA: %@ mins", self.order.restaurant.eta];
     self.minimumForOrderLabel.text = [NSString stringWithFormat:@"Minimum: %@ RSD", self.order.restaurant.minAmount];
     self.creatorLabel.text = [NSString stringWithFormat:@"Created by: %@", self.order.order_creator.name];
@@ -168,7 +168,7 @@
             if ([oi.orderer.email isEqualToString:personGroup.orderer.email])
             {
                 noPerson = NO;
-                NSString *format = [NSString stringWithFormat:@", %@", oi.meal.name];
+                NSString *format = [NSString stringWithFormat:@", x%d %@", [oi.quantity intValue], oi.meal.name];
                 personGroup.meals = [personGroup.meals stringByAppendingString:format];
                 personGroup.totalPrice += [oi.meal.price intValue] * [oi.quantity intValue];
                 break;
@@ -178,7 +178,8 @@
         {
             GroupByPerson *newGroup = [[GroupByPerson alloc] init];
             newGroup.orderer = oi.orderer;
-            newGroup.meals = oi.meal.name;
+            NSString *format = [NSString stringWithFormat:@"Meals: x%d %@", [oi.quantity intValue], oi.meal.name];
+            newGroup.meals = format;
             newGroup.totalPrice = [oi.meal.price intValue] * [oi.quantity intValue];
             [self.personGroups addObject:newGroup];
         }

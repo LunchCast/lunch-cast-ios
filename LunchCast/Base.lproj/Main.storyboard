@@ -530,7 +530,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User 123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S4w-hU-n2E">
-                                                    <rect key="frame" x="24" y="38" width="58" height="17"/>
+                                                    <rect key="frame" x="24" y="33" width="58" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -547,7 +547,7 @@
                                                 <constraint firstItem="Vdo-jA-9zM" firstAttribute="centerY" secondItem="p5J-r3-s7c" secondAttribute="centerY" id="JsP-Q5-tGA"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Vdo-jA-9zM" secondAttribute="trailing" constant="8" id="Msm-qA-n55"/>
                                                 <constraint firstItem="lkR-9J-WGG" firstAttribute="centerY" secondItem="p5J-r3-s7c" secondAttribute="centerY" constant="-14" id="YDz-cQ-sZn"/>
-                                                <constraint firstItem="S4w-hU-n2E" firstAttribute="top" secondItem="lkR-9J-WGG" secondAttribute="bottom" constant="8" id="YQE-ML-9iy"/>
+                                                <constraint firstItem="S4w-hU-n2E" firstAttribute="top" secondItem="lkR-9J-WGG" secondAttribute="bottom" constant="3" id="YQE-ML-9iy"/>
                                                 <constraint firstItem="lkR-9J-WGG" firstAttribute="leading" secondItem="p5J-r3-s7c" secondAttribute="leadingMargin" constant="16" id="txi-fe-iAu"/>
                                             </constraints>
                                         </tableViewCellContentView>
