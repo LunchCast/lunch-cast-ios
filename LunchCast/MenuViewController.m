@@ -145,7 +145,7 @@
         }
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self sendNotificationToOwner];
+        [self sendNotificationToOthers];
     });
 }
 
@@ -158,13 +158,13 @@
     [dataStore remove:orderItem responder:responder];
 }
 
-- (void)sendNotificationToOwner
+- (void)sendNotificationToOthers
 {
     
-    BackendlessUser *owner = self.order.order_creator;
+//    BackendlessUser *owner = self.order.order_creator;
     
     BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
-    dataQuery.whereClause = [NSString stringWithFormat:@"objectId = \'%@\'", owner.objectId];
+    
     [backendless.persistenceService find:[BackendlessUser class]
                                dataQuery:dataQuery
                                 response:^(BackendlessCollection *collection){
