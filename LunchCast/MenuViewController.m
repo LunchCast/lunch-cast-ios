@@ -55,7 +55,7 @@
     NSString *tags = @"";
     for(Tag *tag in self.restaurant.tags)
     {
-        tags = [tags stringByAppendingString:@"# "];
+        tags = [tags stringByAppendingString:@" #"];
         tags = [tags stringByAppendingString:tag.name];
     }
     [self.tagsLabel setText:tags];

@@ -87,7 +87,7 @@
     NSString *tags = @"";
     for(Tag *tag in restaurant.tags)
     {
-        tags = [tags stringByAppendingString:@"#"];
+        tags = [tags stringByAppendingString:@" #"];
         tags = [tags stringByAppendingString:tag.name];
     }
     [cell.tags setText:tags];

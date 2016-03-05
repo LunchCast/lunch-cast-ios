@@ -22,6 +22,7 @@
 
 @property (nonatomic, strong)BackendlessUser *orderer;
 @property (nonatomic, strong)NSString *meals;
+@property (nonatomic)int totalPrice;
 
 @end
 

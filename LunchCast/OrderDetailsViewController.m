@@ -51,6 +51,7 @@
     self.tableView.dataSource = self;
 
     self.groupByName = NO;
+    self.switchButton.title = @"Group by Persons";
     
     [self setupLabels];
     
@@ -102,8 +103,7 @@
     int currentPrice = 0;
     for (OrderItem *o in orderItems)
     {
-        currentPrice += [o.meal.price intValue];
-        currentPrice *= [o.quantity intValue];
+        currentPrice += [o.meal.price intValue] * [o.quantity intValue];
     }
     priceString = [NSString stringWithFormat:@"Total: %d/%@ RSD", currentPrice, self.order.restaurant.minAmount];
     self.currentPriceLabel.text = priceString;
@@ -128,7 +128,8 @@
             if ([oi.meal.name isEqualToString:mealGroup.meal.name])
             {
                 noMeal = NO;
-                [mealGroup.orderers stringByAppendingString:oi.orderer.name];
+                NSString *format = [NSString stringWithFormat:@", %@", oi.orderer.name];
+                mealGroup.orderers = [mealGroup.orderers stringByAppendingString:format];
                 mealGroup.quantity += [oi.quantity intValue];
                 break;
             }
@@ -140,6 +141,31 @@
             newGroup.orderers = oi.orderer.name;
             newGroup.quantity += [oi.quantity intValue];
             [self.mealGroups addObject:newGroup];
+        }
+        
+        
+        
+        // Load groups by Persons
+        BOOL noPerson = YES;
+        for (int i=0; i<self.personGroups.count; i++)
+        {
+            GroupByPerson *personGroup = self.personGroups[i];
+            if ([oi.orderer.email isEqualToString:personGroup.orderer.email])
+            {
+                noPerson = NO;
+                NSString *format = [NSString stringWithFormat:@", %@", oi.meal.name];
+                personGroup.meals = [personGroup.meals stringByAppendingString:format];
+                personGroup.totalPrice += [oi.meal.price intValue] * [oi.quantity intValue];
+                break;
+            }
+        }
+        if (noPerson)
+        {
+            GroupByPerson *newGroup = [[GroupByPerson alloc] init];
+            newGroup.orderer = oi.orderer;
+            newGroup.meals = oi.meal.name;
+            newGroup.totalPrice = [oi.meal.price intValue] * [oi.quantity intValue];
+            [self.personGroups addObject:newGroup];
         }
     }
     
@@ -183,6 +209,7 @@
 - (IBAction)switchButtonAction:(id)sender
 {
     self.groupByName = !self.groupByName;
+    self.switchButton.title = self.groupByName ? @"Group by Meals" : @"Group by Persons";
     [self.tableView reloadData];
 }
 
@@ -202,23 +229,16 @@
         GroupByMeal *mealGroup = self.mealGroups[indexPath.row];
         
         cell.titleLabel.text = [NSString stringWithFormat:@"x%d %@", mealGroup.quantity, mealGroup.meal.name];
-        
-//        NSString *guys = [NSString stringWithFormat:@"%@", namesForMeal[0]];
-//        for (NSString *newGuy in namesForMeal)
-//        {
-//            NSString *formattedNewGuy = [NSString stringWithFormat:@", %@", newGuy];
-//            [guys stringByAppendingString:formattedNewGuy];
-//        }
-        
         cell.descriptionLabel.text = mealGroup.orderers;
-//        cell.priceLabel.text = [NSString stringWithFormat:@"%d RSD", ([item.meal.price intValue] * [item.quantity intValue])];
+        cell.priceLabel.text = [NSString stringWithFormat:@"%d RSD", ([mealGroup.meal.price intValue] * mealGroup.quantity)];
     }
     else
     {
-        OrderItem *item = self.orderItems[indexPath.row];
-        cell.titleLabel.text = [NSString stringWithFormat:@"x%d %@", [item.quantity intValue], item.meal.name];
-        cell.descriptionLabel.text = item.orderer.name;
-        cell.priceLabel.text = [NSString stringWithFormat:@"%d RSD", ([item.meal.price intValue] * [item.quantity intValue])];
+        GroupByPerson *personGroup = self.personGroups[indexPath.row];
+        
+        cell.titleLabel.text = personGroup.orderer.name;
+        cell.descriptionLabel.text = personGroup.meals;
+        cell.priceLabel.text = [NSString stringWithFormat:@"%d RSD", personGroup.totalPrice];
     }
     
     return cell;

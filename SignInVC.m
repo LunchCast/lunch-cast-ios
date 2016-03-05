@@ -65,7 +65,7 @@
     {
         if (![self isSignIn])
         {
-            [[AccountManager sharedInstance] createNewAccountWithEmail:self.enteredUsername andPassword:self.enteredPassword andName: [self.nameField text]];
+            [[AccountManager sharedInstance] createNewAccountWithEmail:self.enteredUsername andPassword:self.enteredPassword andName:self.enteredName];
         }
         else
         {
@@ -117,6 +117,12 @@
 - (NSString *)enteredPassword
 {
     return [self.passwordField text];
+}
+
+
+- (NSString *)enteredName
+{
+    return [self.nameField text];
 }
 
 #pragma mark - Animations
