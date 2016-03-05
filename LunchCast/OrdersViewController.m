@@ -34,6 +34,12 @@
     
     self.searchResults = [NSMutableArray new];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
     //basic search for Orders
     
     QueryOptions *queryOptions = [QueryOptions query];
@@ -44,7 +50,7 @@
     [backendless.persistenceService find:[Order class]
                                dataQuery:dataQuery
                                 response:^(BackendlessCollection *collection) {
-                                    
+                                    [self.searchResults removeAllObjects];
                                     for (Order *order in collection.data) {
                                         if ([order.state intValue]<2) {
                                             [self.searchResults addObject:order];
@@ -55,7 +61,6 @@
                                    error:^(Fault *fault) {
                                        
                                    }];
-    
 }
 
 #pragma mark - Table view data source

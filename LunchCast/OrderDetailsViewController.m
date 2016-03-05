@@ -208,7 +208,17 @@
 
 - (IBAction)cancelOrderButtonAction:(id)sender
 {
-    
+    self.order.state = [NSNumber numberWithInt:2];
+    [backendless.persistenceService first:[Order class]
+                                 response:^(BackendlessEntity *result) {
+                                     result.objectId = self.order.objectId;
+                                     [backendless.persistenceService save:self.order response:^(Order *result) {
+                                         [self.navigationController popViewControllerAnimated:YES];
+                                     } error:^(Fault *fault) {
+                                     }];
+                                 } error:^(Fault *fault) {
+                                 }];
+
 }
 
 - (IBAction)completeOrderButtonAction:(id)sender
@@ -218,6 +228,11 @@
                                  response:^(BackendlessEntity *result) {
                                      result.objectId = self.order.objectId;
                                      [backendless.persistenceService save:self.order response:^(Order *result) {
+                                         self.creatorLabel.hidden = YES;
+                                         self.cancelOrderButton.hidden = YES;
+                                         self.completeOrderButton.hidden = YES;
+                                         [self.addMealButton setImage:[UIImage imageNamed:@"food-is-here"] forState:UIControlStateNormal];
+                                         
                                      } error:^(Fault *fault) {
                                      }];
                                  } error:^(Fault *fault) {

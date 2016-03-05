@@ -36,6 +36,11 @@
 {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem.title = self.isOrderCreated ? @"Add" : @"Create";
+
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [self setRestaurantDetails];
 }
 
@@ -93,8 +98,7 @@
         }
     
         //create new orderItems for user and order
-        [self createNewOrderItemsForOrder:self.order andUser:user];
-        
+        [self createNewOrderItemsForOrder:self.order andUser:user];        
     }
     else
     {
@@ -113,7 +117,10 @@
             [backendless.persistenceService save:order response:^(Order *result) {
                 self.order = result;
                 [self createNewOrderItemsForOrder:self.order andUser:user];
-//                [self performSegueWithIdentifier:@"makeOrder" sender:nil];
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [self.presentingViewController performSegueWithIdentifier:@"toOrders" sender:nil];
+                }];
+                
                 }
                                            error:^(Fault *fault) {}];
         }
@@ -195,15 +202,6 @@
     }
     
     return cell;
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"makeOrder"])
-    {
-        OrderDetailsViewController *odvc = (OrderDetailsViewController *)segue.destinationViewController;
-        odvc.order = self.order;
-    }
 }
 
 

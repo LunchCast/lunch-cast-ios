@@ -49,6 +49,10 @@
     
     
 }
+- (IBAction)cancel:(UIBarButtonItem *)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:^{ }];
+}
 
 #pragma mark - Table view data source
 
