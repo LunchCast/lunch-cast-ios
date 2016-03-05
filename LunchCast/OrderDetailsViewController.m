@@ -13,6 +13,8 @@
 #import "MenuViewController.h"
 #import "OrderItem.h"
 #import "GroupTableViewCell.h"
+#import "AccountData.h"
+#import "MessagingService.h"
 
 @interface OrderDetailsViewController() <UITableViewDelegate, UITableViewDataSource>
 
@@ -87,6 +89,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self requestOrderItems];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(personJoinedOrder)
+                                                 name:@"PersonJoinedOrder"
+                                               object:nil];
 }
 
 - (void)setupLabels
@@ -185,9 +192,6 @@
         }
     }
     
-    
-    
-    
     [self.tableView reloadData];
 }
 
@@ -227,8 +231,9 @@
 
 - (IBAction)pokeButtonAction:(id)sender
 {
-    
+
 }
+
 
 - (IBAction)switchButtonAction:(id)sender
 {
@@ -273,6 +278,11 @@
 - (BOOL)isOwner
 {
     return ([self.order.order_creator.email isEqualToString:backendless.userService.currentUser.email]);
+}
+
+- (void)personJoinedOrder
+{
+    [self requestOrderItems];
 }
 
 #pragma mark - Segue

@@ -65,9 +65,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RestaurantCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Restaurant" forIndexPath:indexPath];
-    
+
     Restaurant *restaurant = self.searchResults[indexPath.row];
-    
     cell.restaurant = restaurant;
     [cell.name setText: restaurant.name];
     

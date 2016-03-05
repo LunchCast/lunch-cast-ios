@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Backendless.h"
+#import "AccountData.h"
 #import "Utilities.h"
 
 #define APP_ID          @"DC12F089-BB53-9297-FF3A-47B8F24CF100"
@@ -49,6 +50,7 @@
     
     @try {
         NSString *deviceRegistrationId = [backendless.messagingService registerDeviceToken:deviceTokenStr];
+        [AccountData setDeviceToken:deviceRegistrationId];
         NSLog(@"deviceToken = %@, deviceRegistrationId = %@", deviceTokenStr, deviceRegistrationId);
     }
     @catch (Fault *fault) {
@@ -59,6 +61,14 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     NSLog(@"%@", userInfo);
+    
+    NSDictionary *aps = userInfo[@"aps"];
+    NSString *alert = aps[@"alert"];
+    
+    if ([alert isEqualToString:@"SomeoneJoinedOrder"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"PersonJoinedOrder" object:nil];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
