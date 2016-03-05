@@ -17,6 +17,7 @@
 
 @interface MenuViewController() <UITableViewDelegate, UITableViewDataSource, MenuCellDelegate>
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *menuLabel;
 @property (weak, nonatomic) IBOutlet UILabel *etaLabel;
@@ -28,6 +29,8 @@
 
 @property (nonatomic, strong) NSMutableArray *alreadyOrderedItems;
 
+@property (nonatomic) int flag;
+
 @end
 
 @implementation MenuViewController
@@ -36,6 +39,11 @@
 {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem.title = self.isOrderCreated ? @"Add" : @"Create";
+
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [self setRestaurantDetails];
 }
 
@@ -45,7 +53,7 @@
     for(Meal *meal in self.restaurant.meals)
     {
         meals = [meals stringByAppendingString:meal.name];
-        meals = [meals stringByAppendingString:@", "];
+        meals = [meals stringByAppendingString:@"; "];
     }
     
     [self.menuLabel setText:meals];
@@ -55,12 +63,12 @@
     NSString *tags = @"";
     for(Tag *tag in self.restaurant.tags)
     {
-        tags = [tags stringByAppendingString:@"#"];
+        tags = [tags stringByAppendingString:@" #"];
         tags = [tags stringByAppendingString:tag.name];
     }
     [self.tagsLabel setText:tags];
     
-    self.alreadyOrderedItems = [NSMutableArray new];
+    self.alreadyOrderedItems = [NSMutableArray array];
     
     BackendlessUser *user = backendless.userService.currentUser;
     
@@ -71,19 +79,40 @@
                                dataQuery:dataQuery
                                 response:^(BackendlessCollection *collection){
                                     [self.alreadyOrderedItems addObjectsFromArray:collection.data];
+                                    if (self.alreadyOrderedItems.count > 0) {
+                                        self.navigationItem.rightBarButtonItem.title = @"Save";
+                                    }
                                     [self.tableView reloadData];
                                 }
                                    error:^(Fault *fault) {}];
 
 }
+- (void)startWaiting
+{
+    [self.view setUserInteractionEnabled:NO];
+    
+    for (UIView *v in self.view.subviews)
+        [v setAlpha:0.5];
+    
+    [self.activityIndicator startAnimating];
+}
+
+- (void)stopWaiting
+{
+    [self.view setUserInteractionEnabled:YES];
+    
+    for (UIView *v in self.view.subviews)
+        [v setAlpha:1.0];
+    
+    [self.activityIndicator stopAnimating];
+}
 
 - (IBAction)onCreateOrder:(UIBarButtonItem *)sender
 {
-    
+    [self startWaiting];
     BackendlessUser *user = backendless.userService.currentUser;
     
-<<<<<<< HEAD
-    if (self.alreadyOrderedItems)
+    if (self.alreadyOrderedItems.count > 0)
     {
         //delete all OrderItems for user and order
         for (OrderItem *orderIt in self.alreadyOrderedItems) {
@@ -92,65 +121,67 @@
     
         //create new orderItems for user and order
         [self createNewOrderItemsForOrder:self.order andUser:user];
-        
+        self.flag = 1;
     }
     else
     {
-=======
-//    if (self.alreadyOrderedMeals)
-//    {
-//        
-//    }
-//    else
-//    {
->>>>>>> 9d52eeaac6b9aa658f26498a1c78ddcb3ff00010
         if (self.isOrderCreated)
         {
-            [self performSegueWithIdentifier:@"makeOrder" sender:nil];
             [self createNewOrderItemsForOrder:self.order andUser:user];
+            self.flag = 1;
+            
         }
         else
-        {
+        {   self.flag = 0;
             Order *order = [Order new];
             order.order_time = [backendless randomString:MIN(25,36)];
             order.state = [NSNumber numberWithInt:0];
             order.restaurant = self.restaurant;
             order.order_creator = user;
             [backendless.persistenceService save:order response:^(Order *result) {
-                self.order = order;
-<<<<<<< HEAD
-                [self performSegueWithIdentifier:@"makeOrder" sender:nil];
-                [self createNewOrderItemsForOrder:order andUser:user];
-=======
-//                [self performSegueWithIdentifier:@"makeOrder" sender:nil];
-                for (MenuCell *cell in [self.tableView visibleCells]) {
-                    if (cell.amount!=0) {
-                        OrderItem *orderItem = [OrderItem new];
-                        orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
-                        orderItem.meal = cell.meal;
-                        orderItem.order_id = order;
-                        orderItem.orderer = user;
-                        [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
-                    }
->>>>>>> 9d52eeaac6b9aa658f26498a1c78ddcb3ff00010
+                self.order = result;
+                [self createNewOrderItemsForOrder:self.order andUser:user];
                 }
                                            error:^(Fault *fault) {}];
         }
-//    }
-    
+    }
 }
+
 -(void)createNewOrderItemsForOrder: (Order *)order andUser: (BackendlessUser *)user
 {
-    for (MenuCell *cell in [self.tableView visibleCells]) {
+    for (int i=0; i < [self.tableView visibleCells].count; i++)
+    {
+        MenuCell *cell = [self.tableView visibleCells][i];
         if (cell.amount!=0) {
             OrderItem *orderItem = [OrderItem new];
             orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
             orderItem.meal = cell.meal;
             orderItem.order_id = order;
             orderItem.orderer = user;
-            [backendless.persistenceService save:orderItem response:^(OrderItem *result) {} error:^(Fault *fault) {}];
+            [backendless.persistenceService save:orderItem response:^(OrderItem *result)
+             {
+             } error:^(Fault *fault) {}];
         }
     }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+<<<<<<< HEAD
+        [self sendNotificationToOthers];
+=======
+        [self sendNotificationToOwner];
+        [self stopWaiting];
+        
+        if (self.flag == 0)
+        {
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self.presentingViewController performSegueWithIdentifier:@"toOrders" sender:nil];
+            }];
+        }
+        else
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+>>>>>>> b34622ea9e55b7a45116cdf6e92bee2a38cce447
+    });
 }
 
 -(void)deleteOrderItem:(OrderItem *)orderItem
@@ -160,6 +191,52 @@
                                 selErrorHandler:@selector(errorHandler:)];
     id<IDataStore> dataStore = [backendless.persistenceService of:[OrderItem class]];
     [dataStore remove:orderItem responder:responder];
+}
+
+- (void)sendNotificationToOthers
+{
+    
+//    BackendlessUser *owner = self.order.order_creator;
+    
+    BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
+    
+    [backendless.persistenceService find:[BackendlessUser class]
+                               dataQuery:dataQuery
+                                response:^(BackendlessCollection *collection){
+                                    if ([collection.data count]) {
+                                        NSArray *results = collection.data;
+                                        NSMutableArray *devices = [NSMutableArray array];
+                                        
+                                        for (BackendlessUser *user in results)
+                                        {
+                                            [devices addObject:[user getProperty:@"deviceId"]];
+                                        }
+                                        
+                                        DeliveryOptions *deliveryOptions = [DeliveryOptions new];
+                                        deliveryOptions.pushSinglecast = devices;
+                                        [deliveryOptions pushPolicy:PUSH_ONLY];
+                                        
+                                        PublishOptions *publishOptions = [PublishOptions new];
+                                        [backendless.messagingService publish:@"default" message:@"SomeoneJoinedOrder" publishOptions:publishOptions deliveryOptions:deliveryOptions
+                                                                     response:^(MessageStatus *messageStatus)
+                                         {
+                                             NSLog(@"MessageStatus = %@ <%@>", messageStatus.messageId, messageStatus.status);
+                                         } error:^(Fault *fault)
+                                         {
+                                             NSLog(@"FAULT = %@", fault);
+                                         }
+                                         ];
+                                        
+                                        
+                                    }
+                                }
+                                   error:^(Fault *fault)
+     {
+         NSLog(@"WTF");
+     }];
+    
+    
+
 }
 
 #pragma mark - responder
@@ -178,34 +255,7 @@
 - (void) amountHasBeenChanged:(NSUInteger) amount forMeal: (Meal *)meal
 {
     self.amount += amount;
-    [self.amountLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.amount]];
-//    
-//    for (OrderItem *item in self.alreadyOrderedItems) {
-//        if ([item.meal.objectId isEqualToString:meal.objectId]) {
-//            //if 0 -delete //if exsist, don't ad
-//            if (amount !=0) {
-//                
-//                for (OrderItem *orderIT in self.changedOrderItems) {
-//                    if ([orderIT.objectId isEqualToString:item.objectId]) {
-//                        [self.changedOrderItems removeObject:orderIT];
-//                    }
-//                }
-//                [self.changedOrderItems addObject:item];
-//
-//                
-//                if ([self.deleteOrderItems containsObject:item]) {
-//                    [self.deleteOrderItems removeObject:item];
-//                }
-//            }
-//            else
-//            {
-//                [self.changedOrderItems removeObject:item];
-//                [self.deleteOrderItems addObject:item];
-//            }
-//
-//        }
-//    }
-//    
+    [self.amountLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.amount]];   
 }
 
 #pragma mark - Table view data source
@@ -230,7 +280,7 @@
     cell.meal = meal;
     [cell.name setText: [meal.name stringByAppendingString:@"  "]];
     [cell.price setText:[NSString stringWithFormat:@"%@ RSD", meal.price]];
-    [cell.details setText:meal.description];
+    [cell.details setText:meal.mealDescription];
     
     for (OrderItem *orderIt in self.alreadyOrderedItems) {
         if ([orderIt.meal.objectId isEqualToString:meal.objectId]) {
@@ -239,15 +289,6 @@
     }
     
     return cell;
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"makeOrder"])
-    {
-        OrderDetailsViewController *odvc = (OrderDetailsViewController *)segue.destinationViewController;
-        odvc.order = self.order;
-    }
 }
 
 

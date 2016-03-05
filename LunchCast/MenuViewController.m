@@ -17,6 +17,7 @@
 
 @interface MenuViewController() <UITableViewDelegate, UITableViewDataSource, MenuCellDelegate>
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *menuLabel;
 @property (weak, nonatomic) IBOutlet UILabel *etaLabel;
@@ -27,6 +28,8 @@
 @property (nonatomic) NSUInteger amount;
 
 @property (nonatomic, strong) NSMutableArray *alreadyOrderedItems;
+
+@property (nonatomic) int flag;
 
 @end
 
@@ -84,10 +87,29 @@
                                    error:^(Fault *fault) {}];
 
 }
+- (void)startWaiting
+{
+    [self.view setUserInteractionEnabled:NO];
+    
+    for (UIView *v in self.view.subviews)
+        [v setAlpha:0.5];
+    
+    [self.activityIndicator startAnimating];
+}
+
+- (void)stopWaiting
+{
+    [self.view setUserInteractionEnabled:YES];
+    
+    for (UIView *v in self.view.subviews)
+        [v setAlpha:1.0];
+    
+    [self.activityIndicator stopAnimating];
+}
 
 - (IBAction)onCreateOrder:(UIBarButtonItem *)sender
 {
-    
+    [self startWaiting];
     BackendlessUser *user = backendless.userService.currentUser;
     
     if (self.alreadyOrderedItems.count > 0)
@@ -98,17 +120,19 @@
         }
     
         //create new orderItems for user and order
-        [self createNewOrderItemsForOrder:self.order andUser:user];        
+        [self createNewOrderItemsForOrder:self.order andUser:user];
+        self.flag = 1;
     }
     else
     {
         if (self.isOrderCreated)
         {
-//            [self performSegueWithIdentifier:@"makeOrder" sender:nil];
             [self createNewOrderItemsForOrder:self.order andUser:user];
+            self.flag = 1;
+            
         }
         else
-        {
+        {   self.flag = 0;
             Order *order = [Order new];
             order.order_time = [backendless randomString:MIN(25,36)];
             order.state = [NSNumber numberWithInt:0];
@@ -117,15 +141,10 @@
             [backendless.persistenceService save:order response:^(Order *result) {
                 self.order = result;
                 [self createNewOrderItemsForOrder:self.order andUser:user];
-                [self dismissViewControllerAnimated:YES completion:^{
-                    [self.presentingViewController performSegueWithIdentifier:@"toOrders" sender:nil];
-                }];
-                
                 }
                                            error:^(Fault *fault) {}];
         }
     }
-    
 }
 
 -(void)createNewOrderItemsForOrder: (Order *)order andUser: (BackendlessUser *)user
@@ -146,6 +165,18 @@
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self sendNotificationToOthers];
+        [self stopWaiting];
+        
+        if (self.flag == 0)
+        {
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self.presentingViewController performSegueWithIdentifier:@"toOrders" sender:nil];
+            }];
+        }
+        else
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     });
 }
 
