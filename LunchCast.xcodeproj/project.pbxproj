@@ -48,6 +48,7 @@
 		D687C16A1C7A0BE600C0B1D6 /* MediaLibiOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D687C1501C7A0BE600C0B1D6 /* MediaLibiOS.a */; };
 		D687C16B1C7A0BE600C0B1D6 /* libspeex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D687C15B1C7A0BE600C0B1D6 /* libspeex.a */; };
 		D687C16C1C7A0BE600C0B1D6 /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D687C1611C7A0BE600C0B1D6 /* libx264.a */; };
+		D69810951C8B2EC600E401AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D69810931C8B2EC600E401AA /* Main.storyboard */; };
 		D6A4651C1C83A6AD0046701D /* MyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4651B1C83A6AD0046701D /* MyProfileViewController.m */; };
 		D6A4651F1C83A7B80046701D /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4651E1C83A7B80046701D /* Utilities.m */; };
 /* End PBXBuildFile section */
@@ -295,6 +296,7 @@
 		D687C15E1C7A0BE600C0B1D6 /* x264.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264.h; sourceTree = "<group>"; };
 		D687C15F1C7A0BE600C0B1D6 /* x264_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264_config.h; sourceTree = "<group>"; };
 		D687C1611C7A0BE600C0B1D6 /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libx264.a; sourceTree = "<group>"; };
+		D69810941C8B2EC600E401AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LunchCast/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		D6A465181C83488D0046701D /* BackendlessAuthReponseProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackendlessAuthReponseProtocol.h; sourceTree = SOURCE_ROOT; };
 		D6A4651A1C83A6AD0046701D /* MyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProfileViewController.h; sourceTree = SOURCE_ROOT; };
 		D6A4651B1C83A6AD0046701D /* MyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProfileViewController.m; sourceTree = SOURCE_ROOT; };
@@ -330,6 +332,7 @@
 		7AC6C3A21C771E0600D937E7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D69810931C8B2EC600E401AA /* Main.storyboard */,
 				7AD251671C76873000091C75 /* Assets.xcassets */,
 				7AD251691C76873000091C75 /* LaunchScreen.storyboard */,
 			);
@@ -908,6 +911,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D69810951C8B2EC600E401AA /* Main.storyboard in Resources */,
 				7AD2516B1C76873000091C75 /* LaunchScreen.storyboard in Resources */,
 				7AD251681C76873000091C75 /* Assets.xcassets in Resources */,
 			);
@@ -961,6 +965,14 @@
 			name = LaunchScreen.storyboard;
 			path = LunchCast;
 			sourceTree = SOURCE_ROOT;
+		};
+		D69810931C8B2EC600E401AA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D69810941C8B2EC600E401AA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 

@@ -158,34 +158,7 @@
 - (void) amountHasBeenChanged:(NSUInteger) amount forMeal: (Meal *)meal
 {
     self.amount += amount;
-    [self.amountLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.amount]];
-//    
-//    for (OrderItem *item in self.alreadyOrderedItems) {
-//        if ([item.meal.objectId isEqualToString:meal.objectId]) {
-//            //if 0 -delete //if exsist, don't ad
-//            if (amount !=0) {
-//                
-//                for (OrderItem *orderIT in self.changedOrderItems) {
-//                    if ([orderIT.objectId isEqualToString:item.objectId]) {
-//                        [self.changedOrderItems removeObject:orderIT];
-//                    }
-//                }
-//                [self.changedOrderItems addObject:item];
-//
-//                
-//                if ([self.deleteOrderItems containsObject:item]) {
-//                    [self.deleteOrderItems removeObject:item];
-//                }
-//            }
-//            else
-//            {
-//                [self.changedOrderItems removeObject:item];
-//                [self.deleteOrderItems addObject:item];
-//            }
-//
-//        }
-//    }
-//    
+    [self.amountLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.amount]];   
 }
 
 #pragma mark - Table view data source

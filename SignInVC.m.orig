@@ -43,6 +43,7 @@
     [super viewDidLoad];
     
     self.signIn = YES;
+    [self switchUIToSignIn];
     
     [self customizePlaceholderText];
 }
@@ -125,6 +126,13 @@
 {
     if ([self isSignIn])
     {
+<<<<<<< HEAD
+        [self switchUIToCreate];
+    }
+    else
+    {
+        [self switchUIToSignIn];
+=======
         // switch to create
         [self changeTitleOnButton:self.secondaryButton toTitle:@"Already have an account? Log in."];
         [self.nameField setHidden:NO];
@@ -140,9 +148,26 @@
         [self.nameField setHidden:YES];
         [self.mainButton setImage:[UIImage imageNamed: @"log-in"] forState:UIControlStateNormal];
         [self.descriptionLabel setText:@"Log in with your email adress and password."];
+>>>>>>> 9664cbe45258a7d6f8c3b4782766d807c3103164
     }
     
     self.signIn = !self.signIn;
+}
+
+- (void)switchUIToSignIn
+{
+    [self changeTitleOnLabel:self.secondaryLabel toTitle:@"Don't have an account?"];
+    [self changeTitleOnButton:self.secondaryButton toTitle:@"Create new"];
+    [self changeTitleOnButton:self.mainButton toTitle:@"Sign in"];
+    [self changeTitleBarToTitle:@"Sign In"];
+}
+
+- (void)switchUIToCreate
+{
+    [self changeTitleOnLabel:self.secondaryLabel toTitle:@"Already have an account?"];
+    [self changeTitleOnButton:self.secondaryButton toTitle:@"Sign in"];
+    [self changeTitleOnButton:self.mainButton toTitle:@"Create"];
+    [self changeTitleBarToTitle:@"Create New Account"];
 }
 
 - (void)changeTitleOnLabel:(UILabel *)label toTitle:(NSString *)title
