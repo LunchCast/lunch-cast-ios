@@ -39,7 +39,7 @@
 {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem.title = self.isOrderCreated ? @"Add" : @"Create";
-
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -85,7 +85,7 @@
                                     [self.tableView reloadData];
                                 }
                                    error:^(Fault *fault) {}];
-
+    
 }
 - (void)startWaiting
 {
@@ -118,7 +118,7 @@
         for (OrderItem *orderIt in self.alreadyOrderedItems) {
             [self deleteOrderItem:orderIt];
         }
-    
+        
         //create new orderItems for user and order
         [self createNewOrderItemsForOrder:self.order andUser:user];
         self.flag = 1;
@@ -141,7 +141,7 @@
             [backendless.persistenceService save:order response:^(Order *result) {
                 self.order = result;
                 [self createNewOrderItemsForOrder:self.order andUser:user];
-                }
+            }
                                            error:^(Fault *fault) {}];
         }
     }
@@ -149,35 +149,30 @@
 
 -(void)createNewOrderItemsForOrder: (Order *)order andUser: (BackendlessUser *)user
 {
-    for (int i=0; i < [self.tableView visibleCells].count; i++)
+    NSMutableArray *orderItems = [NSMutableArray array];
+
+    for (MenuCell *cell in [self.tableView visibleCells])
     {
-        MenuCell *cell = [self.tableView visibleCells][i];
         if (cell.amount!=0) {
             OrderItem *orderItem = [OrderItem new];
             orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
             orderItem.meal = cell.meal;
             orderItem.order_id = order;
             orderItem.orderer = user;
-            [backendless.persistenceService save:orderItem response:^(OrderItem *result)
-             {
-             } error:^(Fault *fault) {}];
+            [orderItems addObject:orderItem];
         }
     }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self sendNotificationToOthers];
-        [self stopWaiting];
-        
-        if (self.flag == 0)
-        {
-            [self dismissViewControllerAnimated:YES completion:^{
-                [self.presentingViewController performSegueWithIdentifier:@"toOrders" sender:nil];
-            }];
-        }
-        else
-        {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    });
+    
+    for (OrderItem *i in orderItems)
+    {
+        [backendless.persistenceService save:i response:^(OrderItem *result)
+         {
+             if ([orderItems lastObject] == i)
+             {
+                 [self sendNotificationToOthers];
+             }
+         } error:^(Fault *fault) {}];
+    }
 }
 
 -(void)deleteOrderItem:(OrderItem *)orderItem
@@ -192,7 +187,7 @@
 - (void)sendNotificationToOthers
 {
     
-//    BackendlessUser *owner = self.order.order_creator;
+    //    BackendlessUser *owner = self.order.order_creator;
     
     BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
     
@@ -225,6 +220,20 @@
                                         
                                         
                                     }
+                                    
+                                    [self stopWaiting];
+                                    
+                                    if (self.flag == 0)
+                                    {
+                                        [self dismissViewControllerAnimated:YES completion:^{
+                                            [self.presentingViewController performSegueWithIdentifier:@"toOrders" sender:nil];
+                                        }];
+                                    }
+                                    else
+                                    {
+                                        [self.navigationController popViewControllerAnimated:YES];
+                                    }
+                                    
                                 }
                                    error:^(Fault *fault)
      {
@@ -232,7 +241,7 @@
      }];
     
     
-
+    
 }
 
 #pragma mark - responder
@@ -251,7 +260,7 @@
 - (void) amountHasBeenChanged:(NSUInteger) amount forMeal: (Meal *)meal
 {
     self.amount += amount;
-    [self.amountLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.amount]];   
+    [self.amountLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.amount]];
 }
 
 #pragma mark - Table view data source
