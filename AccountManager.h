@@ -17,7 +17,7 @@
 
 - (void)logOut;
 - (void)logInWithEmail:(NSString *)email andPassword:(NSString *)password;
-- (void)createNewAccountWithEmail:(NSString *)email andPassword:(NSString *)password;
+- (void)createNewAccountWithEmail:(NSString *)email andPassword:(NSString *)password andName: (NSString *)name;
 - (BOOL)isCurrentPassword:(NSString *)password;
 - (BOOL)isLoggedIn;
 - (void)validate;

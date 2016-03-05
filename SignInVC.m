@@ -22,15 +22,16 @@
 @interface SignInVC () <BackendlessAuthReponseDelegate>
 
 @property (weak, nonatomic) IBOutlet CustomActivityIndicator *activityIndicator;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordTopConstraint;
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
-
-@property (weak, nonatomic) IBOutlet UILabel *secondaryLabel;
+@property (weak, nonatomic) IBOutlet UITextField *nameField;
 
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;
 @property (weak, nonatomic) IBOutlet UIButton *secondaryButton;
 
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (nonatomic, getter=isSignIn)BOOL signIn;
 
 @end
@@ -64,7 +65,7 @@
     {
         if (![self isSignIn])
         {
-            [[AccountManager sharedInstance] createNewAccountWithEmail:self.enteredUsername andPassword:self.enteredPassword];
+            [[AccountManager sharedInstance] createNewAccountWithEmail:self.enteredUsername andPassword:self.enteredPassword andName: [self.nameField text]];
         }
         else
         {
@@ -125,18 +126,20 @@
     if ([self isSignIn])
     {
         // switch to create
-        [self changeTitleOnLabel:self.secondaryLabel toTitle:@"Already have an account?"];
-        [self changeTitleOnButton:self.secondaryButton toTitle:@"Sign in"];
-        [self changeTitleOnButton:self.mainButton toTitle:@"Create"];
-        [self changeTitleBarToTitle:@"Create New Account"];
+        [self changeTitleOnButton:self.secondaryButton toTitle:@"Already have an account? Log in."];
+        [self.nameField setHidden:NO];
+        [self.passwordTopConstraint setConstant:self.passwordField.frame.size.height + 70.0];
+        [self.mainButton setImage:[UIImage imageNamed: @"sign-up"] forState:UIControlStateNormal];
+        [self.descriptionLabel setText:@"Sing up with your name, email adress and password."];
     }
     else
     {
         // switch to sign in
-        [self changeTitleOnLabel:self.secondaryLabel toTitle:@"Don't have an account?"];
-        [self changeTitleOnButton:self.secondaryButton toTitle:@"Create new"];
-        [self changeTitleOnButton:self.mainButton toTitle:@"Sign in"];
-        [self changeTitleBarToTitle:@"Sign In"];
+        [self changeTitleOnButton:self.secondaryButton toTitle:@"Don't have an account? Sign up."];
+        [self.passwordTopConstraint setConstant:50.0];
+        [self.nameField setHidden:YES];
+        [self.mainButton setImage:[UIImage imageNamed: @"log-in"] forState:UIControlStateNormal];
+        [self.descriptionLabel setText:@"Log in with your email adress and password."];
     }
     
     self.signIn = !self.signIn;
@@ -208,10 +211,12 @@
     [self stopWaiting];
     
     // switch to sign in
-    [self changeTitleOnLabel:self.secondaryLabel toTitle:@"Don't have an account?"];
-    [self changeTitleOnButton:self.secondaryButton toTitle:@"Create new"];
-    [self changeTitleOnButton:self.mainButton toTitle:@"Sign in"];
-    [self changeTitleBarToTitle:@"Sign In"];
+    [self changeTitleOnButton:self.secondaryButton toTitle:@"Don't have an account? Sign up."];
+    [self.passwordTopConstraint setConstant:50.0];
+    [self.nameField setHidden:YES];
+    [self.mainButton setImage:[UIImage imageNamed: @"log-in"] forState:UIControlStateNormal];
+    [self.descriptionLabel setText:@"Log in with your email adress and password."];
+
     
     self.signIn = !self.signIn;
 }
@@ -242,8 +247,9 @@
 - (void)customizePlaceholderText
 {
     UIColor *placeholderColor = [UIColor colorWithWhite:0.8 alpha:0.8];
-     self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"email" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
-     self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"password" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
+     self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" email" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
+     self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" password" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
+    self.nameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" name" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
 }
 
 

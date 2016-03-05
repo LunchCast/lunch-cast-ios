@@ -46,13 +46,13 @@
 
 - (void)logInWithEmail:(NSString *)email andPassword:(NSString *)password
 {
-    [self setUserEmail:email andPassword:password];
+    [self setUserEmail:email andPassword:password andName:@""];
     [self userLogin];
 }
 
-- (void)createNewAccountWithEmail:(NSString *)email andPassword:(NSString *)password
+- (void)createNewAccountWithEmail:(NSString *)email andPassword:(NSString *)password andName: (NSString *)name
 {
-    [self setUserEmail:email andPassword:password];
+    [self setUserEmail:email andPassword:password andName:name];
     [self userRegistration];
 }
 
@@ -63,10 +63,13 @@
     [self userLogout];
 }
 
-- (void)setUserEmail:(NSString *)email andPassword:(NSString *)password
+- (void)setUserEmail:(NSString *)email andPassword:(NSString *)password andName: (NSString *)name
 {
     [AccountData setEmail:email];
     [AccountData setPassword:password];
+    if (![name isEqualToString:@""]) {
+        [AccountData setUsername:name];
+    }
 }
 
 - (BOOL)isCurrentPassword:(NSString *)password
@@ -97,7 +100,7 @@
     BackendlessUser *user = [BackendlessUser new];
     user.password = [AccountData getPassword];
     user.email = [AccountData getEmail];
-    user.name = @"user";//[AccountData getUsername];
+    user.name = [AccountData getUsername];
 
     Responder *responder = [Responder responder:self
                              selResponseHandler:@selector(registrationResponseHandler:)
