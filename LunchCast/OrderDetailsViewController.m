@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *completeOrderButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *switchButton;
 @property (weak, nonatomic) IBOutlet UIButton *pokeButton;
+@property (weak, nonatomic) IBOutlet UIButton *addMealButton;
 
 @property (nonatomic, strong)NSArray *orderItems;
 
@@ -56,15 +57,29 @@
     
     if ([self isOwner])
     {
+        if ([self.order.state intValue]== 0)
+        {
+            self.creatorLabel.hidden = YES;
+        }
+        else
+        {
         self.creatorLabel.hidden = YES;
+        self.cancelOrderButton.hidden = YES;
+        self.completeOrderButton.hidden = YES;
+        [self.addMealButton setImage:[UIImage imageNamed:@"food-is-here"] forState:UIControlStateNormal];
+        }
     }
     else
     {
-        self.cancelOrderButton.hidden = YES;
-        self.completeOrderButton.hidden = YES;
-        [self.switchButton setEnabled:NO];
-        [self.switchButton setTintColor: [UIColor clearColor]];
-        self.pokeButton.hidden = YES;
+            self.cancelOrderButton.hidden = YES;
+            self.completeOrderButton.hidden = YES;
+            [self.switchButton setEnabled:NO];
+            [self.switchButton setTintColor: [UIColor clearColor]];
+            self.pokeButton.hidden = YES;
+        
+        if ([self.order.state intValue] == 1) {
+            self.addMealButton.enabled = NO;
+        }
     }
 }
 
@@ -172,7 +187,15 @@
 
 - (IBAction)completeOrderButtonAction:(id)sender
 {
-    
+    self.order.state = [NSNumber numberWithInt:1];
+    [backendless.persistenceService first:[Order class]
+                                 response:^(BackendlessEntity *result) {
+                                     result.objectId = self.order.objectId;
+                                     [backendless.persistenceService save:self.order response:^(Order *result) {
+                                     } error:^(Fault *fault) {
+                                     }];
+                                 } error:^(Fault *fault) {
+                                 }];
 }
 
 - (IBAction)pokeButtonAction:(id)sender
