@@ -13,7 +13,6 @@
 		7A7D04E21C88DF0200710F16 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7D04DA1C88DF0200710F16 /* Restaurant.m */; };
 		7A7D04E31C88DF0200710F16 /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7D04DC1C88DF0200710F16 /* Meal.m */; };
 		7A7D04E41C88DF0200710F16 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7D04DE1C88DF0200710F16 /* Order.m */; };
-		7AC6C3A11C771DB600D937E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AD251971C76901500091C75 /* Main.storyboard */; };
 		7AC9E46A1C83435B001BEA84 /* CreateOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9E4691C83435B001BEA84 /* CreateOrderViewController.m */; };
 		7AC9E4701C834716001BEA84 /* RestaurantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9E46F1C834716001BEA84 /* RestaurantCell.m */; };
 		7AD2515D1C76873000091C75 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2515C1C76873000091C75 /* main.m */; };
@@ -84,7 +83,6 @@
 		7AD251921C76892800091C75 /* OrdersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrdersViewController.m; path = LunchCast/OrdersViewController.m; sourceTree = SOURCE_ROOT; };
 		7AD251941C768E9A00091C75 /* OrdersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrdersCell.h; path = LunchCast/OrdersCell.h; sourceTree = SOURCE_ROOT; };
 		7AD251951C768E9A00091C75 /* OrdersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrdersCell.m; path = LunchCast/OrdersCell.m; sourceTree = SOURCE_ROOT; };
-		7AD251971C76901500091C75 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = LunchCast/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		7AD2519A1C76907F00091C75 /* OrderDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderDetailsViewController.h; path = LunchCast/OrderDetailsViewController.h; sourceTree = SOURCE_ROOT; };
 		7AD2519B1C76907F00091C75 /* OrderDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderDetailsViewController.m; path = LunchCast/OrderDetailsViewController.m; sourceTree = SOURCE_ROOT; };
 		7AD2519D1C76942B00091C75 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuViewController.h; path = LunchCast/MenuViewController.h; sourceTree = SOURCE_ROOT; };
@@ -332,7 +330,6 @@
 		7AC6C3A21C771E0600D937E7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7AD251971C76901500091C75 /* Main.storyboard */,
 				7AD251671C76873000091C75 /* Assets.xcassets */,
 				7AD251691C76873000091C75 /* LaunchScreen.storyboard */,
 			);
@@ -911,7 +908,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AC6C3A11C771DB600D937E7 /* Main.storyboard in Resources */,
 				7AD2516B1C76873000091C75 /* LaunchScreen.storyboard in Resources */,
 				7AD251681C76873000091C75 /* Assets.xcassets in Resources */,
 			);
