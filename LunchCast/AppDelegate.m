@@ -78,9 +78,13 @@
     NSDictionary *aps = userInfo[@"aps"];
     NSString *alert = aps[@"alert"];
     
-    if ([alert isEqualToString:@"SomeoneJoinedOrder"])
+    if ([alert isEqualToString:@"Person joined order."])
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PersonJoinedOrder" object:nil];
+    }
+    else if ([alert isEqualToString:@"Order is closed."])
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"OrderIsClosed" object:nil];
     }
 }
 

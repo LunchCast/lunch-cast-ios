@@ -15,6 +15,7 @@
 #import "GroupTableViewCell.h"
 #import "AccountData.h"
 #import "MessagingService.h"
+#import "BackendlessUser.h"
 
 @interface OrderDetailsViewController() <UITableViewDelegate, UITableViewDataSource>
 
@@ -93,6 +94,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(personJoinedOrder)
                                                  name:@"PersonJoinedOrder"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orderIsClosed)
+                                                 name:@"OrderIsClosed"
                                                object:nil];
 }
 
@@ -219,6 +224,7 @@
                                      result.objectId = self.order.objectId;
                                      [backendless.persistenceService save:self.order response:^(Order *result) {
                                          [self.navigationController popViewControllerAnimated:YES];
+                                         [self notifyOrderClosed];
                                      } error:^(Fault *fault) {
                                      }];
                                  } error:^(Fault *fault) {
@@ -237,7 +243,7 @@
                                          self.cancelOrderButton.hidden = YES;
                                          self.completeOrderButton.hidden = YES;
                                          [self.addMealButton setImage:[UIImage imageNamed:@"food-is-here"] forState:UIControlStateNormal];
-                                         
+                                         [self notifyOrderClosed];
                                      } error:^(Fault *fault) {
                                      }];
                                  } error:^(Fault *fault) {
@@ -300,6 +306,56 @@
     [self requestOrderItems];
 }
 
+- (void)orderIsClosed
+{
+    if ([self isOwner])
+    {
+        [self.addMealButton setImage:[UIImage imageNamed:@"food-is-here"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        self.addMealButton.enabled = NO;
+        self.addMealButton.alpha = 0.4;
+    }
+}
+
+- (void)notifyOrderClosed
+{
+    BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
+    
+    [backendless.persistenceService find:[BackendlessUser class]
+                               dataQuery:dataQuery
+                                response:^(BackendlessCollection *collection)
+     {
+         NSArray *results = collection.data;
+         NSMutableArray *devices = [NSMutableArray array];
+         
+         for (BackendlessUser *user in results)
+         {
+             [devices addObject:[user getProperty:@"deviceId"]];
+         }
+         
+         DeliveryOptions *deliveryOptions = [DeliveryOptions new];
+         deliveryOptions.pushSinglecast = devices;
+         [deliveryOptions pushPolicy:PUSH_ONLY];
+         
+         PublishOptions *publishOptions = [PublishOptions new];
+         [backendless.messagingService publish:@"default" message:@"Order is closed." publishOptions:publishOptions deliveryOptions:deliveryOptions
+                                      response:^(MessageStatus *messageStatus)
+          {
+              NSLog(@"MessageStatus = %@ <%@>", messageStatus.messageId, messageStatus.status);
+          } error:^(Fault *fault)
+          {
+              NSLog(@"FAULT = %@", fault);
+          }
+          ];
+     }
+                                   error:^(Fault *fault)
+     {
+         NSLog(@"Error: %@", fault);
+     }];
+}
+     
 #pragma mark - Segue
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -312,8 +368,6 @@
         mvc.orderCreated = YES;
     }
 }
-
-
 
 @end
 

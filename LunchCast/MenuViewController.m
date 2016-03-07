@@ -173,6 +173,8 @@
              }
          } error:^(Fault *fault) {}];
     }
+
+    
 }
 
 -(void)deleteOrderItem:(OrderItem *)orderItem
@@ -206,9 +208,9 @@
                                         DeliveryOptions *deliveryOptions = [DeliveryOptions new];
                                         deliveryOptions.pushSinglecast = devices;
                                         [deliveryOptions pushPolicy:PUSH_ONLY];
-                                        
+
                                         PublishOptions *publishOptions = [PublishOptions new];
-                                        [backendless.messagingService publish:@"default" message:@"SomeoneJoinedOrder" publishOptions:publishOptions deliveryOptions:deliveryOptions
+                                        [backendless.messagingService publish:@"default" message:@"Person joined order." publishOptions:publishOptions deliveryOptions:deliveryOptions
                                                                      response:^(MessageStatus *messageStatus)
                                          {
                                              NSLog(@"MessageStatus = %@ <%@>", messageStatus.messageId, messageStatus.status);
@@ -237,7 +239,7 @@
                                 }
                                    error:^(Fault *fault)
      {
-         NSLog(@"WTF");
+         NSLog(@"Error: %@", fault);
      }];
     
     
