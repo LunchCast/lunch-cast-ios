@@ -25,6 +25,8 @@
 		7AD2519C1C76907F00091C75 /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2519B1C76907F00091C75 /* OrderDetailsViewController.m */; };
 		7AD2519F1C76942B00091C75 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2519E1C76942B00091C75 /* MenuViewController.m */; };
 		7AF3C60C1C86505600555E98 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF3C60B1C86505600555E98 /* MenuCell.m */; };
+		7AF5DDE91D21B0CE00BD79C1 /* TextFieldWithInsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF5DDE81D21B0CE00BD79C1 /* TextFieldWithInsets.m */; };
+		7AF5DDEC1D21B49000BD79C1 /* UIColor+NewColorAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF5DDEB1D21B49000BD79C1 /* UIColor+NewColorAdditions.m */; };
 		D61489C11C88D3C0003E917D /* SubscriptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D61489C01C88D3C0003E917D /* SubscriptionsTableViewController.m */; };
 		D61489C41C8A2215003E917D /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D61489C31C8A2215003E917D /* GroupTableViewCell.m */; };
 		D687C0731C7A053D00C0B1D6 /* SignInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C0701C7A053D00C0B1D6 /* SignInVC.m */; };
@@ -90,6 +92,10 @@
 		7AD2519E1C76942B00091C75 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuViewController.m; path = LunchCast/MenuViewController.m; sourceTree = SOURCE_ROOT; };
 		7AF3C60A1C86505600555E98 /* MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCell.h; sourceTree = SOURCE_ROOT; };
 		7AF3C60B1C86505600555E98 /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCell.m; sourceTree = SOURCE_ROOT; };
+		7AF5DDE71D21B0CE00BD79C1 /* TextFieldWithInsets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldWithInsets.h; sourceTree = SOURCE_ROOT; };
+		7AF5DDE81D21B0CE00BD79C1 /* TextFieldWithInsets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldWithInsets.m; sourceTree = SOURCE_ROOT; };
+		7AF5DDEA1D21B49000BD79C1 /* UIColor+NewColorAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+NewColorAdditions.h"; sourceTree = SOURCE_ROOT; };
+		7AF5DDEB1D21B49000BD79C1 /* UIColor+NewColorAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+NewColorAdditions.m"; sourceTree = SOURCE_ROOT; };
 		D61489BF1C88D3C0003E917D /* SubscriptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionsTableViewController.h; sourceTree = SOURCE_ROOT; };
 		D61489C01C88D3C0003E917D /* SubscriptionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionsTableViewController.m; sourceTree = SOURCE_ROOT; };
 		D61489C21C8A2215003E917D /* GroupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -362,6 +368,8 @@
 		7ACC33511C77163A00E9D8F8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7AF5DDE71D21B0CE00BD79C1 /* TextFieldWithInsets.h */,
+				7AF5DDE81D21B0CE00BD79C1 /* TextFieldWithInsets.m */,
 				7AC9E46E1C834716001BEA84 /* RestaurantCell.h */,
 				7AC9E46F1C834716001BEA84 /* RestaurantCell.m */,
 				7AF3C60A1C86505600555E98 /* MenuCell.h */,
@@ -432,6 +440,8 @@
 		7AD2515B1C76873000091C75 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7AF5DDEA1D21B49000BD79C1 /* UIColor+NewColorAdditions.h */,
+				7AF5DDEB1D21B49000BD79C1 /* UIColor+NewColorAdditions.m */,
 				D687C0891C7A062500C0B1D6 /* PrefixHeader.pch */,
 				D687C08A1C7A062500C0B1D6 /* ErrorCoding.h */,
 				D687C08B1C7A062500C0B1D6 /* RequestCallbackProtocol.h */,
@@ -928,6 +938,7 @@
 				7AC9E4701C834716001BEA84 /* RestaurantCell.m in Sources */,
 				7AF3C60C1C86505600555E98 /* MenuCell.m in Sources */,
 				7AD251601C76873000091C75 /* AppDelegate.m in Sources */,
+				7AF5DDEC1D21B49000BD79C1 /* UIColor+NewColorAdditions.m in Sources */,
 				D687C07F1C7A05D600C0B1D6 /* CustomActivityIndicator.m in Sources */,
 				D6A4651F1C83A7B80046701D /* Utilities.m in Sources */,
 				7AC9E46A1C83435B001BEA84 /* CreateOrderViewController.m in Sources */,
@@ -935,6 +946,7 @@
 				7A7D04E41C88DF0200710F16 /* Order.m in Sources */,
 				7AD2515D1C76873000091C75 /* main.m in Sources */,
 				D687C0841C7A05F100C0B1D6 /* AccountData.m in Sources */,
+				7AF5DDE91D21B0CE00BD79C1 /* TextFieldWithInsets.m in Sources */,
 				7A7D04E31C88DF0200710F16 /* Meal.m in Sources */,
 				7AD251901C76890E00091C75 /* HomeViewController.m in Sources */,
 				7AD2519C1C76907F00091C75 /* OrderDetailsViewController.m in Sources */,

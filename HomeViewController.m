@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "UIColor+NewColorAdditions.h"
 #import "AccountManager.h"
 #import "Utilities.h"
 
@@ -15,6 +16,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor darkishPinkColor];
+    self.navigationController.navigationBar.translucent  = NO;
 }
 
 - (IBAction)logOutButtonAction:(UIBarButtonItem *)sender

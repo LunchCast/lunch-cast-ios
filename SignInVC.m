@@ -6,6 +6,7 @@
 //  Copyright © 2015 12Rockets. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "SignInVC.h"
 #import "Validator.h"
 #import "UIAlertController+EasyInit.h"
@@ -14,6 +15,7 @@
 #import "AccountData.h"
 #import "BackendlessAuthReponseProtocol.h"
 #import "Utilities.h"
+#import "TextFieldWithInsets.h"
 
 #define ANIMATION_DURATION 0.5
 #define ANIMATION_SPACE 76
@@ -24,9 +26,9 @@
 @property (weak, nonatomic) IBOutlet CustomActivityIndicator *activityIndicator;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordTopConstraint;
 
-@property (weak, nonatomic) IBOutlet UITextField *usernameField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordField;
-@property (weak, nonatomic) IBOutlet UITextField *nameField;
+@property (weak, nonatomic) IBOutlet TextFieldWithInsets *usernameField;
+@property (weak, nonatomic) IBOutlet TextFieldWithInsets *passwordField;
+@property (weak, nonatomic) IBOutlet TextFieldWithInsets *nameField;
 
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;
 @property (weak, nonatomic) IBOutlet UIButton *secondaryButton;
@@ -41,7 +43,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self.navigationController.navigationBar setHidden:YES];
+    [self customizeMainButton];
     self.signIn = YES;
     [self switchToSignIn];
     
@@ -147,8 +150,8 @@
     // switch to create
     [self changeTitleOnButton:self.secondaryButton toTitle:@"Already have an account? Log in."];
     [self.nameField setHidden:NO];
-    [self.passwordTopConstraint setConstant:self.passwordField.frame.size.height + 70.0];
-    [self.mainButton setImage:[UIImage imageNamed: @"sign-up"] forState:UIControlStateNormal];
+    [self.passwordTopConstraint setConstant:self.passwordField.frame.size.height + 62.0];
+    [self.mainButton setTitle:@"SIGN UP" forState:UIControlStateNormal];
     [self.descriptionLabel setText:@"Sing up with your name, email adress and password."];
 }
 
@@ -158,7 +161,7 @@
     [self changeTitleOnButton:self.secondaryButton toTitle:@"Don't have an account? Sign up."];
     [self.passwordTopConstraint setConstant:50.0];
     [self.nameField setHidden:YES];
-    [self.mainButton setImage:[UIImage imageNamed: @"log-in"] forState:UIControlStateNormal];
+    [self.mainButton setTitle:@"LOG IN" forState:UIControlStateNormal];
     [self.descriptionLabel setText:@"Log in with your email adress and password."];
 }
 
@@ -226,14 +229,7 @@
 - (void)didRegisterUser:(BackendlessUser *)user
 {
     [self stopWaiting];
-    
-    // switch to sign in
-    [self changeTitleOnButton:self.secondaryButton toTitle:@"Don't have an account? Sign up."];
-    [self.passwordTopConstraint setConstant:50.0];
-    [self.nameField setHidden:YES];
-    [self.mainButton setImage:[UIImage imageNamed: @"log-in"] forState:UIControlStateNormal];
-    [self.descriptionLabel setText:@"Log in with your email adress and password."];
-
+    [self switchToSignIn];
     
     self.signIn = !self.signIn;
 }
@@ -249,7 +245,6 @@
     NSLog(@"User logged out");
 }
 
-
 #pragma mark - Utils
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -264,9 +259,16 @@
 - (void)customizePlaceholderText
 {
     UIColor *placeholderColor = [UIColor colorWithWhite:0.8 alpha:0.8];
-     self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" email" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
-     self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" password" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
-    self.nameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" name" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
+     self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
+     self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
+    self.nameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Name" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
+}
+
+-(void)customizeMainButton
+{
+    [self.mainButton.layer setCornerRadius: 2.0f];
+    [self.mainButton.layer setBorderWidth: 1.5f];
+    [self.mainButton.layer setBorderColor:[UIColor whiteColor].CGColor];
 }
 
 
