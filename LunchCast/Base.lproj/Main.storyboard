@@ -247,6 +247,83 @@
             </objects>
             <point key="canvasLocation" x="1431" y="-84"/>
         </scene>
+        <!--Subscription Collection View Controller-->
+        <scene sceneID="GAe-n9-ES5">
+            <objects>
+                <collectionViewController id="XkC-nM-xa6" customClass="SubscriptionCollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="9Fd-MP-uu6">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ICd-Xi-Im0">
+                            <size key="itemSize" width="184" height="138"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionCell" id="L00-03-UpP" customClass="CustomCollectionViewCell">
+                                <rect key="frame" x="0.0" y="64" width="184" height="138"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="184" height="138"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5R2-ha-wT5">
+                                            <rect key="frame" x="71" y="58" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="5R2-ha-wT5" firstAttribute="centerX" secondItem="L00-03-UpP" secondAttribute="centerX" id="K2G-Vu-zRq"/>
+                                    <constraint firstItem="5R2-ha-wT5" firstAttribute="centerY" secondItem="L00-03-UpP" secondAttribute="centerY" id="ZQ2-ji-w0B"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="tagLabel" destination="5R2-ha-wT5" id="XM4-Om-LoV"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="XkC-nM-xa6" id="MRO-Im-nMy"/>
+                            <outlet property="delegate" destination="XkC-nM-xa6" id="Sdq-fG-9sG"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="etC-Bl-wzT">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="Lr8-iK-t50">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0gA-24-hQP">
+                                <rect key="frame" x="20" y="7" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonAction:" destination="XkC-nM-xa6" eventType="touchUpInside" id="IBs-hu-DuW"/>
+                                </connections>
+                            </button>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="aPg-LO-EFA">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Pg2-9E-WW3">
+                                <rect key="frame" x="546" y="7" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onSaveButtonActipn:" destination="XkC-nM-xa6" eventType="touchUpInside" id="jL2-cu-dld"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qNt-Rr-dQm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2093" y="1543"/>
+        </scene>
         <!--Select Tags-->
         <scene sceneID="aGr-by-qsW">
             <objects>
@@ -259,7 +336,7 @@
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tagCell" textLabel="zyJ-0U-Pbq" style="IBUITableViewCellStyleDefault" id="PaD-ws-LaO">
-                                <rect key="frame" x="0.0" y="92" width="600" height="60"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PaD-ws-LaO" id="vY5-6k-qkJ">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
@@ -300,7 +377,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KPS-He-E9y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2169" y="1543"/>
+            <point key="canvasLocation" x="2704" y="1535"/>
         </scene>
         <!--Create Order-->
         <scene sceneID="d34-C6-hfh">
@@ -1310,7 +1387,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Mp5-qh-Kgg" kind="relationship" relationship="rootViewController" id="RDw-bJ-1oH"/>
+                        <segue destination="XkC-nM-xa6" kind="relationship" relationship="rootViewController" id="fqm-u1-uCq"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lyj-Kv-FWI" userLabel="First Responder" sceneMemberID="firstResponder"/>

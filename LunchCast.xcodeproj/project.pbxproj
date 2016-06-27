@@ -27,6 +27,8 @@
 		7AF3C60C1C86505600555E98 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF3C60B1C86505600555E98 /* MenuCell.m */; };
 		7AF5DDE91D21B0CE00BD79C1 /* TextFieldWithInsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF5DDE81D21B0CE00BD79C1 /* TextFieldWithInsets.m */; };
 		7AF5DDEC1D21B49000BD79C1 /* UIColor+NewColorAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF5DDEB1D21B49000BD79C1 /* UIColor+NewColorAdditions.m */; };
+		7AF5DDEF1D21B98F00BD79C1 /* CustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF5DDEE1D21B98F00BD79C1 /* CustomCollectionViewCell.m */; };
+		7AF5DDF21D21BB3F00BD79C1 /* SubscriptionCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF5DDF11D21BB3F00BD79C1 /* SubscriptionCollectionViewController.m */; };
 		D61489C11C88D3C0003E917D /* SubscriptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D61489C01C88D3C0003E917D /* SubscriptionsTableViewController.m */; };
 		D61489C41C8A2215003E917D /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D61489C31C8A2215003E917D /* GroupTableViewCell.m */; };
 		D687C0731C7A053D00C0B1D6 /* SignInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D687C0701C7A053D00C0B1D6 /* SignInVC.m */; };
@@ -96,6 +98,10 @@
 		7AF5DDE81D21B0CE00BD79C1 /* TextFieldWithInsets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldWithInsets.m; sourceTree = SOURCE_ROOT; };
 		7AF5DDEA1D21B49000BD79C1 /* UIColor+NewColorAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+NewColorAdditions.h"; sourceTree = SOURCE_ROOT; };
 		7AF5DDEB1D21B49000BD79C1 /* UIColor+NewColorAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+NewColorAdditions.m"; sourceTree = SOURCE_ROOT; };
+		7AF5DDED1D21B98F00BD79C1 /* CustomCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
+		7AF5DDEE1D21B98F00BD79C1 /* CustomCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
+		7AF5DDF01D21BB3F00BD79C1 /* SubscriptionCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionCollectionViewController.h; sourceTree = SOURCE_ROOT; };
+		7AF5DDF11D21BB3F00BD79C1 /* SubscriptionCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionCollectionViewController.m; sourceTree = SOURCE_ROOT; };
 		D61489BF1C88D3C0003E917D /* SubscriptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionsTableViewController.h; sourceTree = SOURCE_ROOT; };
 		D61489C01C88D3C0003E917D /* SubscriptionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionsTableViewController.m; sourceTree = SOURCE_ROOT; };
 		D61489C21C8A2215003E917D /* GroupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -372,6 +378,8 @@
 				7AF5DDE81D21B0CE00BD79C1 /* TextFieldWithInsets.m */,
 				7AC9E46E1C834716001BEA84 /* RestaurantCell.h */,
 				7AC9E46F1C834716001BEA84 /* RestaurantCell.m */,
+				7AF5DDED1D21B98F00BD79C1 /* CustomCollectionViewCell.h */,
+				7AF5DDEE1D21B98F00BD79C1 /* CustomCollectionViewCell.m */,
 				7AF3C60A1C86505600555E98 /* MenuCell.h */,
 				7AF3C60B1C86505600555E98 /* MenuCell.m */,
 				D687C07D1C7A05D600C0B1D6 /* CustomActivityIndicator.h */,
@@ -401,6 +409,8 @@
 				7AC9E4691C83435B001BEA84 /* CreateOrderViewController.m */,
 				D6A4651A1C83A6AD0046701D /* MyProfileViewController.h */,
 				D6A4651B1C83A6AD0046701D /* MyProfileViewController.m */,
+				7AF5DDF01D21BB3F00BD79C1 /* SubscriptionCollectionViewController.h */,
+				7AF5DDF11D21BB3F00BD79C1 /* SubscriptionCollectionViewController.m */,
 				D61489BF1C88D3C0003E917D /* SubscriptionsTableViewController.h */,
 				D61489C01C88D3C0003E917D /* SubscriptionsTableViewController.m */,
 			);
@@ -943,6 +953,7 @@
 				D6A4651F1C83A7B80046701D /* Utilities.m in Sources */,
 				7AC9E46A1C83435B001BEA84 /* CreateOrderViewController.m in Sources */,
 				D687C0731C7A053D00C0B1D6 /* SignInVC.m in Sources */,
+				7AF5DDEF1D21B98F00BD79C1 /* CustomCollectionViewCell.m in Sources */,
 				7A7D04E41C88DF0200710F16 /* Order.m in Sources */,
 				7AD2515D1C76873000091C75 /* main.m in Sources */,
 				D687C0841C7A05F100C0B1D6 /* AccountData.m in Sources */,
@@ -956,6 +967,7 @@
 				7AD251961C768E9A00091C75 /* OrdersCell.m in Sources */,
 				7A7D04E21C88DF0200710F16 /* Restaurant.m in Sources */,
 				7AD2519F1C76942B00091C75 /* MenuViewController.m in Sources */,
+				7AF5DDF21D21BB3F00BD79C1 /* SubscriptionCollectionViewController.m in Sources */,
 				D687C0851C7A05F100C0B1D6 /* AccountManager.m in Sources */,
 				D61489C41C8A2215003E917D /* GroupTableViewCell.m in Sources */,
 				D687C08E1C7A064700C0B1D6 /* PushNotificationRegistrator.m in Sources */,

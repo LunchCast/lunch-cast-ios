@@ -1,0 +1,148 @@
+//
+//  SubscriptionCollectionViewController.m
+//  LunchCast
+//
+//  Created by Aleksandra Stevovic on 6/27/16.
+//  Copyright © 2016 Aleksandra Stevović. All rights reserved.
+//
+
+#import "SubscriptionCollectionViewController.h"
+#import "Backendless.h"
+#import "Tag.h"
+#import "UserSubscription.h"
+#import "BackendlessEntity.h"
+#import "CustomCollectionViewCell.h"
+#import "UIAlertController+EasyInit.h"
+
+@interface SubscriptionCollectionViewController () <UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic, strong)NSArray *tags;
+@property (nonatomic, strong)UserSubscription *userSubscription;
+
+@end
+
+@implementation SubscriptionCollectionViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.tags = [NSArray new];
+    [self.collectionView setAllowsMultipleSelection:YES];
+    //    BackendlessUser *user = backendless.userService.currentUser;
+    
+    QueryOptions *queryOptions = [QueryOptions query];
+    queryOptions.relationsDepth = @1;
+    queryOptions.sortBy = @[@"name"];
+    BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
+    dataQuery.queryOptions = queryOptions;
+    
+    [backendless.persistenceService find:[Tag class]
+                               dataQuery:dataQuery
+                                response:^(BackendlessCollection *collection) {
+                                    
+                                    self.tags = collection.data;
+                                    [self.collectionView reloadData];
+                                }
+                                   error:^(Fault *fault) {
+                                       
+                                   }];
+    
+    
+    [self getUserSubscription];
+    
+}
+-(void)getUserSubscription
+{
+    BackendlessUser *user = backendless.userService.currentUser;
+    
+    BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
+    dataQuery.whereClause = [NSString stringWithFormat:@"userId = \'%@\'", user.objectId];
+    [backendless.persistenceService find:[UserSubscription class]
+                               dataQuery:dataQuery
+                                response:^(BackendlessCollection *collection){
+                                    if ([collection.data count]) {
+                                        self.userSubscription = [collection.data objectAtIndex:0];
+                                        [self.collectionView reloadData];
+                                    }
+                                }
+                                   error:^(Fault *fault) {}];
+    
+}
+
+#pragma mark - Collection view data source
+
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(self.view.frame.size.width/3.0 - 8.0, 50.0);
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.tags.count;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CustomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionCell" forIndexPath:indexPath];
+    
+    // Configure the cell...
+    Tag *tag = self.tags[indexPath.row];
+    cell.tagLabel.text = tag.name;
+    
+    for (Tag *tag1 in self.userSubscription.tags) {
+        if ([tag1.objectId isEqualToString:tag.objectId]) {
+            [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+        }
+    }
+    
+    return cell;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    Tag *tag = self.tags[indexPath.row];
+    [self.userSubscription.tags addObject:tag];
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    Tag *tag = self.tags[indexPath.row];
+    
+    NSMutableArray *tagsForDeleting = [NSMutableArray new];
+    
+    for (Tag *subTag in self.userSubscription.tags) {
+        if ([subTag.objectId isEqualToString:tag.objectId]) {
+            [tagsForDeleting addObject:subTag];
+        }
+    }
+    
+    [self.userSubscription.tags removeObjectsInArray:tagsForDeleting];
+}
+
+#pragma mark - Button Actions
+
+- (IBAction)onSaveButtonActipn:(UIButton *)sender
+{
+    [backendless.persistenceService first:[UserSubscription class]
+                                 response:^(BackendlessEntity *result)
+     {
+         result.objectId = self.userSubscription.objectId;
+         [backendless.persistenceService save:self.userSubscription response:^(UserSubscription *result)
+          {
+              [self dismissViewControllerAnimated:YES completion:nil];
+          } error:^(Fault *fault)
+          {
+              [UIAlertController presentAlertViewErrorWithText:NSLocalizedString(fault.message, nil) andActionTitle:@"OK" onController:self withCompletion:nil];
+          }];
+     } error:^(Fault *fault)
+     {
+         [UIAlertController presentAlertViewErrorWithText:NSLocalizedString(fault.message, nil) andActionTitle:@"OK" onController:self withCompletion:nil];
+     }];
+}
+
+- (IBAction)cancelButtonAction:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+@end
