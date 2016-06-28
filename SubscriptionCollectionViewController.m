@@ -103,17 +103,34 @@ static const float cellsSpacing = 15.0;
     Tag *tag = self.tags[indexPath.row];
     cell.tagLabel.text = tag.name;
     
-    for (Tag *tag1 in self.userSubscription.tags) {
-        cell.selectedMode = [tag1.objectId isEqualToString:tag.objectId];
-    }
+    if ([self tagExsistsInUserSubscriptions:tag])
+    {
+            [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+            [cell selectCell];
+        }
+        else
+        {
+            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            [cell deselectCell];
+        }
     
     return cell;
+}
+
+-(BOOL)tagExsistsInUserSubscriptions: (Tag *)tag
+{
+    for (Tag *tag1 in self.userSubscription.tags) {
+        if ([tag.objectId isEqualToString:tag1.objectId]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.selectedMode = YES;
+    [cell selectCell];
     Tag *tag = self.tags[indexPath.row];
     [self.userSubscription.tags addObject:tag];
 }
@@ -121,8 +138,7 @@ static const float cellsSpacing = 15.0;
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.selectedMode= NO;
-    
+    [cell deselectCell];
     Tag *tag = self.tags[indexPath.row];
     
     NSMutableArray *tagsForDeleting = [NSMutableArray new];

@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *tagLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *tagImageView;
 
-@property (nonatomic) BOOL selectedMode;
+-(void)selectCell;
+-(void)deselectCell;
 
 @end

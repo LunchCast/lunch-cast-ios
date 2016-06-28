@@ -12,36 +12,37 @@
 
 @implementation CustomCollectionViewCell
 
--(void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    [self setNeedsDisplay]; // force drawRect:
-}
+//-(void)setFrame:(CGRect)frame
+//{
+//    [super setFrame:frame];
+//    [self setNeedsDisplay]; // force drawRect:
+//}
 
--(void)setSelectedMode:(BOOL)selectedMode
-{
-    _selectedMode = selectedMode;
-    
-    [self setTagLabelStyle];
-    [self setImageForMode];
-}
--(void)setImageForMode
+-(void)setImageForMode: (BOOL) selectedMode
 {
     NSString *name = [self.tagLabel.text lowercaseString];
-    NSString *mode = self.selectedMode ? @"selected" : @"deselected";
+    NSString *mode = selectedMode ? @"selected" : @"deselected";
     
-    if ([UIImage imageNamed: [NSString stringWithFormat:@"%@-%@", name, mode]]) {
-         [self.tagImageView setImage:[UIImage imageNamed: [NSString stringWithFormat:@"%@-%@", name, mode]]];
-    }
+    [self.tagImageView setImage:[UIImage imageNamed: [NSString stringWithFormat:@"%@-%@", name, mode]]];
 }
--(void)setTagLabelStyle
+-(void)setTagLabelStyle: (BOOL) selectedMode
 {
     self.tagLabel.layer.masksToBounds = YES;
     self.tagLabel.layer.cornerRadius = 2.0f;
-    self.tagLabel.backgroundColor = self.selectedMode ?  [UIColor darkishPinkColor]: [UIColor softGray];
-    self.tagLabel.layer.borderWidth = self.selectedMode ? 1.0f : 0.0f;
-    self.tagLabel.layer.borderColor = self.selectedMode ? [UIColor whiteColor].CGColor : [UIColor clearColor].CGColor;
-    
+    self.tagLabel.backgroundColor = selectedMode ?  [UIColor darkishPinkColor]: [UIColor softGray];
+    self.tagLabel.layer.borderWidth = selectedMode ? 1.0f : 0.0f;
+    self.tagLabel.layer.borderColor = selectedMode ? [UIColor whiteColor].CGColor : [UIColor clearColor].CGColor;
+}
+
+-(void)selectCell
+{
+    [self setTagLabelStyle:YES];
+    [self setImageForMode:YES];
+}
+-(void)deselectCell
+{
+    [self setTagLabelStyle:NO];
+    [self setImageForMode:NO];
 }
 
 @end
