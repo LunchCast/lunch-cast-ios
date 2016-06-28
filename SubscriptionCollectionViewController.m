@@ -105,14 +105,14 @@ static const float cellsSpacing = 15.0;
     
     if ([self tagExsistsInUserSubscriptions:tag])
     {
-            [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
-            [cell selectCell];
-        }
-        else
-        {
-            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
-            [cell deselectCell];
-        }
+        [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+        [cell selectCell];
+    }
+    else
+    {
+        [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+        [cell deselectCell];
+    }
     
     return cell;
 }

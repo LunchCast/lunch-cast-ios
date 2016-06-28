@@ -16,6 +16,7 @@
 #import "Meal.h"
 #import "Restaurant.h"
 #import "OrdersCell.h"
+#import "UIColor+NewColorAdditions.h"
 
 @interface OrdersViewController()
 
@@ -83,28 +84,29 @@
     cell.order = order;
     [cell.restaurantName setText: order.restaurant.name];
     
-    NSString *meals = @"";
-    for(Meal *meal in order.restaurant.meals)
+    NSString *tags = @"";
+    for(Tag *tag in order.restaurant.tags)
     {
-        meals = [meals stringByAppendingString:meal.name];
-        meals = [meals stringByAppendingString:@", "];
+        tags = [tags stringByAppendingString:@" #"];
+        tags = [tags stringByAppendingString:tag.name];
     }
+    [cell.tags setText:tags];
     
-    [cell.menu setText:meals];
-    
-    [cell.eta setText:[NSString stringWithFormat:@"Delivery time: %@ min",order.restaurant.eta]];
+    [cell.eta setText:[NSString stringWithFormat:@"ETA: %@ min",order.restaurant.eta]];
 
-    [cell.orderer setText:[NSString stringWithFormat:@"Order admin: %@",order.order_creator.name]];
+    [cell.orderer setText:[NSString stringWithFormat:@"Admin: %@",order.order_creator.name]];
     
     if ([order.state intValue] == 0)
     {
         //otvorena
-        [cell.statusImageView setImage:[UIImage imageNamed:@"open"]];
+        cell.stateLabel.textColor = [UIColor toxicGreenColor];
+        cell.stateLabel.text = @"OPENED";
     }
     else if ([order.state intValue] ==1)
     {
         //zatvorena
-        [cell.statusImageView setImage:[UIImage imageNamed:@"closed"]];
+        cell.stateLabel.textColor = [UIColor darkishPinkColor];
+        cell.stateLabel.text = @"CLOSED";
     }
     
     return cell;

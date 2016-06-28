@@ -12,4 +12,5 @@
 
 + (UIColor *)darkishPinkColor;
 + (UIColor *)softGray;
++ (UIColor *)toxicGreenColor;
 @end

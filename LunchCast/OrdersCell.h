@@ -12,11 +12,14 @@
 @interface OrdersCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *restaurantName;
-@property (weak, nonatomic) IBOutlet UILabel *menu;
+@property (weak, nonatomic) IBOutlet UILabel *tags;
 @property (weak, nonatomic) IBOutlet UILabel *eta;
 @property (weak, nonatomic) IBOutlet UILabel *orderer;
+@property (weak, nonatomic) IBOutlet UIImageView *restourantImageView;
 
-@property (weak, nonatomic) IBOutlet UIImageView *statusImageView;
+@property (weak, nonatomic) IBOutlet UILabel *stateLabel;
+
+
 
 @property (nonatomic, strong) Order *order;
 
