@@ -284,7 +284,7 @@
         
         cell.titleLabel.text = personGroup.orderer.name;
         cell.descriptionLabel.text = personGroup.meals;
-        cell.priceLabel.text = [NSString stringWithFormat:@"%d RSD", personGroup.totalPrice];
+        cell.priceLabel.text = [NSString stringWithFormat:@"%d €", personGroup.totalPrice];
     }
     
     return cell;
