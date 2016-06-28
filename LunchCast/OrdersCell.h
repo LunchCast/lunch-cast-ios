@@ -19,8 +19,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *stateLabel;
 
-
-
 @property (nonatomic, strong) Order *order;
 
 @end
