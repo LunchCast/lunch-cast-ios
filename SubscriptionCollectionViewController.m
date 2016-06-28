@@ -13,6 +13,11 @@
 #import "BackendlessEntity.h"
 #import "CustomCollectionViewCell.h"
 #import "UIAlertController+EasyInit.h"
+#import "UIColor+NewColorAdditions.h"
+
+static const float defaultCellWidth = 120.0;
+static const float defaultCellHeiht = 120.0;
+static const float cellsSpacing = 15.0;
 
 @interface SubscriptionCollectionViewController () <UICollectionViewDelegateFlowLayout>
 
@@ -25,6 +30,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor darkishPinkColor];
+    self.navigationController.navigationBar.translucent  = NO;
     
     self.tags = [NSArray new];
     [self.collectionView setAllowsMultipleSelection:YES];
@@ -73,7 +81,13 @@
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(self.view.frame.size.width/3.0 - 8.0, 50.0);
+    CGFloat cellWidth = self.view.frame.size.width/3.0;
+    if(cellWidth < defaultCellWidth)
+    {
+        cellWidth = self.view.frame.size.width/2.0;
+    }
+    
+    return CGSizeMake(cellWidth - cellsSpacing, defaultCellHeiht);
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -90,9 +104,15 @@
     cell.tagLabel.text = tag.name;
     
     for (Tag *tag1 in self.userSubscription.tags) {
-        if ([tag1.objectId isEqualToString:tag.objectId]) {
-            [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+        if ([tag1.objectId isEqualToString:tag.objectId])
+        {
+            cell.selectedMode = YES;
         }
+        else
+        {
+            cell.selectedMode = NO;
+        }
+
     }
     
     return cell;
@@ -100,12 +120,17 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.selectedMode = YES;
     Tag *tag = self.tags[indexPath.row];
     [self.userSubscription.tags addObject:tag];
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.selectedMode= NO;
+    
     Tag *tag = self.tags[indexPath.row];
     
     NSMutableArray *tagsForDeleting = [NSMutableArray new];

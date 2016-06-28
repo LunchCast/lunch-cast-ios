@@ -11,5 +11,6 @@
 @interface CustomCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *tagLabel;
+@property (nonatomic) BOOL selectedMode;
 
 @end

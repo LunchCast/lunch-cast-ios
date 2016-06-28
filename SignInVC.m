@@ -148,21 +148,21 @@
 - (void)switchToCreate
 {
     // switch to create
-    [self changeTitleOnButton:self.secondaryButton toTitle:@"Already have an account? Log in."];
+    [self changeTitleOnButton:self.secondaryButton toTitle:@"Already have an account? Log in"];
     [self.nameField setHidden:NO];
     [self.passwordTopConstraint setConstant:self.passwordField.frame.size.height + 62.0];
     [self.mainButton setTitle:@"SIGN UP" forState:UIControlStateNormal];
-    [self.descriptionLabel setText:@"Sing up with your name, email adress and password."];
+    [self.descriptionLabel setText:@"Sing up with your name, email adress and password"];
 }
 
 - (void)switchToSignIn
 {
     // switch to sign in
-    [self changeTitleOnButton:self.secondaryButton toTitle:@"Don't have an account? Sign up."];
+    [self changeTitleOnButton:self.secondaryButton toTitle:@"Don't have an account? Sign up"];
     [self.passwordTopConstraint setConstant:50.0];
     [self.nameField setHidden:YES];
     [self.mainButton setTitle:@"LOG IN" forState:UIControlStateNormal];
-    [self.descriptionLabel setText:@"Log in with your email adress and password."];
+    [self.descriptionLabel setText:@"Log in with your email adress and password"];
 }
 
 - (void)changeTitleOnLabel:(UILabel *)label toTitle:(NSString *)title

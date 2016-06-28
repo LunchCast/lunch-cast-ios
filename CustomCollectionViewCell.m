@@ -10,9 +10,9 @@
 
 @implementation CustomCollectionViewCell
 
--(void)setSelected:(BOOL)selected
+-(void)setSelectedMode:(BOOL)selectedMode
 {
-    if (selected)
+    if (selectedMode)
     {
         self.tagLabel.textColor = [UIColor redColor];
     }
