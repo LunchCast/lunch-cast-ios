@@ -11,5 +11,5 @@
 @interface UIColor (NewColorAdditions)
 
 + (UIColor *)darkishPinkColor;
-
++ (UIColor *)softGray;
 @end
