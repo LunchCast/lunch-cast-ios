@@ -13,6 +13,7 @@
 #import "RestaurantCell.h"
 #import "Tag.h"
 #import "Meal.h"
+#import "UIColor+NewColorAdditions.h"
 
 @interface CreateOrderViewController() <UITableViewDataSource, UITableViewDelegate>
 
@@ -26,6 +27,8 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.navigationBar.barTintColor = [UIColor darkishPinkColor];
+    self.navigationController.navigationBar.translucent  = NO;
     
     self.searchResults = [NSArray new];
 
@@ -74,8 +77,6 @@
     cell.restaurant = restaurant;
     [cell.name setText: restaurant.name];
     
-    cell.menuImageView.image = (indexPath.row % 2 ==0) ? [UIImage imageNamed:@"menu-button-1"] : [UIImage imageNamed:@"menu-button-2"];
-    
     NSString *meals = @"";
     for(Meal *meal in restaurant.meals)
     {
@@ -86,14 +87,6 @@
     [cell.menu setText:meals];
     [cell.eta setText:[NSString stringWithFormat:@"Delivery time: %@ min",restaurant.eta]];
     [cell.min setText:[NSString stringWithFormat:@"Minimum for order: %@ RSD", restaurant.minAmount]];
-    
-    NSString *tags = @"";
-    for(Tag *tag in restaurant.tags)
-    {
-        tags = [tags stringByAppendingString:@" #"];
-        tags = [tags stringByAppendingString:tag.name];
-    }
-    [cell.tags setText:tags];
     
     return cell;
 }

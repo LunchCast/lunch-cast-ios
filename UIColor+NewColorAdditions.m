@@ -16,4 +16,7 @@
 + (UIColor *)softGray {
     return [UIColor colorWithRed:81.0f / 255.0f green:84.0f / 255.0f blue:81.0f / 255.0f alpha:1.0f];
 }
++ (UIColor *)toxicGreenColor {
+    return [UIColor colorWithRed:102.0f / 255.0f green:219.0f / 255.0f blue:38.0f / 255.0f alpha:1.0f];
+}
 @end
