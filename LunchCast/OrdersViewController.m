@@ -32,7 +32,6 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.navigationItem.title = @"Orders";
     self.searchResults = [NSMutableArray new];
     self.userOrders = [NSMutableArray new];

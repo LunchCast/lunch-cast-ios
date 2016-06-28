@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *menu;
 @property (weak, nonatomic) IBOutlet UILabel *eta;
 @property (weak, nonatomic) IBOutlet UILabel *min;
-@property (weak, nonatomic) IBOutlet UILabel *tags;
-@property (weak, nonatomic) IBOutlet UIImageView *menuImageView;
+
+@property (weak, nonatomic) IBOutlet UIImageView *restaurantImageView;
 
 @end
