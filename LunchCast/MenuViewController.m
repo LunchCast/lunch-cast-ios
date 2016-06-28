@@ -29,8 +29,6 @@
 
 @property (nonatomic, strong) NSMutableArray *alreadyOrderedItems;
 
-@property (nonatomic) int flag;
-
 @end
 
 @implementation MenuViewController
@@ -70,10 +68,10 @@
     
     self.alreadyOrderedItems = [NSMutableArray array];
     
-    BackendlessUser *user = backendless.userService.currentUser;
-    
     BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
-    dataQuery.whereClause = [NSString stringWithFormat:@"order_id.objectId = \'%@\' AND orderer.objectId = \'%@\'", self.order.objectId, user.objectId];
+    dataQuery.whereClause = [NSString stringWithFormat:@"order_id.objectId = \'%@\' AND orderer.objectId = \'%@\'",
+                             self.order.objectId,
+                             backendless.userService.currentUser.objectId];
     
     [backendless.persistenceService find:[OrderItem class]
                                dataQuery:dataQuery
@@ -97,165 +95,171 @@
     [self.activityIndicator startAnimating];
 }
 
-- (void)stopWaiting
+- (void)stopWaitingAndPop
 {
-    [self.view setUserInteractionEnabled:YES];
-    
-    for (UIView *v in self.view.subviews)
-        [v setAlpha:1.0];
-    
-    [self.activityIndicator stopAnimating];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.view setUserInteractionEnabled:YES];
+        
+        for (UIView *v in self.view.subviews)
+            [v setAlpha:1.0];
+        
+        [self.activityIndicator stopAnimating];
+        
+        if (self.isOrderCreated)
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else
+        {
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self.presentingViewController performSegueWithIdentifier:@"toOrders" sender:nil];
+            }];
+        }
+//    });
 }
 
 - (IBAction)onCreateOrder:(UIBarButtonItem *)sender
 {
     [self startWaiting];
-    BackendlessUser *user = backendless.userService.currentUser;
     
-    if (self.alreadyOrderedItems.count > 0)
+    if (self.isOrderCreated) // Adding items to existing order
     {
-        //delete all OrderItems for user and order
-        for (OrderItem *orderIt in self.alreadyOrderedItems) {
-            [self deleteOrderItem:orderIt];
-        }
-        
-        //create new orderItems for user and order
-        [self createNewOrderItemsForOrder:self.order andUser:user];
-        self.flag = 1;
-    }
-    else
-    {
-        if (self.isOrderCreated)
+        if (self.alreadyOrderedItems.count > 0)
         {
-            [self createNewOrderItemsForOrder:self.order andUser:user];
-            self.flag = 1;
-            
+            // Remove all items for user and order
+            [self removeOrderItems];
         }
-        else
-        {   self.flag = 0;
-            Order *order = [Order new];
-            order.order_time = [backendless randomString:MIN(25,36)];
-            order.state = [NSNumber numberWithInt:0];
-            order.restaurant = self.restaurant;
-            order.order_creator = user;
-            [backendless.persistenceService save:order response:^(Order *result) {
-                self.order = result;
-                [self createNewOrderItemsForOrder:self.order andUser:user];
-            }
-                                           error:^(Fault *fault) {}];
-        }
+        [self addItemsToOrder];
+    }
+    else // Create new order
+    {
+        Order *order = [Order new];
+        order.order_time = [backendless randomString:MIN(25,36)];
+        order.state = [NSNumber numberWithInt:0];
+        order.restaurant = self.restaurant;
+        order.order_creator = backendless.userService.currentUser;
+        [backendless.persistenceService save:order response:^(Order *createdOrder)
+         {
+             self.order = createdOrder;
+             [self addItemsToOrder];
+             
+         } error:^(Fault *fault)
+         {
+             //TODO: Handle error in a distant, distant future...
+             NSLog(@"Failed to create Order: %@", fault);
+             [self stopWaitingAndPop];
+         }];
     }
 }
 
--(void)createNewOrderItemsForOrder: (Order *)order andUser: (BackendlessUser *)user
+- (NSMutableArray *)harvestItems
 {
     NSMutableArray *orderItems = [NSMutableArray array];
-
+    
     for (MenuCell *cell in [self.tableView visibleCells])
     {
         if (cell.amount!=0) {
             OrderItem *orderItem = [OrderItem new];
             orderItem.quantity = [NSNumber numberWithInteger: cell.amount];
             orderItem.meal = cell.meal;
-            orderItem.order_id = order;
-            orderItem.orderer = user;
+            orderItem.order_id = self.order;
+            orderItem.orderer = backendless.userService.currentUser;
             [orderItems addObject:orderItem];
         }
     }
+    return orderItems;
+}
+
+-(void)addItemsToOrder
+{
+    NSMutableArray *orderItems = [self harvestItems];
+    if (orderItems.count == 0) [self stopWaitingAndPop];
     
+    PersistenceService *service = backendless.persistenceService;
+    
+    __block NSUInteger successCnt = 0;
     for (OrderItem *i in orderItems)
     {
-        [backendless.persistenceService save:i response:^(OrderItem *result)
+        [service save:i response:^(OrderItem *result)
          {
-             if ([orderItems lastObject] == i)
+             // Send notification after all items are saved
+             successCnt++;
+             if (successCnt == orderItems.count)
              {
-                 [self sendNotificationToOthers];
+                 [self sendAsyncNotification];
+                 [self stopWaitingAndPop];
              }
-         } error:^(Fault *fault) {}];
+         } error:^(Fault *fault)
+         {
+             NSLog(@"Failed to save OrderItem: %@", fault);
+             [self stopWaitingAndPop];
+             //TODO: Handle this error in a distant future...
+         }];
     }
-
-    
 }
 
--(void)deleteOrderItem:(OrderItem *)orderItem
+-(void)removeOrderItems
 {
-    Responder *responder = [Responder responder:self
-                             selResponseHandler:@selector(responseHandler:)
-                                selErrorHandler:@selector(errorHandler:)];
-    id<IDataStore> dataStore = [backendless.persistenceService of:[OrderItem class]];
-    [dataStore remove:orderItem responder:responder];
+    Fault *fault;
+    for (OrderItem *orderItem in self.alreadyOrderedItems)
+    {
+        id<IDataStore> dataStore = [backendless.persistenceService of:[OrderItem class]];
+        [dataStore remove:orderItem fault:&fault]; // Synchronous
+        if (fault)
+        {
+            NSLog(@"Failed to delete Order Item");
+            break;
+        }
+    }
 }
 
-- (void)sendNotificationToOthers
+- (void)sendAsyncNotification
 {
-    
-    //    BackendlessUser *owner = self.order.order_creator;
-    
-    BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
-    
-    [backendless.persistenceService find:[BackendlessUser class]
-                               dataQuery:dataQuery
-                                response:^(BackendlessCollection *collection){
-                                    if ([collection.data count]) {
-                                        NSArray *results = collection.data;
-                                        NSMutableArray *devices = [NSMutableArray array];
-                                        
-                                        for (BackendlessUser *user in results)
-                                        {
-                                            [devices addObject:[user getProperty:@"deviceId"]];
-                                        }
-                                        
-                                        DeliveryOptions *deliveryOptions = [DeliveryOptions new];
-                                        deliveryOptions.pushSinglecast = devices;
-                                        [deliveryOptions pushPolicy:PUSH_ONLY];
-
-                                        PublishOptions *publishOptions = [PublishOptions new];
-                                        [backendless.messagingService publish:@"default" message:@"Person joined order." publishOptions:publishOptions deliveryOptions:deliveryOptions
-                                                                     response:^(MessageStatus *messageStatus)
-                                         {
-                                             NSLog(@"MessageStatus = %@ <%@>", messageStatus.messageId, messageStatus.status);
-                                         } error:^(Fault *fault)
-                                         {
-                                             NSLog(@"FAULT = %@", fault);
-                                         }
-                                         ];
-                                        
-                                        
-                                    }
-                                    
-                                    [self stopWaiting];
-                                    
-                                    if (self.flag == 0)
-                                    {
-                                        [self dismissViewControllerAnimated:YES completion:^{
-                                            [self.presentingViewController performSegueWithIdentifier:@"toOrders" sender:nil];
-                                        }];
-                                    }
-                                    else
-                                    {
-                                        [self.navigationController popViewControllerAnimated:YES];
-                                    }
-                                    
-                                }
-                                   error:^(Fault *fault)
-     {
-         NSLog(@"Error: %@", fault);
-     }];
-    
-    
-    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+                   ^{
+                       BackendlessDataQuery *dataQuery = [BackendlessDataQuery query];
+                       
+                       [backendless.persistenceService find:[BackendlessUser class]
+                                                  dataQuery:dataQuery
+                                                   response:^(BackendlessCollection *collection){
+                                                       if ([collection.data count])
+                                                       {
+                                                           NSArray *results = collection.data;
+                                                           NSMutableArray *devices = [NSMutableArray array];
+                                                           
+                                                           for (BackendlessUser *user in results)
+                                                           {
+                                                               [devices addObject:[user getProperty:@"deviceId"]];
+                                                           }
+                                                           
+                                                           DeliveryOptions *deliveryOptions = [DeliveryOptions new];
+                                                           deliveryOptions.pushSinglecast = devices;
+                                                           [deliveryOptions pushPolicy:PUSH_ONLY];
+                                                           
+                                                           PublishOptions *publishOptions = [PublishOptions new];
+                                                           
+                                                           [backendless.messagingService
+                                                            publish:@"default"
+                                                            message:@"Person joined order."
+                                                            publishOptions:publishOptions
+                                                            deliveryOptions:deliveryOptions
+                                                            response:^(MessageStatus *messageStatus)
+                                                            {
+                                                                NSLog(@"MessageStatus = %@ <%@>", messageStatus.messageId, messageStatus.status);
+                                                            } error:^(Fault *fault)
+                                                            {
+                                                                NSLog(@"FAULT = %@", fault);
+                                                            }];
+                                                       }
+                                                       
+                                                   }
+                                                      error:^(Fault *fault)
+                        {
+                            NSLog(@"Error: %@", fault);
+                        }];
+                   });
 }
 
-#pragma mark - responder
--(id)responseHandler:(id)response
-{
-    NSLog(@"%@", response);
-    return response;
-}
--(id)errorHandler:(Fault *)fault
-{
-    return fault;
-}
 
 #pragma mark - MenuCellDelegate method
 
@@ -297,6 +301,5 @@
     
     return cell;
 }
-
 
 @end
