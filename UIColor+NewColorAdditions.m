@@ -13,5 +13,7 @@
 + (UIColor *)darkishPinkColor {
     return [UIColor colorWithRed:232.0f / 255.0f green:66.0f / 255.0f blue:82.0f / 255.0f alpha:1.0f];
 }
-
++ (UIColor *)softGray {
+    return [UIColor colorWithRed:81.0f / 255.0f green:84.0f / 255.0f blue:81.0f / 255.0f alpha:1.0f];
+}
 @end

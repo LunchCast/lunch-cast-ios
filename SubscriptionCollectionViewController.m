@@ -16,7 +16,7 @@
 #import "UIColor+NewColorAdditions.h"
 
 static const float defaultCellWidth = 120.0;
-static const float defaultCellHeiht = 120.0;
+static const float defaultCellHeiht = 140.0;
 static const float cellsSpacing = 15.0;
 
 @interface SubscriptionCollectionViewController () <UICollectionViewDelegateFlowLayout>
@@ -104,15 +104,7 @@ static const float cellsSpacing = 15.0;
     cell.tagLabel.text = tag.name;
     
     for (Tag *tag1 in self.userSubscription.tags) {
-        if ([tag1.objectId isEqualToString:tag.objectId])
-        {
-            cell.selectedMode = YES;
-        }
-        else
-        {
-            cell.selectedMode = NO;
-        }
-
+        cell.selectedMode = [tag1.objectId isEqualToString:tag.objectId];
     }
     
     return cell;
