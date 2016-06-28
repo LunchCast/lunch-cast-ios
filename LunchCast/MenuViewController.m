@@ -208,7 +208,7 @@
         if (fault)
         {
             NSLog(@"Failed to delete Order Item");
-            break;
+            [self stopWaitingAndPop];
         }
     }
 }
