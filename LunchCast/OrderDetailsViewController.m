@@ -21,18 +21,20 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIView *userInfoView;
+@property (weak, nonatomic) IBOutlet UIView *creatorInfoView;
+
 @property (weak, nonatomic) IBOutlet UILabel *deliveryTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *minimumForOrderLabel;
-@property (weak, nonatomic) IBOutlet UILabel *tagsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *orderStatusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *creatorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sortedByLabel;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *cancelOrderButton;
 @property (weak, nonatomic) IBOutlet UIButton *completeOrderButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *switchButton;
+@property (weak, nonatomic) IBOutlet UIButton *switchButton;
 @property (weak, nonatomic) IBOutlet UIButton *pokeButton;
-@property (weak, nonatomic) IBOutlet UIButton *addMealButton;
 
 @property (nonatomic, strong)NSArray *orderItems;
 
@@ -55,34 +57,33 @@
     self.tableView.dataSource = self;
 
     self.groupByName = NO;
-    self.switchButton.title = @"Group by Persons";
-    
+    [self.sortedByLabel setText:@"People"];
     [self setupLabels];
+    [self customizeCompleteButton];
     
     if ([self isOwner])
     {
-        if ([self.order.state intValue]== 0)
+        self.userInfoView.hidden = YES;
+        self.creatorInfoView.hidden = NO;
+        if ([self.order.state intValue] != 0)
         {
-            self.creatorLabel.hidden = YES;
-        }
-        else
-        {
-        self.creatorLabel.hidden = YES;
-        self.cancelOrderButton.hidden = YES;
-        self.completeOrderButton.hidden = YES;
-        [self.addMealButton setImage:[UIImage imageNamed:@"food-is-here"] forState:UIControlStateNormal];
+            //food is here mode
+            self.cancelOrderButton.hidden = YES;
+            self.completeOrderButton.hidden = YES;
+            self.navigationItem.rightBarButtonItem.enabled = NO;
         }
     }
     else
     {
-            self.cancelOrderButton.hidden = YES;
-            self.completeOrderButton.hidden = YES;
-            [self.switchButton setEnabled:NO];
-            [self.switchButton setTintColor: [UIColor clearColor]];
-            self.pokeButton.hidden = YES;
+        self.userInfoView.hidden = NO;
+        self.creatorInfoView.hidden =YES;
+        
+        self.cancelOrderButton.hidden = YES;
+        self.completeOrderButton.hidden = YES;
+        [self.switchButton setEnabled:NO];
         
         if ([self.order.state intValue] == 1) {
-            self.addMealButton.enabled = NO;
+            self.navigationItem.rightBarButtonItem.enabled = NO;
         }
     }
 }
@@ -103,25 +104,19 @@
 
 - (void)setupLabels
 {
-    self.descriptionLabel.text = [NSString stringWithFormat:@"%@", self.order.restaurant.name];
-    self.deliveryTimeLabel.text = [NSString stringWithFormat:@"ETA: %@ mins", self.order.restaurant.eta];
-    self.minimumForOrderLabel.text = [NSString stringWithFormat:@"Minimum: %@ RSD", self.order.restaurant.minAmount];
-    self.creatorLabel.text = [NSString stringWithFormat:@"Created by: %@", self.order.order_creator.name];
-    NSString *prePriceString = [NSString stringWithFormat:@"Total: 0/%@ RSD", self.order.restaurant.minAmount];
-    self.currentPriceLabel.text = prePriceString;
+    self.deliveryTimeLabel.text = [NSString stringWithFormat:@"ETA: %@'", self.order.restaurant.eta];
+    self.creatorLabel.text = self.order.order_creator.name;
+   
+    NSString *prePriceString = [NSString stringWithFormat:@"Order status: 0/%@ €", self.order.restaurant.minAmount];
+    self.orderStatusLabel.text = prePriceString;
     
-    [self setTags];
+    self.currentPriceLabel.text = @"0";
 }
-
-- (void)setTags
+-(void)customizeCompleteButton
 {
-    NSString *tagString = @"";
-    for (Tag *t in self.order.restaurant.tags)
-    {
-        NSString *name = [NSString stringWithFormat:@"#%@ ", t.name];
-        tagString = [tagString stringByAppendingString:name];
-    }
-    self.tagsLabel.text = tagString;
+    [self.completeOrderButton.layer setCornerRadius: 3.0f];
+    [self.completeOrderButton.layer setBorderWidth: 1.5f];
+    [self.completeOrderButton.layer setBorderColor:[UIColor whiteColor].CGColor];
 }
 
 - (void)setPricesForItems:(NSArray *)orderItems
@@ -132,8 +127,9 @@
     {
         currentPrice += [o.meal.price intValue] * [o.quantity intValue];
     }
-    priceString = [NSString stringWithFormat:@"Total: %d/%@ RSD", currentPrice, self.order.restaurant.minAmount];
-    self.currentPriceLabel.text = priceString;
+    priceString = [NSString stringWithFormat:@"Order status: %d/%@ €", currentPrice, self.order.restaurant.minAmount];
+    self.orderStatusLabel.text = priceString;
+    self.currentPriceLabel.text =[NSString stringWithFormat:@"%d", currentPrice];
 }
 
 - (void)orderItemsReceived:(NSArray *)orderItems
@@ -242,7 +238,7 @@
                                          self.creatorLabel.hidden = YES;
                                          self.cancelOrderButton.hidden = YES;
                                          self.completeOrderButton.hidden = YES;
-                                         [self.addMealButton setImage:[UIImage imageNamed:@"food-is-here"] forState:UIControlStateNormal];
+                                         self.navigationItem.rightBarButtonItem.enabled = NO;
                                          [self notifyOrderClosed];
                                      } error:^(Fault *fault) {
                                      }];
@@ -259,7 +255,7 @@
 - (IBAction)switchButtonAction:(id)sender
 {
     self.groupByName = !self.groupByName;
-    self.switchButton.title = self.groupByName ? @"Group by Meals" : @"Group by Persons";
+    [self.sortedByLabel setText:self.groupByName ? @"Meals" : @"Persons"];
     [self.tableView reloadData];
 }
 
@@ -280,7 +276,7 @@
         
         cell.titleLabel.text = [NSString stringWithFormat:@"x%d %@", mealGroup.quantity, mealGroup.meal.name];
         cell.descriptionLabel.text = mealGroup.orderers;
-        cell.priceLabel.text = [NSString stringWithFormat:@"%d RSD", ([mealGroup.meal.price intValue] * mealGroup.quantity)];
+        cell.priceLabel.text = [NSString stringWithFormat:@"%d €", ([mealGroup.meal.price intValue] * mealGroup.quantity)];
     }
     else
     {
@@ -308,15 +304,17 @@
 
 - (void)orderIsClosed
 {
-    if ([self isOwner])
-    {
-        [self.addMealButton setImage:[UIImage imageNamed:@"food-is-here"] forState:UIControlStateNormal];
-    }
-    else
-    {
-        self.addMealButton.enabled = NO;
-        self.addMealButton.alpha = 0.4;
-    }
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+//    if ([self isOwner])
+//    {
+//        [self.addMealButton setImage:[UIImage imageNamed:@"food-is-here"] forState:UIControlStateNormal];
+//    }
+//    else
+//    {
+//        self.addMealButton.enabled = NO;
+//        self.addMealButton.alpha = 0.4;
+//    }
 }
 
 - (void)notifyOrderClosed

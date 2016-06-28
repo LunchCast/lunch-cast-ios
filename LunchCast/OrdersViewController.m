@@ -159,7 +159,7 @@
     }
     [cell.tags setText:tags];
     
-    [cell.eta setText:[NSString stringWithFormat:@"ETA: %@ min",order.restaurant.eta]];
+    [cell.eta setText:[NSString stringWithFormat:@"ETA: %@'",order.restaurant.eta]];
 
     [cell.orderer setText:[NSString stringWithFormat:@"Admin: %@",order.order_creator.name]];
     
@@ -186,7 +186,15 @@
     if ([segue.identifier isEqualToString:@"openOrder"])
     {
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-        Order *order = self.activeOrders[path.row];
+        Order *order;
+        if (path.section == 0 && self.userOrders.count)
+        {
+            order = self.userOrders[path.row];
+        }
+        else
+        {
+            order = self.activeOrders[path.row];
+        }
         OrderDetailsViewController *mvc = (OrderDetailsViewController *)segue.destinationViewController;
         mvc.order = order;
     }
