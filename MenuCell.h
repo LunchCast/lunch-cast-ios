@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *price;
 @property (weak, nonatomic) IBOutlet UILabel *details;
 @property (weak, nonatomic) IBOutlet UILabel *total;
+@property (weak, nonatomic) IBOutlet UIImageView *mealImageView;
 
 @property (nonatomic) NSUInteger amount;
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;

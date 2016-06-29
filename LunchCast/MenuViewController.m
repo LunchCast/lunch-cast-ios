@@ -294,7 +294,7 @@
     [cell.name setText: [meal.name uppercaseString]];
     [cell.price setText:[NSString stringWithFormat:@"%@ €", meal.price]];
     [cell.details setText:meal.mealDescription];
-    [cell.imageView setImage:[UIImage imageNamed:meal.image]];
+    [cell.mealImageView setImage:[UIImage imageNamed:meal.image]];
     
     for (OrderItem *orderIt in self.alreadyOrderedItems) {
         if ([orderIt.meal.objectId isEqualToString:meal.objectId]) {

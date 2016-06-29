@@ -112,7 +112,6 @@
 {
   self.image = [backendless randomString:25];
   self.price = [backendless randomString:MIN(25,36)];
-  self.description = [backendless randomString:MIN(25,36)];
   self.mealDescription = [backendless randomString:MIN(25,288)];
   self.name = [backendless randomString:MIN(25,36)];
 }
@@ -120,7 +119,6 @@
 {
   self.image = [backendless randomString:25];
   self.price = [backendless randomString:MIN(25,36)];
-  self.description = [backendless randomString:MIN(25,36)];
   self.mealDescription = [backendless randomString:MIN(25,288)];
   self.name = [backendless randomString:MIN(25,36)];
 }

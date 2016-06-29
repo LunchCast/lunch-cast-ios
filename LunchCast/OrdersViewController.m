@@ -24,6 +24,7 @@
 @property (nonatomic,strong) NSMutableArray *userOrders;
 @property (nonatomic,strong) NSMutableArray *activeOrders;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation OrdersViewController
@@ -65,7 +66,6 @@
                                             }
                                         }
                                     }
-                                    [self.tableView reloadData];
                                     [self addObjectsToUserOrders];
                                 }
                                    error:^(Fault *fault) {
@@ -111,8 +111,8 @@
     }
     return 1;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     if (section == 0)
     {
         return 0;
@@ -150,7 +150,7 @@
 
     cell.order = order;
     [cell.restaurantName setText: [order.restaurant.name uppercaseString]];
-    [cell.imageView setImage:[UIImage imageNamed:order.restaurant.image]];
+    [cell.restourantImageView setImage:[UIImage imageNamed:order.restaurant.image]];
     
     NSString *tags = @"";
     for(Tag *tag in order.restaurant.tags)
