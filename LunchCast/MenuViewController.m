@@ -98,7 +98,6 @@
 
 - (void)stopWaitingAndPop
 {
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.view setUserInteractionEnabled:YES];
         
         for (UIView *v in self.view.subviews)
@@ -116,7 +115,6 @@
                 [self.presentingViewController performSegueWithIdentifier:@"toOrders" sender:nil];
             }];
         }
-//    });
 }
 
 - (IBAction)onCreateOrder:(UIBarButtonItem *)sender
@@ -185,7 +183,7 @@
          {
              // Send notification after all items are saved
              successCnt++;
-             if (successCnt == orderItems.count)
+             if (successCnt == orderItems.count) //TODO: Add timeout?
              {
                  [self sendAsyncNotification];
                  [self stopWaitingAndPop];
@@ -210,6 +208,7 @@
         {
             NSLog(@"Failed to delete Order Item");
             [self stopWaitingAndPop];
+            //TODO: Handle this error in a distant future...
         }
     }
 }
