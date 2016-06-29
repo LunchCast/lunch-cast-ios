@@ -19,11 +19,11 @@
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UILabel *menuLabel;
 @property (weak, nonatomic) IBOutlet UILabel *etaLabel;
 @property (weak, nonatomic) IBOutlet UILabel *minLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tagsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *restaurantName;
 
 @property (nonatomic) NSUInteger amount;
 
@@ -54,15 +54,16 @@
         meals = [meals stringByAppendingString:@"; "];
     }
     
-    [self.menuLabel setText:meals];
-    [self.etaLabel setText:[NSString stringWithFormat:@"Delivery time: %@ min",self.restaurant.eta]];
-    [self.minLabel setText:[NSString stringWithFormat:@"Minimum for order: %@ RSD", self.restaurant.minAmount]];
+    [self.restaurantName setText:[self.restaurant.name uppercaseString]];
+    [self.etaLabel setText:[NSString stringWithFormat:@"ETA: %@'",self.restaurant.eta]];
+    [self.minLabel setText:[NSString stringWithFormat:@"Minimum: %@ €", self.restaurant.minAmount]];
     
     NSString *tags = @"";
     for(Tag *tag in self.restaurant.tags)
     {
-        tags = [tags stringByAppendingString:@" #"];
-        tags = [tags stringByAppendingString:tag.name];
+        tags = [tags stringByAppendingString:@"#"];
+        tags = [tags stringByAppendingString:[tag.name lowercaseString]];
+        tags = [tags stringByAppendingString:@" "];
     }
     [self.tagsLabel setText:tags];
     
@@ -289,8 +290,8 @@
     
     cell.delegate = self;
     cell.meal = meal;
-    [cell.name setText: [meal.name stringByAppendingString:@"  "]];
-    [cell.price setText:[NSString stringWithFormat:@"%@ RSD", meal.price]];
+    [cell.name setText: [meal.name uppercaseString]];
+    [cell.price setText:[NSString stringWithFormat:@"%@ €", meal.price]];
     [cell.details setText:meal.mealDescription];
     
     for (OrderItem *orderIt in self.alreadyOrderedItems) {

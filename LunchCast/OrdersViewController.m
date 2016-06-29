@@ -154,8 +154,9 @@
     NSString *tags = @"";
     for(Tag *tag in order.restaurant.tags)
     {
-        tags = [tags stringByAppendingString:@" #"];
-        tags = [tags stringByAppendingString:tag.name];
+        tags = [tags stringByAppendingString:@"#"];
+        tags = [tags stringByAppendingString:[tag.name lowercaseString]];
+        tags = [tags stringByAppendingString:@" "];
     }
     [cell.tags setText:tags];
     

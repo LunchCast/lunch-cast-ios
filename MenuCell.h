@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *price;
 @property (weak, nonatomic) IBOutlet UILabel *details;
+@property (weak, nonatomic) IBOutlet UILabel *total;
 
 @property (nonatomic) NSUInteger amount;
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;
