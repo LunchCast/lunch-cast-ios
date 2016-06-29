@@ -17,6 +17,7 @@
                       "restaurant.name = [backendless randomString:MIN(25,36)];\n"
                       "restaurant.telefon = [backendless randomString:MIN(25,36)];\n"
                       "restaurant.minAmount = @((int)rand()%10000);\n"
+                      "restaurant.image = [backendless randomString:25];\n"
                       "restaurant.eta = @((int)rand()%10000);\n"
                     "restaurant.tags = [NSMutableArray arrayWithObjects:[Tag new], [Tag new], nil];\n"
                     "[backendless.persistenceService save:restaurant response:^(tags *result) {\n"
@@ -36,6 +37,7 @@
                       "result.name = [backendless randomString:MIN(25,36)];\n"
                       "result.telefon = [backendless randomString:MIN(25,36)];\n"
                       "result.minAmount = @((int)rand()%10000);\n"
+                      "result.image = [backendless randomString:25];\n"
                       "result.eta = @((int)rand()%10000);\n"
                       "[backendless.persistenceService save:restaurant response:^(Restaurant *result) {\n"
                       "} error:^(Fault *fault) {\n"
@@ -122,6 +124,7 @@
   self.name = [backendless randomString:MIN(25,36)];
   self.telefon = [backendless randomString:MIN(25,36)];
   self.minAmount = @((int)rand()%10000);
+  self.image = [backendless randomString:25];
   self.eta = @((int)rand()%10000);
   self.tags = [NSMutableArray arrayWithObjects:[Tag new], [Tag new], nil];
   self.meals = [NSMutableArray arrayWithObjects:[Meal new], [Meal new], nil];
@@ -132,6 +135,7 @@
   self.name = [backendless randomString:MIN(25,36)];
   self.telefon = [backendless randomString:MIN(25,36)];
   self.minAmount = @((int)rand()%10000);
+  self.image = [backendless randomString:25];
   self.eta = @((int)rand()%10000);
 }
 @end

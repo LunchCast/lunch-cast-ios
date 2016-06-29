@@ -11,8 +11,6 @@
 		7A7D04DF1C88DF0200710F16 /* UserSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7D04D41C88DF0200710F16 /* UserSubscription.m */; };
 		7A7D04E01C88DF0200710F16 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7D04D61C88DF0200710F16 /* Tag.m */; };
 		7A7D04E11C88DF0200710F16 /* OrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7D04D81C88DF0200710F16 /* OrderItem.m */; };
-		7A7D04E21C88DF0200710F16 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7D04DA1C88DF0200710F16 /* Restaurant.m */; };
-		7A7D04E31C88DF0200710F16 /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7D04DC1C88DF0200710F16 /* Meal.m */; };
 		7A7D04E41C88DF0200710F16 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7D04DE1C88DF0200710F16 /* Order.m */; };
 		7AC9E46A1C83435B001BEA84 /* CreateOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9E4691C83435B001BEA84 /* CreateOrderViewController.m */; };
 		7AC9E4701C834716001BEA84 /* RestaurantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9E46F1C834716001BEA84 /* RestaurantCell.m */; };
@@ -42,6 +40,8 @@
 		D69810951C8B2EC600E401AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D69810931C8B2EC600E401AA /* Main.storyboard */; };
 		D6A4651C1C83A6AD0046701D /* MyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4651B1C83A6AD0046701D /* MyProfileViewController.m */; };
 		D6A4651F1C83A7B80046701D /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4651E1C83A7B80046701D /* Utilities.m */; };
+		D6DCA9C21D2459C5000DA01F /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DCA9BF1D2459C5000DA01F /* Restaurant.m */; };
+		D6DCA9C31D2459C5000DA01F /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DCA9C11D2459C5000DA01F /* Meal.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,10 +54,6 @@
 		7A7D04D61C88DF0200710F16 /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = SOURCE_ROOT; };
 		7A7D04D71C88DF0200710F16 /* OrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItem.h; sourceTree = SOURCE_ROOT; };
 		7A7D04D81C88DF0200710F16 /* OrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItem.m; sourceTree = SOURCE_ROOT; };
-		7A7D04D91C88DF0200710F16 /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = SOURCE_ROOT; };
-		7A7D04DA1C88DF0200710F16 /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = SOURCE_ROOT; };
-		7A7D04DB1C88DF0200710F16 /* Meal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meal.h; sourceTree = SOURCE_ROOT; };
-		7A7D04DC1C88DF0200710F16 /* Meal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meal.m; sourceTree = SOURCE_ROOT; };
 		7A7D04DD1C88DF0200710F16 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = SOURCE_ROOT; };
 		7A7D04DE1C88DF0200710F16 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = SOURCE_ROOT; };
 		7A7D04E51C88DF0F00710F16 /* DataObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataObjects.h; sourceTree = SOURCE_ROOT; };
@@ -118,6 +114,10 @@
 		D6A4651B1C83A6AD0046701D /* MyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProfileViewController.m; sourceTree = SOURCE_ROOT; };
 		D6A4651D1C83A7B80046701D /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = SOURCE_ROOT; };
 		D6A4651E1C83A7B80046701D /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = SOURCE_ROOT; };
+		D6DCA9BE1D2459C5000DA01F /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = SOURCE_ROOT; };
+		D6DCA9BF1D2459C5000DA01F /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = SOURCE_ROOT; };
+		D6DCA9C01D2459C5000DA01F /* Meal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meal.h; sourceTree = SOURCE_ROOT; };
+		D6DCA9C11D2459C5000DA01F /* Meal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meal.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,10 +162,10 @@
 				7A7D04D61C88DF0200710F16 /* Tag.m */,
 				7A7D04D71C88DF0200710F16 /* OrderItem.h */,
 				7A7D04D81C88DF0200710F16 /* OrderItem.m */,
-				7A7D04D91C88DF0200710F16 /* Restaurant.h */,
-				7A7D04DA1C88DF0200710F16 /* Restaurant.m */,
-				7A7D04DB1C88DF0200710F16 /* Meal.h */,
-				7A7D04DC1C88DF0200710F16 /* Meal.m */,
+				D6DCA9BE1D2459C5000DA01F /* Restaurant.h */,
+				D6DCA9BF1D2459C5000DA01F /* Restaurant.m */,
+				D6DCA9C01D2459C5000DA01F /* Meal.h */,
+				D6DCA9C11D2459C5000DA01F /* Meal.m */,
 				7A7D04DD1C88DF0200710F16 /* Order.h */,
 				7A7D04DE1C88DF0200710F16 /* Order.m */,
 			);
@@ -438,20 +438,20 @@
 				7AC9E46A1C83435B001BEA84 /* CreateOrderViewController.m in Sources */,
 				D687C0731C7A053D00C0B1D6 /* SignInVC.m in Sources */,
 				7AF5DDEF1D21B98F00BD79C1 /* CustomCollectionViewCell.m in Sources */,
+				D6DCA9C31D2459C5000DA01F /* Meal.m in Sources */,
 				7A7D04E41C88DF0200710F16 /* Order.m in Sources */,
 				7AD2515D1C76873000091C75 /* main.m in Sources */,
 				D687C0841C7A05F100C0B1D6 /* AccountData.m in Sources */,
 				7AF5DDE91D21B0CE00BD79C1 /* TextFieldWithInsets.m in Sources */,
-				7A7D04E31C88DF0200710F16 /* Meal.m in Sources */,
 				7AD251901C76890E00091C75 /* HomeViewController.m in Sources */,
 				7AD2519C1C76907F00091C75 /* OrderDetailsViewController.m in Sources */,
 				D687C07B1C7A05BB00C0B1D6 /* UIAlertController+EasyInit.m in Sources */,
 				7A7D04E11C88DF0200710F16 /* OrderItem.m in Sources */,
 				7AD251961C768E9A00091C75 /* OrdersCell.m in Sources */,
-				7A7D04E21C88DF0200710F16 /* Restaurant.m in Sources */,
 				7AD2519F1C76942B00091C75 /* MenuViewController.m in Sources */,
 				7AF5DDF21D21BB3F00BD79C1 /* SubscriptionCollectionViewController.m in Sources */,
 				D687C0851C7A05F100C0B1D6 /* AccountManager.m in Sources */,
+				D6DCA9C21D2459C5000DA01F /* Restaurant.m in Sources */,
 				D61489C41C8A2215003E917D /* GroupTableViewCell.m in Sources */,
 				D687C08E1C7A064700C0B1D6 /* PushNotificationRegistrator.m in Sources */,
 				7A7D04DF1C88DF0200710F16 /* UserSubscription.m in Sources */,
