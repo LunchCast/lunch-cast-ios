@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *currentPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sortedByLabel;
 
+@property (weak, nonatomic) IBOutlet UIImageView *restaurantImage;
 
 @property (weak, nonatomic) IBOutlet UIButton *cancelOrderButton;
 @property (weak, nonatomic) IBOutlet UIButton *completeOrderButton;
@@ -119,6 +120,7 @@
 
 - (void)setupLabels
 {
+    [self.restaurantImage setImage:[UIImage imageNamed:self.order.restaurant.image]];
     self.deliveryTimeLabel.text = [NSString stringWithFormat:@"ETA: %@'", self.order.restaurant.eta];
     self.creatorLabel.text = self.order.order_creator.name;
     

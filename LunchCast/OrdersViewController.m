@@ -150,6 +150,7 @@
 
     cell.order = order;
     [cell.restaurantName setText: [order.restaurant.name uppercaseString]];
+    [cell.imageView setImage:[UIImage imageNamed:order.restaurant.image]];
     
     NSString *tags = @"";
     for(Tag *tag in order.restaurant.tags)

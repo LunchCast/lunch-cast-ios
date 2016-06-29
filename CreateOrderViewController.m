@@ -76,6 +76,7 @@
     Restaurant *restaurant = self.searchResults[indexPath.row];
     cell.restaurant = restaurant;
     [cell.name setText: [restaurant.name uppercaseString]];
+    [cell.imageView setImage:[UIImage imageNamed:restaurant.image]];
     
     NSString *meals = @"";
     for(Meal *meal in restaurant.meals)

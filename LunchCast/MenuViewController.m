@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *tagsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *restaurantName;
+@property (weak, nonatomic) IBOutlet UIImageView *restaurantImage;
 
 @property (nonatomic) NSUInteger amount;
 
@@ -55,6 +56,7 @@
     }
     
     [self.restaurantName setText:[self.restaurant.name uppercaseString]];
+    [self.restaurantImage setImage:[UIImage imageNamed:self.restaurant.image]];
     [self.etaLabel setText:[NSString stringWithFormat:@"ETA: %@'",self.restaurant.eta]];
     [self.minLabel setText:[NSString stringWithFormat:@"Minimum: %@ €", self.restaurant.minAmount]];
     
@@ -292,6 +294,7 @@
     [cell.name setText: [meal.name uppercaseString]];
     [cell.price setText:[NSString stringWithFormat:@"%@ €", meal.price]];
     [cell.details setText:meal.mealDescription];
+    [cell.imageView setImage:[UIImage imageNamed:meal.image]];
     
     for (OrderItem *orderIt in self.alreadyOrderedItems) {
         if ([orderIt.meal.objectId isEqualToString:meal.objectId]) {
