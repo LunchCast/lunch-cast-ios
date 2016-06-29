@@ -57,7 +57,7 @@
     self.tableView.dataSource = self;
 
     self.groupByName = NO;
-    [self.sortedByLabel setText:@"People"];
+    [self.sortedByLabel setText:@"MEALS"];
     [self setupLabels];
     [self customizeCompleteButton];
     
@@ -65,12 +65,27 @@
     {
         self.userInfoView.hidden = YES;
         self.creatorInfoView.hidden = NO;
-        if ([self.order.state intValue] != 0)
+        if ([self.order.state intValue] == 2) // Food is here
         {
             //food is here mode
             self.cancelOrderButton.hidden = YES;
             self.completeOrderButton.hidden = YES;
             self.navigationItem.rightBarButtonItem.enabled = NO;
+        }
+        else if ([self.order.state intValue] == 1) // Completed
+        {
+            self.cancelOrderButton.hidden = YES;
+            self.completeOrderButton.hidden = NO;
+            [self.completeOrderButton setTitle:@"FOOD IS HERE" forState:UIControlStateNormal];
+
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+        }
+        else if ([self.order.state intValue] == 0) // Open
+        {
+            self.cancelOrderButton.hidden = NO;
+            self.completeOrderButton.hidden = NO;
+            [self.completeOrderButton setTitle:@"COMPLETE ORDER" forState:UIControlStateNormal];
+            self.navigationItem.rightBarButtonItem.enabled = YES;
         }
     }
     else
@@ -106,9 +121,14 @@
 {
     self.deliveryTimeLabel.text = [NSString stringWithFormat:@"ETA: %@'", self.order.restaurant.eta];
     self.creatorLabel.text = self.order.order_creator.name;
-   
-    NSString *prePriceString = [NSString stringWithFormat:@"Order status: 0/%@ €", self.order.restaurant.minAmount];
-    self.orderStatusLabel.text = prePriceString;
+    
+    NSString *priceString = @"";
+//    NSInteger currentPrice = 0;
+    NSInteger minPrice = [self.order.restaurant.minAmount integerValue];
+
+    priceString = [NSString stringWithFormat:@"Minimum for delivery: %ld €", minPrice];
+    self.orderStatusLabel.text = priceString;
+//    self.orderStatusLabel.textColor = (currentPrice < minPrice) ? [UIColor redColor] : [UIColor whiteColor];
     
     self.currentPriceLabel.text = @"0";
 }
@@ -122,14 +142,16 @@
 - (void)setPricesForItems:(NSArray *)orderItems
 {
     NSString *priceString = @"";
-    int currentPrice = 0;
+    NSInteger currentPrice = 0;
+    NSInteger minPrice = [self.order.restaurant.minAmount integerValue];
     for (OrderItem *o in orderItems)
     {
-        currentPrice += [o.meal.price intValue] * [o.quantity intValue];
+        currentPrice += [o.meal.price integerValue] * [o.quantity integerValue];
     }
-    priceString = [NSString stringWithFormat:@"Order status: %d/%@ €", currentPrice, self.order.restaurant.minAmount];
+    priceString = [NSString stringWithFormat:@"Minimum for delivery: %ld €", minPrice];
     self.orderStatusLabel.text = priceString;
-    self.currentPriceLabel.text =[NSString stringWithFormat:@"%d", currentPrice];
+//    self.orderStatusLabel.textColor = (currentPrice < minPrice) ? [UIColor redColor] : [UIColor whiteColor];
+    self.currentPriceLabel.text =[NSString stringWithFormat:@"%ld", currentPrice];
 }
 
 - (void)orderItemsReceived:(NSArray *)orderItems
@@ -214,6 +236,11 @@
 
 - (IBAction)cancelOrderButtonAction:(id)sender
 {
+    [self deleteOrderAndPop];
+}
+
+- (void)deleteOrderAndPop
+{
     self.order.state = [NSNumber numberWithInt:2];
     [backendless.persistenceService first:[Order class]
                                  response:^(BackendlessEntity *result) {
@@ -225,26 +252,33 @@
                                      }];
                                  } error:^(Fault *fault) {
                                  }];
-
 }
 
 - (IBAction)completeOrderButtonAction:(id)sender
 {
-    self.order.state = [NSNumber numberWithInt:1];
-    [backendless.persistenceService first:[Order class]
-                                 response:^(BackendlessEntity *result) {
-                                     result.objectId = self.order.objectId;
-                                     [backendless.persistenceService save:self.order response:^(Order *result) {
-                                         self.creatorLabel.hidden = YES;
-                                         self.cancelOrderButton.hidden = YES;
-                                         self.completeOrderButton.hidden = YES;
-                                         self.navigationItem.rightBarButtonItem.enabled = NO;
-                                         [self notifyOrderClosed];
+    if ([self.order.state integerValue] == 1)
+    {
+        [self deleteOrderAndPop];
+    }
+    else
+    {
+        self.order.state = [NSNumber numberWithInt:1];
+        [backendless.persistenceService first:[Order class]
+                                     response:^(BackendlessEntity *result) {
+                                         result.objectId = self.order.objectId;
+                                         [backendless.persistenceService save:self.order response:^(Order *result) {
+                                             self.creatorLabel.hidden = YES;
+                                             self.cancelOrderButton.hidden = YES;
+                                             [self.completeOrderButton setTitle:@"FOOD IS HERE" forState:UIControlStateNormal];
+                                             self.navigationItem.rightBarButtonItem.enabled = NO;
+                                             [self notifyOrderClosed];
+                                         } error:^(Fault *fault) {
+                                         }];
                                      } error:^(Fault *fault) {
                                      }];
-                                 } error:^(Fault *fault) {
-                                 }];
+    }
 }
+
 
 - (IBAction)pokeButtonAction:(id)sender
 {
@@ -255,7 +289,7 @@
 - (IBAction)switchButtonAction:(id)sender
 {
     self.groupByName = !self.groupByName;
-    [self.sortedByLabel setText:self.groupByName ? @"Meals" : @"Persons"];
+    [self.sortedByLabel setText:self.groupByName ? @"PEOPLE" : @"MEALS"];
     [self.tableView reloadData];
 }
 
