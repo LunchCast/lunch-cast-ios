@@ -25,6 +25,7 @@
     [self.delegate amountHasBeenChanged: (amount - _amount)*[self.meal.price intValue] forMeal:self.meal];
     _amount = amount;
     [self.amountLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)amount]];
+    [self.total setText:[NSString stringWithFormat:@"TOTAL: %lu €", amount * [self.price.text intValue]]];
 
 }
 
