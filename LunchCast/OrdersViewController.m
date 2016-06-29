@@ -149,7 +149,7 @@
     }
 
     cell.order = order;
-    [cell.restaurantName setText: order.restaurant.name];
+    [cell.restaurantName setText: [order.restaurant.name uppercaseString]];
     
     NSString *tags = @"";
     for(Tag *tag in order.restaurant.tags)

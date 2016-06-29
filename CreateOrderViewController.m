@@ -75,7 +75,7 @@
 
     Restaurant *restaurant = self.searchResults[indexPath.row];
     cell.restaurant = restaurant;
-    [cell.name setText: restaurant.name];
+    [cell.name setText: [restaurant.name uppercaseString]];
     
     NSString *meals = @"";
     for(Meal *meal in restaurant.meals)
@@ -85,8 +85,8 @@
     }
     
     [cell.menu setText:meals];
-    [cell.eta setText:[NSString stringWithFormat:@"Delivery time: %@ min",restaurant.eta]];
-    [cell.min setText:[NSString stringWithFormat:@"Minimum for order: %@ RSD", restaurant.minAmount]];
+    [cell.eta setText:[NSString stringWithFormat:@"ETA: %@'",restaurant.eta]];
+    [cell.min setText:[NSString stringWithFormat:@"Minimum: %@ €", restaurant.minAmount]];
     
     return cell;
 }
