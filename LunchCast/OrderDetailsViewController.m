@@ -244,6 +244,7 @@
 - (void)deleteOrderAndPop
 {
     self.order.state = [NSNumber numberWithInt:2];
+    self.completeOrderButton.hidden = YES;
     [backendless.persistenceService first:[Order class]
                                  response:^(BackendlessEntity *result) {
                                      result.objectId = self.order.objectId;
@@ -265,12 +266,14 @@
     else
     {
         self.order.state = [NSNumber numberWithInt:1];
+        self.completeOrderButton.hidden = YES;
         [backendless.persistenceService first:[Order class]
                                      response:^(BackendlessEntity *result) {
                                          result.objectId = self.order.objectId;
                                          [backendless.persistenceService save:self.order response:^(Order *result) {
                                              self.creatorLabel.hidden = YES;
                                              self.cancelOrderButton.hidden = YES;
+                                             self.completeOrderButton.hidden = NO;
                                              [self.completeOrderButton setTitle:@"FOOD IS HERE" forState:UIControlStateNormal];
                                              self.navigationItem.rightBarButtonItem.enabled = NO;
                                              [self notifyOrderClosed];
