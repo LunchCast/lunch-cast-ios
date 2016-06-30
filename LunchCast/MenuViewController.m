@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *restaurantName;
 @property (weak, nonatomic) IBOutlet UIImageView *restaurantImage;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *barButton;
 
 @property (nonatomic) NSUInteger amount;
 
@@ -75,7 +76,7 @@
     dataQuery.whereClause = [NSString stringWithFormat:@"order_id.objectId = \'%@\' AND orderer.objectId = \'%@\'",
                              self.order.objectId,
                              backendless.userService.currentUser.objectId];
-    
+    [self startWaiting];
     [backendless.persistenceService find:[OrderItem class]
                                dataQuery:dataQuery
                                 response:^(BackendlessCollection *collection){
@@ -83,14 +84,19 @@
                                     if (self.alreadyOrderedItems.count > 0) {
                                         self.navigationItem.rightBarButtonItem.title = @"Save";
                                     }
+                                    [self stopWaiting];
                                     [self.tableView reloadData];
                                 }
-                                   error:^(Fault *fault) {}];
+                                   error:^(Fault *fault)
+    {
+        [self stopWaiting];
+    }];
     
 }
 - (void)startWaiting
 {
     [self.view setUserInteractionEnabled:NO];
+    self.barButton.enabled = NO;
     
     for (UIView *v in self.view.subviews)
         [v setAlpha:0.5];
@@ -98,25 +104,29 @@
     [self.activityIndicator startAnimating];
 }
 
+- (void)stopWaiting
+{
+    [self.view setUserInteractionEnabled:YES];
+    self.barButton.enabled = YES;
+    for (UIView *v in self.view.subviews)
+        [v setAlpha:1.0];
+    
+    [self.activityIndicator stopAnimating];
+    
+}
 - (void)stopWaitingAndPop
 {
-        [self.view setUserInteractionEnabled:YES];
-        
-        for (UIView *v in self.view.subviews)
-            [v setAlpha:1.0];
-        
-        [self.activityIndicator stopAnimating];
-        
-        if (self.isOrderCreated)
-        {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-        else
-        {
-            [self dismissViewControllerAnimated:YES completion:^{
-                [self.presentingViewController performSegueWithIdentifier:@"toOrders" sender:nil];
-            }];
-        }
+    [self stopWaiting];
+    if (self.isOrderCreated)
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+    {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self.presentingViewController performSegueWithIdentifier:@"toOrders" sender:nil];
+        }];
+    }
 }
 
 - (IBAction)onCreateOrder:(UIBarButtonItem *)sender
