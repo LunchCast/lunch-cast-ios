@@ -115,19 +115,24 @@
     }
     return 1;
 }
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    if (section == 0 && self.userOrders.count > 0)
+        return @"MY ORDERS";
+    
+    return @"OTHER ORDERS";
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0)
-    {
-        return 0;
-    }
-    return 10.0;
+    return 30.0;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
     UITableViewHeaderFooterView *v = (UITableViewHeaderFooterView *)view;
-    v.backgroundView.backgroundColor = [UIColor blackColor];
+    v.backgroundView.backgroundColor = [UIColor colorWithWhite:0.14 alpha:1.0];
+    v.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1.0];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
