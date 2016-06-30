@@ -868,7 +868,7 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lineDecoration" translatesAutoresizingMaskIntoConstraints="NO" id="Xl2-7K-1t3">
                                         <rect key="frame" x="0.0" y="377" width="600" height="7"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foodIcons" translatesAutoresizingMaskIntoConstraints="NO" id="xuI-xD-lE2">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foodIcons" translatesAutoresizingMaskIntoConstraints="NO" id="xuI-xD-lE2" customClass="ParallaxImageView">
                                         <rect key="frame" x="95" y="228" width="410" height="83"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HkG-c1-mOC">

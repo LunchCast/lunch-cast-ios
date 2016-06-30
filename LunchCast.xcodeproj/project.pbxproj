@@ -42,6 +42,7 @@
 		D6A4651F1C83A7B80046701D /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A4651E1C83A7B80046701D /* Utilities.m */; };
 		D6DCA9C21D2459C5000DA01F /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DCA9BF1D2459C5000DA01F /* Restaurant.m */; };
 		D6DCA9C31D2459C5000DA01F /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DCA9C11D2459C5000DA01F /* Meal.m */; };
+		D6DCA9C61D24FBA3000DA01F /* ParallaxImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DCA9C51D24FBA3000DA01F /* ParallaxImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +119,8 @@
 		D6DCA9BF1D2459C5000DA01F /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = SOURCE_ROOT; };
 		D6DCA9C01D2459C5000DA01F /* Meal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meal.h; sourceTree = SOURCE_ROOT; };
 		D6DCA9C11D2459C5000DA01F /* Meal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meal.m; sourceTree = SOURCE_ROOT; };
+		D6DCA9C41D24FBA3000DA01F /* ParallaxImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxImageView.h; sourceTree = SOURCE_ROOT; };
+		D6DCA9C51D24FBA3000DA01F /* ParallaxImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParallaxImageView.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +178,8 @@
 		7ACC33511C77163A00E9D8F8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D6DCA9C41D24FBA3000DA01F /* ParallaxImageView.h */,
+				D6DCA9C51D24FBA3000DA01F /* ParallaxImageView.m */,
 				7AF5DDE71D21B0CE00BD79C1 /* TextFieldWithInsets.h */,
 				7AF5DDE81D21B0CE00BD79C1 /* TextFieldWithInsets.m */,
 				7AC9E46E1C834716001BEA84 /* RestaurantCell.h */,
@@ -429,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A7D04E01C88DF0200710F16 /* Tag.m in Sources */,
+				D6DCA9C61D24FBA3000DA01F /* ParallaxImageView.m in Sources */,
 				7AC9E4701C834716001BEA84 /* RestaurantCell.m in Sources */,
 				7AF3C60C1C86505600555E98 /* MenuCell.m in Sources */,
 				7AD251601C76873000091C75 /* AppDelegate.m in Sources */,
