@@ -68,9 +68,10 @@
                                     }
                                     [self addObjectsToUserOrders];
                                 }
-                                   error:^(Fault *fault) {
-                                       
-                                   }];
+                                   error:^(Fault *fault)
+    {
+        NSLog(@"Failed to retrieve order list, %@", fault);
+    }];
  
 }
 -(void)addObjectsToUserOrders
@@ -97,7 +98,10 @@
                                     }
                                     [self.tableView reloadData];
                                 }
-                                   error:^(Fault *fault) {}];
+                                   error:^(Fault *fault)
+    {
+        NSLog(@"Failed to retrieve orderers order, %@", fault);
+    }];
 
 }
 
@@ -128,7 +132,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0)
+    if (section == 0 && self.userOrders.count > 0)
     {
         return self.userOrders.count;
     }
