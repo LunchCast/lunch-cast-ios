@@ -17,6 +17,7 @@
 {
     [super viewDidLoad];
     
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStylePlain target: nil action: nil];
     self.navigationController.navigationBar.barTintColor = [UIColor darkishPinkColor];
     self.navigationController.navigationBar.translucent  = NO;
 }

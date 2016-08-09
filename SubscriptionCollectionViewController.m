@@ -156,6 +156,10 @@ static const float cellsSpacing = 15.0;
 
 - (IBAction)onSaveButtonActipn:(UIButton *)sender
 {
+    }
+
+- (IBAction)cancelButtonAction:(id)sender
+{
     [backendless.persistenceService first:[UserSubscription class]
                                  response:^(BackendlessEntity *result)
      {
@@ -171,11 +175,6 @@ static const float cellsSpacing = 15.0;
      {
          [UIAlertController presentAlertViewErrorWithText:NSLocalizedString(fault.message, nil) andActionTitle:@"OK" onController:self withCompletion:nil];
      }];
-}
-
-- (IBAction)cancelButtonAction:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

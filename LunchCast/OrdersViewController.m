@@ -178,7 +178,7 @@
     {
         //otvorena
         cell.stateLabel.textColor = [UIColor toxicGreenColor];
-        cell.stateLabel.text = @"OPENED";
+        cell.stateLabel.text = @"OPEN";
     }
     else if ([order.state intValue] ==1)
     {
